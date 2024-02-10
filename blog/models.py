@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Deleted'))
 COMMENT_STATUS = ((0, 'Published'), (1, 'Deleted'))
+STAR_CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars'),)
 
 
 # Create your models here.
@@ -45,3 +46,27 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment: {self.body} | Written by: {self.author} | On a post: {self.post.location_name}"
 
+
+class Country(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class Vote(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='votes')
+    voter = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=STAR_CHOICES, default=0)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_on"]
+
+    def __str__(self):
+        return f"Vote: {self.rating} | On a post: {self.post.location_name} | By: {self.voter}"
