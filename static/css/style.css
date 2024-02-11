@@ -6,6 +6,7 @@
 }
 
 body {
+    background-color: #f2f2f2;
     font-family: 'Playfair Display', serif;
 }
 
@@ -99,8 +100,8 @@ body {
 }
 
 .btn-hero:hover {
-    background-color: #f2f2f2;
-    color: #374F2F;
+    background-color: #374F2F;
+    color: #f2f2f2;
     transform: scale(1.2);
     box-shadow: 0 8px 16px rgba(55, 79, 47, 0.2);
 }
@@ -110,10 +111,89 @@ body {
     
 }
 
+/* About Section */
+.about-section {
+    width: 100%;
+    height: auto;
+    padding: 7.5rem 0;
+    background-color: #f2f2f2;
+}
+
+.about-section h2 {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 4rem;
+}
+
+.about-section .about-text {
+    font-size: 1.6rem;
+    margin-bottom: 4rem;
+}
+
+/* Recommended articles section */
+
+.recommended-articles {
+    width: 100%;
+    height: auto;
+    padding: 7.5rem 0;
+    background-color: #374F2F;
+    color: #f2f2f2;
+}
+
+.recommended-articles h2 {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 4rem;
+}
+
+.recommended-articles .card {
+    background-color: #f2f2f2;
+    margin-bottom: 2rem;
+    transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.recommended-articles .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recommended-articles .card .card-title {
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 1rem;
+    color: #000000;
+}
+
+.recommended-articles .card .card-text {
+    font-size: 1.6rem;
+    padding: 1rem;
+    color: #000000;
+}
+
+/* Maps section */
+.maps-section {
+    width: 100%;
+    height: auto;
+    padding: 7.5rem 0;
+    background-color: #f2f2f2;
+}
+
+.maps-section h2 {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 4rem;
+}
+
+.maps-section .list-inline-item {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 0;
+}
 
 /* Footer section */
 .footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;

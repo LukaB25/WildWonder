@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 <!-- index.html content starts here -->
 
 <!-- Hero section -->
@@ -9,13 +11,23 @@
         <div class="col-12">
             <h1 class="text-center">Welcome to WildWonder!</h1>
             <br>
-            <p class="text-justify">At WildWonder, we're more than just a website – we're a vibrant community brought together by our shared passion for the beauty of nature.
-
-                <br><br>Here, you can immerse yourself in a treasure trove of articles exploring the wonders of our world. But that's just the beginning!
-                
-                <br><br>Feel inspired? Join us in contributing your own insights, stories, and experiences. Whether you're writing an article, leaving a comment, or voting on your favorite pieces, your voice matters.
-                
-                <br><br>So go ahead, dive in, and become part of our community. Explore, engage, and connect with fellow nature enthusiasts as we journey together through the marvels of the natural world. Welcome to WildWonder – where every adventure starts with you.</p>
+            <p class="text-justify">
+                At WildWonder, we're more than just a website – we're a vibrant community brought
+                together by our shared passion for the beauty of nature.
+            </p>
+            <p class="text-justify">
+                Here, you can immerse yourself in a treasure trove of articles exploring the wonders of our
+                world. But that's just the beginning!
+            </p>
+            <p class="text-justify">
+                Feel inspired? Join us in contributing your own insights, stories, and experiences. Whether
+                you're writing an article, leaving a comment, or voting on your favorite pieces, your voice matters.
+            </p>
+            <p class="text-justify">
+                So go ahead, dive in, and become part of our community. Explore, engage, and connect with fellow
+                nature enthusiasts as we journey together through the marvels of the natural world. Welcome to
+                WildWonder – where every adventure starts with you.
+            </p>
                 <div class="text-center">
                     <button class="btn btn-primary btn-hero">Explore</button>
                     <button class="btn btn-primary btn-hero">Join Us</button>
@@ -25,8 +37,111 @@
 </div>
 {% endblock hero %}
 
-{% block content %}
+<!-- Main content -->
+{% block main %}
+<section class="about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">About Us</h2>
+                <p class="text-justify about-text">
+                    WildWonders is an inclusive online sanctuary devoted to the awe-inspiring wonders of our natural world. 
+                    Our philosophy is rooted in nurturing a deep respect for the beauty, diversity, and connection with nature. 
+                    Through a vibrant community of explorers, nature advocates, and nature enthusiasts, we strive to cultivate
+                     a genuine appreciation for our planet's marvels.
+                </p>
+                <p class="text-justify about-text">
+                    At WildWonders, we're on a mission to spark curiosity, ignite passion, and forge connections among
+                    individuals who are captivated by the magnificence of the great outdoors. Whether you're a seasoned
+                    adventurer, an aspiring environmentalist, or someone who simply enjoys the tranquility of nature,
+                    you'll find a welcoming home in our virtual ecosystem.
+                </p>
+                <p class="text-justify about-text">
+                    Join us as we embark on a journey of discovery, sharing captivating stories, breathtaking imagery,
+                    and invaluable insights into the natural world. Together, let's celebrate the boundless wonders of
+                    our planet and inspire one another to take care of its precious ecosystems. Welcome to
+                    WildWonders—where every moment is an opportunity to marvel at the extraordinary.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="recommended-articles">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Some of our favourite WildWonders</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-deck">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="maps-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Explore the WildWonders with us</h2>
+                <div class="row">
+                    <div class="col-md-3 col-sm-2 text-left">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">WildWonder 1</li>
+                            <li class="list-inline-item">WildWonder 2</li>
+                            <li class="list-inline-item">WildWonder 3</li>
+                            <li class="list-inline-item">WildWonder 4</li>
+                            <li class="list-inline-item">WildWonder 5</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-8 text-md-center ">
+                    </div>
+                    <div class="col-md-3 col-sm-2 text-right">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">WildWonder 6</li>
+                            <li class="list-inline-item">WildWonder 7</li>
+                            <li class="list-inline-item">WildWonder 8</li>
+                            <li class="list-inline-item">WildWonder 9</li>
+                            <li class="list-inline-item">WildWonder 10</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- index.html content ends here -->
-{% endblock %}
+{% endblock main %}
