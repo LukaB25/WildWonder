@@ -40,6 +40,7 @@ body {
 .navbar .navbar-nav .nav-item {
     font-size: 1.5rem;
     font-weight: 600;
+    color: #374F2F;
     padding: 0 1rem;
 }
 
@@ -48,7 +49,7 @@ body {
     background-image: url("/static/images/F39D2528-A68C-435D-A86B-782A49D4C841.jpg");
     background-size: cover;
     background-position: center;
-    height: 100rem; /* Adjust the height as needed */
+    height: 100rem; /* Adjust the height for smaller devices!!! */
     position: relative;
 }
 
@@ -171,6 +172,8 @@ body {
 }
 
 /* Maps section */
+/* Adjust for smaller screens!!! */
+
 .maps-section {
     width: 100%;
     height: auto;
