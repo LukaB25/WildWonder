@@ -109,7 +109,6 @@ body {
 
 .btn-hero:not(:hover) {
     transform: scale(1); 
-    
 }
 
 /* About Section */
@@ -120,13 +119,13 @@ body {
     background-color: #f2f2f2;
 }
 
-.about-section h2 {
+.about-title {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
 }
 
-.about-section .about-text {
+.about-text {
     font-size: 1.6rem;
     margin-bottom: 4rem;
 }

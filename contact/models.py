@@ -11,9 +11,9 @@ class ContactAboutSection(models.Model):
     Stores the content for the contact page.
     """
     hero_title = models.CharField(max_length=100, blank=False)
-    hero_message = models.TextField(max_length=500, blank=False)
+    hero_message = models.TextField(max_length=600, blank=False)
     main_title = models.CharField(max_length=100, blank=False)
-    main_message = models.TextField(max_length=1500, blank=False)
+    main_message = models.TextField(max_length=1750, blank=False)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):

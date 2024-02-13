@@ -17,12 +17,12 @@ def contact(request):
                 request, messages.SUCCESS, 'Your message has been received. Thank you for getting in touch with us!'
             )
     
-    contact_about = ContactAboutSection.objects.all().order_by('-updated_on').first()
+    contact = ContactAboutSection.objects.all().order_by('-updated_on').first()
 
     return render(
         request,
         'contact/contact.html',
         {
-            'contact_about': contact_about,
+            'contact': contact,
         }
     )

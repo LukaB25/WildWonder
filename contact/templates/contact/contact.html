@@ -4,13 +4,26 @@
 
 {% block hero %}
 <!-- Hero section content -->
+<h1 class="text-center">
+    {{ contact.hero_title }}
+</h1>
+<br>
+<div class="text-justify">
+    {{ contact.hero_message | safe }}
+</div>
 {% endblock hero %}
 
 
 {% block about_section %}
 <!-- About section content -->
+<h2 class="text-center about-title">
+    {{ contact.main_title }}
+</h2>
+<div>
+    {{ contact.main_message | safe }}
+</div>
 {% endblock about_section %}
 
-{% block about_section %}
+{% block main %}
 <!-- Main section content -->
-{% endblock about_section %}
+{% endblock main %}
