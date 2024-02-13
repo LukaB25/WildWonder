@@ -49,7 +49,7 @@ body {
     background-image: url("/static/images/F39D2528-A68C-435D-A86B-782A49D4C841.jpg");
     background-size: cover;
     background-position: center;
-    height: 100rem; /* Adjust the height for smaller devices!!! */
+    height: 90vh; /* Adjust the height for smaller devices!!! */
     position: relative;
 }
 

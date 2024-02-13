@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_summernote', # Adds the summernote app to the list of installed apps
-    'blog', # Adds the blog app to the list of installed apps
+    'django_summernote', # Adds the summernote app to the list
+    'blog', # Adds the blog app to the list
+    'contact', # Adds the contact app to the list
 ]
 
 MIDDLEWARE = [

@@ -8,6 +8,9 @@ STAR_CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (
 
 # Create your models here.
 class Post(models.Model):
+    """
+    Stores the article blog posts and their content.
+    """
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
     location_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
@@ -32,6 +35,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Stores the comments on the blog posts.
+    """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField(max_length=200, blank=False)
@@ -48,6 +54,9 @@ class Comment(models.Model):
 
 
 class Country(models.Model):
+    """
+    Stores the country information for the blog posts.
+    """
     name = models.CharField(max_length=100, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -59,6 +68,9 @@ class Country(models.Model):
 
 
 class Vote(models.Model):
+    """
+    Stores the votes on the blog posts.
+    """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='votes')
     voter = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=STAR_CHOICES, default=0)

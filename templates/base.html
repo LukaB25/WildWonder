@@ -40,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == contact_url %}active{% endif %}" aria-current="page"
-                            href="#">Contact Us</a>
+                            href="{% url 'contact' %}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == wonders_url %}active{% endif %}" aria-current="page"
@@ -72,13 +72,30 @@
 
     <!-- Hero section -->
     <section class="hero-section">
-        {% block hero %}
-        <!-- Hero content goes here -->
-        {% endblock hero %}
+        <div class="container jumbotron custom-jumbotron offset-1 ">
+            <div class="row">
+                <div class="col-12">
+                    {% block hero %}
+                    <!-- Hero content goes here -->
+                    {% endblock hero %}
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Main content -->
     <main class="main-section">
+        <section class="about-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        {% block about_section %}
+                        <!-- About content goes here -->
+                        {% endblock about_section %}
+                    </div>
+                </div>
+            </div>
+        </section>
         {% block main %}
         <!-- Main content goes here -->
         {% endblock main %}
