@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
+
+{% block hero %}
+<h1 class="text-center mb-5">{% trans "Sign Up" %}</h1>
+
+<p class="text-justify">{% blocktrans %}Already part of WildWonder? You can <a href="{{ login_url }}" aria-label="Go to the login page. Opens in the same tab.">log in</a> and start interacting with the community.{% endblocktrans %}</p>
+
+<form class="signup text-center" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="btn btn-primary btn-hero" type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+
+{% endblock hero %}

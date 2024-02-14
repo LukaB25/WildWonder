@@ -11,6 +11,14 @@
 <div class="text-justify">
     {{ contact.hero_message | safe }}
 </div>
+<div class="text-center" id="hero-buttons">
+    <a href="#" class="btn btn-primary btn-hero">Explore</a>
+    {% if user.is_authenticated %}
+    <a href="#" class="btn btn-primary btn-hero">Write an article</a>
+    {% else %}
+    <a href="#" class="btn btn-primary btn-hero">Join Us</a>
+    {% endif %}
+</div>
 {% endblock hero %}
 
 
