@@ -13,7 +13,7 @@ body {
 /* Navbar */
 .navbar {
     position: fixed;
-    background-color: rgb(217, 217, 217);;
+    background-color: #d9d9d9;;
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -44,13 +44,33 @@ body {
     padding: 0 1rem;
 }
 
+/* User message */
+.user-login-status {
+    margin-top: 6rem;
+    background-color: #d9d9d9;
+    z-index: 1000;
+    transition: opacity 0.5s;
+    position: fixed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    right: 10rem;
+}
+
+.user-login-status:not(:hover) {
+    opacity: 0.7;
+}
+
+.user-login-status .user-message {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+    color: #374F2F;
+}
+
 /* Hero Section */
 .hero-section {
     background-image: url("/static/images/F39D2528-A68C-435D-A86B-782A49D4C841.jpg");
     background-size: cover;
     background-position: center;
     height: 100rem; /* Adjust the height for smaller devices!!! */
-    position: relative;
 }
 
 .hero-section .container {
@@ -86,10 +106,10 @@ body {
     margin-bottom: 2rem;
 }
 
-.custom-jumbotron p a {
+.custom-jumbotron p a, .user-login-status .user-message a  {
     color:#669f53;
 }
-.custom-jumbotron p a:hover {
+.custom-jumbotron p a:hover,.user-login-status .user-message a:hover {
     color:#2fb9a0;
 }
 

@@ -73,6 +73,13 @@
 
     <!-- Hero section -->
     <section class="hero-section">
+        <div class="user-login-status">
+            {% if user.is_authenticated %}
+                <p class="user-message">You are logged in as {{ user.username }}!</p>
+            {% else %}
+                <p class="user-message">For the full experience please <a href="{% url 'account_signup' %}">sign up</a> / <a href="{% url 'account_login' %}">log in</a>.</p>
+            {% endif %}
+        </div>
         <div class="container jumbotron custom-jumbotron offset-1 ">
             <div class="row">
                 <div class="col-12">
