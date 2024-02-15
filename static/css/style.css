@@ -10,6 +10,7 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
+
 /* Navbar */
 .navbar {
     position: fixed;
@@ -44,6 +45,7 @@ body {
     padding: 0 1rem;
 }
 
+
 /* User Login Status Message */
 .user-login-status {
     margin-top: 6rem;
@@ -64,6 +66,7 @@ body {
     padding: 0 0.5rem;
     color: #374F2F;
 }
+
 
 /* Hero Section */
 .hero-section {
@@ -113,7 +116,9 @@ body {
     color:#2fb9a0;
 }
 
-.btn-hero {
+/* Buttons */
+
+.btn-hero, .btn-contact {
     font-size: 1.5rem;
     font-weight: 600;
     padding: 1rem 3rem;
@@ -127,14 +132,14 @@ body {
     box-shadow: 0 4px 8px rgba(55, 79, 47, 0.1);
 }
 
-.btn-hero:hover {
+.btn-hero:hover .btn-contact:hover {
     background-color: #374F2F;
     color: #f2f2f2;
     transform: scale(1.2);
     box-shadow: 0 8px 16px rgba(55, 79, 47, 0.2);
 }
 
-.btn-hero:not(:hover) {
+.btn-hero:not(:hover) .btn-contact:not(:hover) {
     transform: scale(1); 
 }
 
@@ -146,6 +151,7 @@ body {
     background-color: #800000;
     color: #f2f2f2;
 }
+
 
 /* About Section */
 .about-section {
@@ -166,9 +172,10 @@ body {
     margin-bottom: 4rem;
 }
 
+
 /* Recommended articles section */
 
-.recommended-articles {
+.recommended-articles, .contact-section {
     width: 100%;
     height: auto;
     padding: 7.5rem 0;
@@ -176,19 +183,19 @@ body {
     color: #f2f2f2;
 }
 
-.recommended-articles h2 {
+.recommended-articles h2, .contact-section h2 {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
 }
 
-.recommended-articles .card {
+.recommended-articles .card, .contact-section .card {
     background-color: #f2f2f2;
     margin-bottom: 2rem;
     transition: transform 0.5s, box-shadow 0.5s;
 }
 
-.recommended-articles .card:hover {
+.recommended-articles .card:hover, .contact-section .card:hover{
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -200,13 +207,14 @@ body {
     color: #000000;
 }
 
-.recommended-articles .card .card-text {
+.recommended-articles .card .card-text, .contact-section .card .form-label  {
     font-size: 1.6rem;
     padding: 1rem;
     color: #000000;
 }
 
-/* Maps section */
+
+/* Maps Section */
 /* Adjust for smaller screens!!! */
 
 .maps-section {
@@ -229,8 +237,28 @@ body {
     padding: 2rem 0;
 }
 
+/* Form Section */
+.contact-section h2 {
+    padding-top: 5rem;
+    color: #000000;
+}
 
-/* Footer section */
+.form-label {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    font-size: 1.6rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #374F2F;
+    color: #669f53;
+}
+
+
+/* Footer Section */
 .footer {
     position: relative;
     bottom: 0;

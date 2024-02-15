@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'allauth', # Adds the allauth app to the list
     'allauth.account', # Adds the allauth.account app to the list
     'allauth.socialaccount', # Adds the allauth.socialaccount app to the list
+    'crispy_forms', # Adds the crispy_forms app to the list
+    'crispy_bootstrap5', # Adds the crispy_bootstrap5 app to the list
     'django_summernote', # Adds the summernote app to the list
     'blog', # Adds the blog app to the list
     'contact', # Adds the contact app to the list
@@ -54,6 +56,9 @@ INSTALLED_APPS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
