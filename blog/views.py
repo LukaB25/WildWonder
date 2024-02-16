@@ -6,5 +6,5 @@ from .models import Post
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=0)
-    template_name = "blog/index.html"
+    template_name = "blog/articles_page.html"
     paginate_by = 6

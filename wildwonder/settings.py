@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_summernote', # Adds the summernote app to the list
     'blog', # Adds the blog app to the list
     'contact', # Adds the contact app to the list
+    'homepage', # Adds the homepage app to the list
 ]
 
 SITE_ID = 1
