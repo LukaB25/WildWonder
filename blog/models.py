@@ -7,6 +7,22 @@ STAR_CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (
 
 
 # Create your models here.
+
+
+class Country(models.Model):
+    """
+    Stores the country information for the blog posts.
+    """
+    name = models.CharField(max_length=100, unique=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+    
+
 class Post(models.Model):
     """
     Stores the article blog posts and their content.
@@ -14,9 +30,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
     location_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    location_description = models.TextField(max_length=500, blank=True)
-    main_content = models.TextField(max_length=1500, blank=True)
-    secondary_content = models.TextField(max_length=1500, blank=True)
+    location_description = models.TextField(max_length=500, blank=False)
+    main_content_title = models.CharField(max_length=100, blank=True)
+    main_content = models.TextField(max_length=1500, blank=False)
+    secondary_content = models.TextField(max_length=1500, blank=False)
     longitude = models.FloatField(blank=False)
     latitude = models.FloatField(blank=False)
     view_count = models.PositiveIntegerField(default=0)
@@ -51,20 +68,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment: {self.body} | Written by: {self.author} | On a post: {self.post.location_name}"
-
-
-class Country(models.Model):
-    """
-    Stores the country information for the blog posts.
-    """
-    name = models.CharField(max_length=100, unique=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 class Vote(models.Model):
