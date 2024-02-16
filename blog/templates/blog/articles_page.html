@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+<!-- articles_page.html content starts here -->
+
+<!-- Hero section content -->
+{% block hero %}
+<h1 class="text-center">Open to explore WildWonder?</h1>
+<br>
+<p class="text-justify">
+    Step into the world of WildWonder, where nature's marvels await exploration and discovery. Beyond being just a
+    website, WildWonder is a vibrant hub for nature enthusiasts like you, united by our shared love for the beauty of
+    the natural world.
+</p>
+<p class="text-justify">
+    Delve into a rich collection of articles curated to inspire and educate. From breathtaking landscapes to fascinating
+    wildlife, our content will ignite your curiosity and deepen your connection to nature.
+</p>
+<p class="text-justify">
+    But WildWonder is more than just a platform – it's a community. Share your own stories, insights, and experiences,
+    and join in conversations with like-minded individuals. Together, let's embark on an unforgettable journey through
+    the wonders of our planet. Welcome to WildWonder – where every adventure begins with you.
+</p>
+<div class="text-center" id="hero-buttons">
+    <a href="{% url 'articles_page' %}" aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab." class="btn btn-hero">Explore</a>
+    {% if user.is_authenticated %}
+    <a href="#" class="btn btn-hero">Write an article</a>
+    {% else %}
+    <a href="{% url 'account_signup' %}" aria-label="Sign Up link. Opens in same tab." class="btn btn-hero">Join Us</a>
+    {% endif %}
+</div>
+{% endblock hero %}
+
+ <!-- About section content -->
+{% block about_section %}
+<h2 class="text-center about-title">Explore the WildWonder</h2>
+<p class="text-justify about-text">
+    Embark on a captivating journey through WildWonder's curated articles, each offering a glimpse into the intricate
+    wonders of the natural world. From majestic mountains to breathtaking waterfalls, our collection of stories invites you to
+    discover the beauty and diversity of our planet's landscapes and ecosystems. Whether you're seeking inspiration,
+    education, or simply a moment of awe, our articles are here to ignite your passion for nature.
+</p>
+<p class="text-justify about-text">
+    Journey deeper into the heart of nature as our articles transport you to enchanting national parks, where untamed
+    wilderness and pristine beauty converge in a symphony of sights and sounds. Explore the ancient mysteries of lush
+    rainforests, wander through sun-drenched deserts, and wander along winding trails that lead to hidden treasures
+    waiting to be discovered.
+
+
+</p>
+<p class="text-justify about-text">
+    Immerse yourself in a world of adventure and discovery as you journey through WildWonder's diverse range of topics
+    and perspectives. So, grab your virtual hiking boots and join us as we wander off the beaten path, uncovering the
+    hidden gems and untold stories that await in the great outdoors. Welcome to WildWonder – where every article is an
+    invitation to explore, discover, and connect with the natural world.
+</p>
+{% endblock about_section %}
+
+{% block main %}
+<section class="articles-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Our WildWonders</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-deck">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <div class="card-body">
+                                <h5 class="card-title">Relaxing view</h5>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="extra-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Write about WildWonder</h2>
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- index.html content ends here -->
+    
+{% endblock main %}

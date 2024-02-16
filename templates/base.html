@@ -5,6 +5,7 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'articles_page' as articles_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +48,8 @@
                             href="{% url 'contact' %}">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == wonders_url %}active{% endif %}" aria-current="page"
-                            href="#">Wonders</a>
+                        <a class="nav-link {% if request.path == articles_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'articles_page' %}">Explore</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -60,7 +61,7 @@
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}">Sign Up</a>
+                            href="#">Sign Up</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
@@ -118,7 +119,7 @@
                     {% if user.is_authenticated %}
                     <span class="d-block">Thank you for being a part of WildWonder.</span>
                     <span class="d-block">
-                        <a href="#">Explore</a>
+                        <a href="{% url 'articles_page' %}" aria-label="Opens explore page with all of the articles in the same tab.">Explore</a>
                         /
                         <a href="#" class="">Write</a>
                     </span>

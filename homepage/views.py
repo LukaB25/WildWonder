@@ -4,5 +4,5 @@ from blog.models import Post, Vote
 # Create your views here.
 
 def homepage(request):
-    # Your logic for rendering the homepage
+    # Render the homepage
     return render(request, 'homepage/index.html', context={})
