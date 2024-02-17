@@ -31,6 +31,7 @@ class Post(models.Model):
     location_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     location_description = models.TextField(max_length=500, blank=False)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='posts', blank=False)
     main_content_title = models.CharField(max_length=100, blank=True)
     main_content = models.TextField(max_length=1500, blank=False)
     secondary_content = models.TextField(max_length=1500, blank=False)

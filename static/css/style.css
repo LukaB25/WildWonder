@@ -73,7 +73,7 @@ body {
     background-image: url("/static/images/F39D2528-A68C-435D-A86B-782A49D4C841.jpg");
     background-size: cover;
     background-position: center;
-    height: 100rem; /* Adjust the height for smaller devices!!! */
+    height: 100rem;
 }
 
 .hero-section .container {
@@ -118,7 +118,7 @@ body {
 
 /* Buttons */
 
-.btn-hero, .btn-contact {
+.btn-hero, .btn-contact, .btn-edit, .btn-delete {
     font-size: 1.5rem;
     font-weight: 600;
     padding: 1rem 3rem;
@@ -132,50 +132,49 @@ body {
     box-shadow: 0 4px 8px rgba(55, 79, 47, 0.1);
 }
 
-.btn-hero:hover, .btn-contact:hover {
+.btn-hero:hover, .btn-contact:hover, .btn-edit:hover, .btn-delete:hover{
     background-color: #374F2F;
     color: #f2f2f2;
     transform: scale(1.2);
     box-shadow: 0 8px 16px rgba(55, 79, 47, 0.2);
 }
 
-.btn-hero:not(:hover), .btn-contact:not(:hover) {
+.btn-hero:not(:hover), .btn-contact:not(:hover), .btn-edit:not(:hover), .btn-delete:not(:hover){
     transform: scale(1); 
 }
 
-.btn-red {
+.btn-red, .btn-delete {
     color: #f2f2f2;
     background-color: #800000;
 }
-.btn-red:hover {
+.btn-red:hover, .btn-delete:hover {
     background-color: #800000;
     color: #f2f2f2;
 }
 
 
 /* About Section */
-.about-section {
+.about-section, .comments-and-votes-section {
     width: 100%;
     height: auto;
     padding: 7.5rem 0;
     background-color: #f2f2f2;
 }
 
-.about-title {
+.about-title, .comments-and-votes-section h2 {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
 }
 
-.about-text {
+.about-text, .comments-and-votes-section p {
     font-size: 1.6rem;
     margin-bottom: 4rem;
 }
 
 
 /* Main section */
-
-.recommended-articles, .contact-section, .articles-section {
+.recommended-articles, .contact-section, .articles-section, .maps-section-article {
     width: auto;
     height: auto;
     padding: 7.5rem 0;
@@ -237,6 +236,20 @@ body {
     padding: 2rem 0;
 }
 
+.maps-section-article h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.maps-section-article p {
+    font-size: 1.6rem;
+    text-align: justify;
+    padding: 1rem;
+    color: #f2f2f2;
+    margin-bottom: 4rem;
+}
+
 /* Form Section */
 .contact-section h2 {
     padding-top: 5rem;
@@ -268,6 +281,28 @@ body {
 #id_subject, #id_name, #id_email, #id_message {
     font-size: 1.4rem;
     padding: 0.5rem;
+    font-family: 'Lato', sans-serif;
+}
+
+
+/* Article section */
+.article-info {
+    background-color: #d9d9d9;
+    font-size: 1.2rem;
+    transition: opacity 0.5s;
+    height: 3rem;
+    margin-top: -3rem;
+}
+
+.article-info:not(:hover) {
+    opacity: 0.7;
+}
+
+.article-info:hover {
+    opacity: 1;
+}
+
+.about-article {
     font-family: 'Lato', sans-serif;
 }
 
@@ -393,7 +428,22 @@ footer a:hover {
         padding: 2rem 0;
     }
 
+    /* Contact section media query */
     .contact-section .card:hover {
         transform: scale(1);
+    }
+
+    /* Article section media query */
+    .article-info {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    /* Article section media query */
+    .article-info {
+        height: 5rem;
+        margin-top: -5rem;
+        font-size: 1rem;
     }
 }
