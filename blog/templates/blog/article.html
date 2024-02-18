@@ -91,20 +91,18 @@
             <div class="col-12">
                 <h3 class="text-left">{{ post.location_name }} on a map:</h3>
                 <div class="row">
-                    <div class="col-md-6 text-md-left">
-                        <div id="map"></div>
+                    <div class="col-md-6 text-md-left map-container">
+                        <span class="col-12" id="map"></span>
                     </div>
-                    {% if post.author.username == "LukaB25" %}
-                    <!-- if post.author is "LukaB25" (Admin) display -->
-                        <div class="col-md-6 text-md-right">
-                            {{ post.secondary_content|safe }}
-                        </div>
-                    {% else %}
-                    <!-- if post.author is any other user display -->
-                        <div class="col-md-6 col-sm-12 text-md-right">
-                            <p class="text-justify">{{ post.secondary_content }}</p>
-                        </div>
-                    {% endif %}
+                    <div class="col-md-6 text-md-right">
+                        {% if post.author.username == "LukaB25" %}
+                        <!-- if post.author is "LukaB25" (Admin) display -->
+                                {{ post.secondary_content|safe }}
+                        {% else %}
+                        <!-- if post.author is any other user display -->
+                                <p class="text-justify">{{ post.secondary_content }}</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

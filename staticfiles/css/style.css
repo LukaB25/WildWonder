@@ -250,6 +250,19 @@ body {
     margin-bottom: 4rem;
 }
 
+.map-container {
+    position: relative;
+    overflow: hidden;
+    display: flexbox;
+    width: 100%;
+    height: 40rem;
+}
+span#map{
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+}
+
 /* Form Section */
 .contact-section h2 {
     padding-top: 5rem;
@@ -394,8 +407,18 @@ footer a:hover {
     background-color: #0077B5;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
+    /* Maps section media query */
+    .list-inline {
+        display: flex;
+        justify-content: space-around;
+    }
+    .maps-section .list-inline-item {
+        display: inline-flex;
+    }
+}
 
+@media screen and (max-width: 768px) {
     /* Hero section media query */
     .hero-section {
         height: 90vh;
@@ -418,13 +441,18 @@ footer a:hover {
         padding: 0.75rem 2.5rem;
         margin: 0.75rem 1.25rem;
     }
+
+    /* Maps section media query */
+    .maps-section .list-inline-item {
+        font-size: 1.5rem;
+        padding: 2rem 0;
+    }
 }
 
 @media screen and (max-width: 580px) {
     /* Maps section media query */
     .maps-section .list-inline-item {
         font-size: 1.25rem;
-        display: inline-flex;
         padding: 2rem 0;
     }
 
@@ -440,6 +468,12 @@ footer a:hover {
 }
 
 @media screen and (max-width: 450px) {
+    /* Maps section media query */
+    .maps-section .list-inline-item {
+        font-size: 1rem;
+        padding: 2rem 0;
+    }
+
     /* Article section media query */
     .article-info {
         height: 5rem;
