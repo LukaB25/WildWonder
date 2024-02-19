@@ -20,7 +20,7 @@ body {
     width: 100%;
     height: 6rem;
     z-index: 1000;
-    transition: opacity 0.5s;
+    transition: all 0.5s;
 }
 
 .navbar:not(:hover) {
@@ -45,13 +45,63 @@ body {
     padding: 0 1rem;
 }
 
+/* Alert Messages */
+.alert-messages {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    background-color: transparent;
+    position: fixed;
+    z-index: 150;
+    top: 6rem;
+    left: 10rem;
+    transition: all 0.5s;
+}
+
+.alert-messages .alert {
+    padding: 0;
+}
+
+.alert-messages .alert .btn-close {
+    border: none;
+    background-color: transparent;
+    padding-left: 1rem;
+    transition: 0.5s;
+}
+
+.alert-messages .alert .btn-close:hover {
+    transform: scale(1.3);
+}
+
+.alert-success {
+    background-color: #2fb9a0;
+    color: #000000;
+}
+
+.alert-danger {
+    background-color: #800000;
+    color: #f2f2f2;
+}
+
+.alert-danger .btn-close {
+    color: #f2f2f2;
+}
+
+.alert-success:not(:hover), .alert-danger:not(:hover){
+    opacity: 0.7;
+}
+
+.alert-success:hover, .alert-danger:hover {
+    opacity: 1;
+}
 
 /* User Login Status Message */
 .user-login-status {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
     margin-top: 6rem;
     background-color: #d9d9d9;
     z-index: 10;
-    transition: opacity 0.5s;
+    transition: all 0.5s;
     position: fixed;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     right: 10rem;
@@ -63,8 +113,11 @@ body {
 
 .user-login-status .user-message {
     font-size: 1rem;
-    padding: 0 0.5rem;
+    padding: 0.25rem;
     color: #374F2F;
+}
+.user-login-status p {
+    margin-bottom: 0;
 }
 
 
@@ -91,7 +144,7 @@ body {
     margin-top: 25rem;
     width: 50rem;
     background-color: #d9d9d9;
-    transition: opacity 0.5s;
+    transition: all 0.5s;
 }
 
 .custom-jumbotron:not(:hover) {
@@ -302,7 +355,7 @@ span#map{
 .article-info {
     background-color: #d9d9d9;
     font-size: 1.2rem;
-    transition: opacity 0.5s;
+    transition: all 0.5s;
     height: 3rem;
     margin-top: -3rem;
 }
@@ -327,7 +380,7 @@ span#map{
     left: 0;
     right: 0;
     z-index: 1000;
-    transition: opacity 0.5s;
+    transition: all 0.5s;
     background-color: #374F2F;
     color: #D9D9D9;
     font-size: 1.2rem;
@@ -419,12 +472,22 @@ footer a:hover {
 }
 
 @media screen and (max-width: 768px) {
-      /* Navbar section media query */
-      .navbar-expand-md>.container, .navbar-expand-md>.container-fluid {
+    /* Navbar section media query */
+    .navbar-expand-md>.container, .navbar-expand-md>.container-fluid {
         padding-right: 0;
         padding-left: 0;
         position: inherit !important;
     }
+    /* Alert Messages */
+    .alert-messages {
+        left: 5rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        right: 5rem;
+    }
+    
 
     /* Navbar dropdown section */
     .navbar-collapse {
@@ -463,7 +526,7 @@ footer a:hover {
 
     .custom-jumbotron {
         width: 80vw;
-        margin-top: 10rem;
+        margin-top: 20rem;
     }
 
     .custom-jumbotron h1 {
@@ -487,6 +550,11 @@ footer a:hover {
 }
 
 @media screen and (max-width: 580px) {
+    /* Hero section media query */
+    .custom-jumbotron {
+        margin-top: 15rem;
+    }
+
     /* Maps section media query */
     .maps-section .list-inline-item {
         font-size: 1.25rem;
@@ -502,9 +570,22 @@ footer a:hover {
     .article-info {
         font-size: 1rem;
     }
+    /* Alert Messages */
+    .alert-messages {
+        left: 2.5rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        right: 2.5rem;
+    }
 }
 
 @media screen and (max-width: 450px) {
+    /* Hero section media query */
+    .custom-jumbotron {
+        margin-top: 10rem;
+    }
     /* Maps section media query */
     .maps-section .list-inline-item {
         font-size: 1rem;

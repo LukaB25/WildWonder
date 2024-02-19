@@ -18,6 +18,10 @@ def contact(request):
             messages.add_message(
                 request, messages.SUCCESS, 'Your message has been received. Thank you for getting in touch with us!'
             )
+        else:
+            messages.add_message(
+                request, messages.ERROR, 'There was an error with your form. Please try again.'
+            )
     
     contact = ContactAboutSection.objects.all().order_by('-updated_on').first()
 
