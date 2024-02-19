@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Deleted'))
-COMMENT_STATUS = ((0, 'Published'), (1, 'Deleted'))
 STAR_CHOICES = ((1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars'),)
 
 
@@ -62,7 +61,6 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     approved = models.BooleanField(default=True)
-    status = models.IntegerField(choices=COMMENT_STATUS, default=0)
 
     class Meta:
         ordering = ["created_on"]
