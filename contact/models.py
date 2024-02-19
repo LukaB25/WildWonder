@@ -30,6 +30,7 @@ class ContactForm(models.Model):
     message = models.TextField(max_length=1000, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+    responded = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"A {self.subject} message | From: {self.name} | {self.email} | Sent on: {self.created_on} | {self.read}"
+        return f"A {self.subject} message | From: {self.name} | Sent on: {self.created_on} | {self.read} | {self.responded}"
