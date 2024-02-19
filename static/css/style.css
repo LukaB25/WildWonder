@@ -25,6 +25,7 @@ body {
 
 .navbar:not(:hover) {
     opacity: 0.7;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .navbar .navbar-brand {
@@ -32,6 +33,7 @@ body {
     font-weight: 800;
     color: #374F2F;
     padding-left: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .navbar .navbar-nav {
@@ -154,6 +156,7 @@ body {
     font-size: 3rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .custom-jumbotron p {
@@ -171,7 +174,7 @@ body {
 
 /* Buttons */
 
-.btn-hero, .btn-contact, .btn-edit, .btn-delete {
+.btn-hero, .btn-submit, .btn-edit, .btn-delete {
     font-size: 1.5rem;
     font-weight: 600;
     padding: 1rem 3rem;
@@ -185,14 +188,14 @@ body {
     box-shadow: 0 4px 8px rgba(55, 79, 47, 0.1);
 }
 
-.btn-hero:hover, .btn-contact:hover, .btn-edit:hover, .btn-delete:hover{
+.btn-hero:hover, .btn-submit:hover, .btn-edit:hover, .btn-delete:hover{
     background-color: #374F2F;
     color: #f2f2f2;
     transform: scale(1.2);
     box-shadow: 0 8px 16px rgba(55, 79, 47, 0.2);
 }
 
-.btn-hero:not(:hover), .btn-contact:not(:hover), .btn-edit:not(:hover), .btn-delete:not(:hover){
+.btn-hero:not(:hover), .btn-submit:not(:hover), .btn-edit:not(:hover), .btn-delete:not(:hover){
     transform: scale(1); 
 }
 
@@ -218,6 +221,7 @@ body {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .about-text, .comments-and-votes-section p {
@@ -239,6 +243,7 @@ body {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .recommended-articles .card, .contact-section .card, .articles-section .card{
@@ -280,6 +285,7 @@ body {
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .maps-section .list-inline-item {
@@ -320,6 +326,7 @@ span#map{
 .contact-section h2 {
     padding-top: 5rem;
     color: #000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-label {
@@ -372,6 +379,97 @@ span#map{
     font-family: 'Lato', sans-serif;
 }
 
+/* Comments section */
+
+.comment-card {
+    font-size: 1.5rem;
+    padding: 1rem;
+    color: #000000;
+}
+
+.comments, textarea#id_body {
+    background: linear-gradient(25deg, #74f7df, #2fb9a0, #669f53);
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: justify;
+    padding-bottom: 1.5rem !important;
+}
+
+.comment-card:not(:hover), textarea#id_body:not(:hover), textarea#id_body:not(:focus) {
+    opacity: 0.7;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.comment-card:hover, textarea#id_body:hover, textarea#id_body:focus {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.comment-card .comment-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #374F2F;
+    margin-bottom: 1rem;
+}
+
+.comment-card .comment-date {
+    font-size: 1.25rem;
+    color: #374F2F;
+    padding-left: 2rem;
+}
+
+.comment-body p {
+    margin-bottom: 0;
+}
+
+.comment-approval {
+    background: linear-gradient(25deg, #8c8b8b, #818181, #3f3f3f);
+    color: #f2f2f2;
+    padding-bottom: 0;
+}
+
+.comment-approval .comment-author, .comment-approval .comment-date {
+    color: #f2f2f2;
+}
+
+.comment-approval .approval {
+    text-align: center;
+    color:#f2f2f2;
+    margin-bottom: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.comment-approval .approval i {
+    color: #ff1616;
+    padding: 0 1rem;
+}
+
+.comment-btn {
+    margin: 0.5rem;
+    transition: transform 0.7s, background-color 0.7s, color 0.7s;
+    box-shadow: 0 4px 8px rgba(89, 197, 230, 0.328);
+}
+
+.comment-btn:hover {
+    box-shadow: 0 4px 8px rgba(89, 197, 230, 0.328);
+}
+
+.leave-comment {
+    margin-top: 10rem;
+    justify-content: space-between;
+}
+
+.leave-comment h3, .leave-comment p {
+    margin-bottom: 0;
+}
+
+textarea#id_body {
+    max-height: 10rem;
+    max-width: 80%;
+    margin: auto;
+}
 
 /* Footer Section */
 .footer {

@@ -56,7 +56,7 @@ class Comment(models.Model):
     Stores the comments on the blog posts.
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
     body = models.TextField(max_length=200, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -74,7 +74,7 @@ class Vote(models.Model):
     Stores the votes on the blog posts.
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='votes')
-    voter = models.ForeignKey(User, on_delete=models.CASCADE)
+    voter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voter')
     rating = models.IntegerField(choices=STAR_CHOICES, default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

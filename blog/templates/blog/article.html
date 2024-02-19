@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -10,21 +10,23 @@
 <br>
 {% if post.author.username == "LukaB25" %}
 <!-- if post.author is "LukaB25" (Admin) display -->
-    <div class="text-justify">
-        {{ post.location_description|safe }}
-    </div>
+<div class="text-justify">
+    {{ post.location_description|safe }}
+</div>
 {% else %}
 <!-- if post.author is any other user display -->
-    <div class="text-justify">
-        <p>{{ post.location_description }}</p>
-    </div>
+<div class="text-justify">
+    <p>{{ post.location_description }}</p>
+</div>
 {% endif %}
 <div class="text-center" id="hero-buttons">
     {% if user.is_authenticated %}
     <a href="" aria-label="" class="btn btn-hero">Add new image</a>
     <a href="#" class="btn btn-hero">Write an article</a>
     {% else %}
-    <a href="{% url 'articles_page' %}" aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab." class="btn btn-hero">Explore</a>
+    <a href="{% url 'articles_page' %}"
+        aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab."
+        class="btn btn-hero">Explore</a>
     <a href="{% url 'account_signup' %}" aria-label="Sign Up link. Opens in same tab." class="btn btn-hero">Join Us</a>
     {% endif %}
 </div>
@@ -34,23 +36,23 @@
 {% block article_info %}
 <div class="d-flex flex-wrap justify-content-between p-2 mb-3 article-info">
     <div>
-        <span>Article author:</span>
+        <span><i class="far fa-user"></i> Article author:</span>
         <span class="about-article">{{ post.author }}</span>
     </div>
     <div>
-        <span>View count:</span>
+        <span><i class="far fa-eye"></i> View count:</span>
         <span class="about-article">{{ post.view_count }}</span>
     </div>
     <div>
-        <span>Rating:</span>
+        <span><i class="far fa-star"></i> Rating:</span>
         <span class="about-article">{{ post.rating }}</span>
     </div>
     <div>
-        <span>Comments:</span>
-        <span class="about-article">{{ post.comment_count }}</span>
+        <span><i class="far fa-comments"></i> Comments:</span>
+        <span class="about-article"> {{ comment_count }}</span>
     </div>
     <div>
-        <span>Uploaded on:</span>
+        <span><i class="fas fa-pencil-alt"></i> Uploaded on:</span>
         <span class="about-article">{{ post.updated_on }}</span>
     </div>
 </div>
@@ -58,8 +60,8 @@
 
 {% if user.is_authenticated and post.author == user %}
 <div class="text-center">
-<button class="btn btn-edit" post_id="{{ post.id }}">Edit</button>
-<button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
+    <button class="btn btn-edit" post_id="{{ post.id }}">Edit</button>
+    <button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
 </div>
 {% endif %}
 {% endblock article_info %}
@@ -70,14 +72,14 @@
 <h2 class="text-center about-title">{{ post.main_content_title }}</h2>
 {% if post.author.username == "LukaB25" %}
 <!-- if post.author is "LukaB25" (Admin) display -->
-    <div class="text-justify about-text">
-        {{ post.main_content|safe }}
-    </div>
+<div class="text-justify about-text">
+    {{ post.main_content|safe }}
+</div>
 {% else %}
 <!-- if post.author is any other user display -->
-    <div class="text-justify about-text">
-        <p>{{ post.main_content }}</p>
-    </div>
+<div class="text-justify about-text">
+    <p>{{ post.main_content }}</p>
+</div>
 {% endif %}
 {% endblock about_section %}
 
@@ -97,10 +99,10 @@
                     <div class="col-md-6 text-md-right">
                         {% if post.author.username == "LukaB25" %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
-                                {{ post.secondary_content|safe }}
+                        {{ post.secondary_content|safe }}
                         {% else %}
                         <!-- if post.author is any other user display -->
-                                <p class="text-justify">{{ post.secondary_content }}</p>
+                        <p class="text-justify">{{ post.secondary_content }}</p>
                         {% endif %}
                     </div>
                 </div>
@@ -115,15 +117,62 @@
         <div class="row">
             <div class="col-6">
                 <h2 class="text-center">Comments:</h2>
-                <!-- Comment section to go here -->
-                <!-- Comments will be located here -->
-                <!-- I will try to limit visible comments not to overflow -->
+                <div class="card-body comment-card">
+                    {% for comment in comments %}
+                    <div class="p-2 comments
+                      {% if not comment.approved and comment.author == user %}
+                      comment-approval{% elif not comment.approved %} d-none{% endif %}">
+                        <p class="comment-text comment-author">
+                            {{ comment.author }}
+                            <span class="comment-text comment-date">
+                                {{ comment.created_on }}
+                            </span>
+                        </p>
+                        <div class="comment-text comment-body" id="comment{{ comment.id }}">
+                            {{ comment.body | linebreaks }}
+                        </div>
+                        {% if user.is_authenticated and comment.author == user %}
+                        <div class="text-right">
+                            <button class="btn btn-edit comment-btn" comment_id="{{ comment.id }}"><i
+                                    class="fas fa-edit"></i></button>
+                            <button class="btn btn-delete comment-btn" comment_id="{{ comment.id }}"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                        {% endif %}
+                        {% if not comment.approved and comment.author == user %}
+                        <p class="approval">
+                            <i class="fas fa-flag"></i> This comment is awaiting approval <i class="fas fa-flag"></i>
+                        </p>
+                        {% endif %}
+                    </div>
+                    <!-- Our for loop ends here -->
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-6">
                 <h2 class="text-center">Votes:</h2>
-                <!-- Vote section to go here -->
-                <!--  -->
-                <!-- Under the vote section will be comment form to add comments -->
+                <div class="d-block card-body vote-card">
+                    <!-- Vote section to go here -->
+                    <!-- Under the vote section will be comment form to add comments -->
+                </div>
+                <!-- Creating New Comments -->
+                <div class="col-12 mt-3">
+                    <div class="card-body">
+                        {% if user.is_authenticated %}
+                        <div class="d-flex leave-comment">
+                            <h3>Leave a comment:</h3>
+                            <p>Posting as: {{ user.username }}</p>
+                        </div>
+                        <form class="text-center" id="commentForm" method="post">
+                            {{ comment_form | crispy }}
+                            {% csrf_token %}
+                            <button id="submitButton" type="submit" class="btn btn-submit">Submit</button>
+                        </form>
+                        {% else %}
+                        <p class="leave-comment">Log in to leave a comment</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -142,30 +191,39 @@
                 <div class="card-deck">
                     <div class="col-md-4">
                         <div class="card">
-                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                class="card-img-top"
+                                alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
                             <div class="card-body">
                                 <h5 class="card-title">Relaxing view</h5>
-                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder
+                                    image.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card">
-                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                class="card-img-top"
+                                alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
                             <div class="card-body">
                                 <h5 class="card-title">Relaxing view</h5>
-                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder
+                                    image.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card">
-                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
+                            <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                class="card-img-top"
+                                alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
                             <div class="card-body">
                                 <h5 class="card-title">Relaxing view</h5>
-                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+                                <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder
+                                    image.</p>
                             </div>
                         </div>
                     </div>
@@ -176,5 +234,5 @@
 </section>
 
 <!-- article.html content ends here -->
-    
+
 {% endblock main %}
