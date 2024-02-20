@@ -21,7 +21,7 @@
 {% endif %}
 <div class="text-center" id="hero-buttons">
     {% if user.is_authenticated %}
-    <a href="" aria-label="" class="btn btn-hero">Add new image</a>
+    <a href="" aria-label="" class="btn btn-hero">Add image</a>
     <a href="#" class="btn btn-hero">Write an article</a>
     {% else %}
     <a href="{% url 'articles_page' %}"
@@ -233,6 +233,33 @@
     </div>
 </section>
 
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your comment?
+                This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
+                <a id="deleteConfirm" href="" class="btn btn-confirm-delete">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- article.html content ends here -->
 
 {% endblock main %}
+
+{% block extras %}
+<script src="{% static 'js/maps.js' %}"></script>
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}

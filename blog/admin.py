@@ -16,7 +16,7 @@ class CommentAdmin(admin.ModelAdmin):
 
     list_display = ('post', 'author')
     search_fields = ['post', 'author']
-    list_filter = ('created_on', 'updated_on')
+    list_filter = ('created_on',)
 
 
 admin.site.register(Country)

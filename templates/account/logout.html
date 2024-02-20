@@ -5,32 +5,26 @@
 {% block head_title %}{% trans "Log Out" %}{% endblock %}
 
 {% block hero %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h1 class="text-center mb-5">{% trans "Log Out" %}</h1>
+<h1 class="text-center mb-5">{% trans "Log Out" %}</h1>
 
-            <p class="text-justify">{% trans "Are you sure you're ready to stop your WildWonder adventure?" %}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
+<p class="text-justify">{% trans "Are you sure you're ready to stop your WildWonder adventure?" %}</p>
+<div class="row">
+  <div class="col-md-8 mt-3 offset-md-2">
 
-            <form method="post" action="{% url 'account_logout' %}">
-                {% csrf_token %}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <div class="row justify-content-center">
-                  <div class="text-center col-6">
-                    <button class="btn btn-primary btn-hero" type="submit">{% trans 'Logout' %}</button>
-                    </div>
-                  <div class="text-center col-6">
-                    <a class="btn btn-primary btn-hero btn-red" href="{% url 'home' %}" aria-label="Cancel and return to home screen. Opens in the same tab.">{% trans 'Cancel' %}</a>
-                  </div>
-              </div>
-            </form>
+    <form class="text-center" method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="row">
+        <div class="d-flex col-12 ">
+          <button class="btn btn-primary btn-hero" type="submit">{% trans 'Logout' %}</button>
+          <a class="btn btn-primary btn-hero btn-red" href="{% url 'home' %}"
+            aria-label="Cancel and return to home screen. Opens in the same tab.">{% trans 'Cancel' %}</a>
         </div>
-    </div>
+      </div>
+    </form>
+  </div>
+</div>
 </div>
 {% endblock hero %}
