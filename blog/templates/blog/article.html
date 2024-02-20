@@ -8,8 +8,8 @@
 {% block hero %}
 <h1 class="text-center">{{ post.location_name }}</h1>
 <br>
-{% if post.author.username == "LukaB25" %}
-<!-- if post.author is "LukaB25" (Admin) display -->
+{% if post.author.is_superuser %}
+<!-- if post.author is superuser display -->
 <div class="text-justify">
     {{ post.location_description|safe }}
 </div>
@@ -131,14 +131,16 @@
                         <div class="comment-text comment-body" id="comment{{ comment.id }}">
                             {{ comment.body | linebreaks }}
                         </div>
-                        {% if user.is_authenticated and comment.author == user %}
                         <div class="text-right">
+                            {% if user.is_authenticated and comment.author  == user %}
                             <button class="btn btn-edit comment-btn" comment_id="{{ comment.id }}"><i
                                     class="fas fa-edit"></i></button>
+                            {% endif %}
+                            {% if user.is_authenticated and comment.author  == user or user.is_superuser %}
                             <button class="btn btn-delete comment-btn" comment_id="{{ comment.id }}"><i
                                     class="fas fa-trash-alt"></i></button>
+                            {% endif %}
                         </div>
-                        {% endif %}
                         {% if not comment.approved and comment.author == user %}
                         <p class="approval">
                             <i class="fas fa-flag"></i> This comment is awaiting approval <i class="fas fa-flag"></i>

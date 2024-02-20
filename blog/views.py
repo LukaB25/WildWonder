@@ -116,6 +116,9 @@ def comment_delete(request, slug, comment_id):
     if comment.author == request.user:
         comment.delete()
         messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+    elif request.user.is_superuser:
+        comment.delete()
+        messages.add_message(request, messages.SUCCESS, 'Comment deleted by superuser!')
     else:
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
