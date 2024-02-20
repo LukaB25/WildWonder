@@ -10,6 +10,11 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
+.row {
+    margin: 0;
+    padding: 0;
+}
+
 
 /* Navbar */
 .navbar {
@@ -20,7 +25,7 @@ body {
     width: 100%;
     height: 6rem;
     z-index: 1000;
-    transition: all 0.5s;
+    transition: opacity 0.5s;
 }
 
 .navbar:not(:hover) {
@@ -684,10 +689,16 @@ footer a:hover {
     .custom-jumbotron {
         margin-top: 10rem;
     }
+
     /* Maps section media query */
     .maps-section .list-inline-item {
         font-size: 1rem;
         padding: 2rem 0;
+    }
+
+    /* Contact section media query */
+    .contact-section .card:hover {
+        width: auto;
     }
 
     /* Article section media query */
