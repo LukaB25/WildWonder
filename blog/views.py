@@ -3,8 +3,9 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
+from .flagged_words import flagged_words
 from .forms import CommentForm, VoteForm
-from .models import Post, Comment, Vote
+from .models import Post, Comment
 
 # Create your views here.
 
@@ -12,6 +13,17 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=0)
     template_name = "blog/articles_page.html"
     paginate_by = 6
+
+
+def flagged_word_moderator(content):
+    """
+    Function to moderate the content of the blog posts and comments.
+    """
+    flagged_words_list = flagged_words
+    for word in flagged_words_list:
+        if word in content:
+            return True
+    return False
 
 
 def articles_page(request):
@@ -33,6 +45,7 @@ def articles_page(request):
 
     # Render the articles page template with the context
     return render(request, 'blog/articles_page.html', context)
+
 
 def article_detail(request, slug):
     """
@@ -57,13 +70,23 @@ def article_detail(request, slug):
 
     if request.method == "POST":
         if 'comment_submit' in request.POST:
-            comment_form = CommentForm(data=request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.author = request.user
-                comment.post = post
-                comment.save()
-                messages.add_message(request, messages.SUCCESS,'Comment submitted')
+            if 'comment_submit' in request.POST:
+                comment_form = CommentForm(data=request.POST)
+                if comment_form.is_valid():
+                    comment_body = request.POST.get('body')
+                    if flagged_word_moderator(comment_body):
+                        comment = comment_form.save(commit=False)
+                        comment.author = request.user
+                        comment.post = post
+                        comment.approved = False
+                        comment.save()
+                        messages.add_message(request, messages.ERROR,'Comment has been flagged due to innapropriate language. It will be reviewed by the moderator.')
+                    else:
+                        comment = comment_form.save(commit=False)
+                        comment.author = request.user
+                        comment.post = post
+                        comment.save()
+                        messages.add_message(request, messages.SUCCESS,'Comment submitted')
             elif not comment_form.is_valid():
                 messages.add_message(request, messages.ERROR,'Comment not submitted. Please try again.')
         elif 'vote_submit' in request.POST:
@@ -116,11 +139,20 @@ def comment_edit(request, slug, comment_id):
         comment_form = CommentForm(data=request.POST, instance=comment)
 
         if comment_form.is_valid() and comment.author == request.user:
-            comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.approved = True
-            comment.save()
-            messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
+            comment_body = request.POST.get('body')
+            if flagged_word_moderator(comment_body):
+                comment = comment_form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.approved = False
+                comment.save()
+                messages.add_message(request, messages.ERROR,'Comment has been flagged due to innapropriate language. It will be reviewed by the moderator.')
+            else:
+                comment = comment_form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.save()
+                messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
         else:
             messages.add_message(request, messages.ERROR, 'Error updating comment!')
 

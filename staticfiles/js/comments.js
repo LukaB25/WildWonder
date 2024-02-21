@@ -46,9 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
       
     });
   }
-  // Submits the comment form upon clicking the submit button
-  submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    commentForm.submit();
-  });
 })

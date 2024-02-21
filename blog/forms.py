@@ -1,5 +1,5 @@
-from .models import Comment, Vote
 from django import forms
+from .models import Comment, Vote
 
 
 class CommentForm(forms.ModelForm):
