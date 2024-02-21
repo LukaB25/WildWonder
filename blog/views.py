@@ -54,12 +54,6 @@ def article_detail(request, slug):
 
     # Get all the comments for the post and display them in descending order
     comments = post.comments.all().order_by("-created_on")
-    vote_count = post.votes.all().count()
-    vote_sum = post.votes.aggregate(Sum('user_vote'))['user_vote__sum'] if vote_count > 0 else 0
-    vote_total = round(vote_sum / vote_count, 1) if vote_count > 0 else 0
-
-    # Get the count of approved comments for the post
-    comment_count = post.comments.filter(approved=True).count()
 
     if request.method == "POST":
         if 'comment_submit' in request.POST:
@@ -86,6 +80,15 @@ def article_detail(request, slug):
 
     comment_form = CommentForm()
     vote_form = VoteForm()
+
+    # Get the total votes for the post
+    vote_count = post.votes.all().count()
+    # Calculate the sum of all votes for the post and the total vote score
+    vote_sum = post.votes.aggregate(Sum('user_vote'))['user_vote__sum'] if vote_count > 0 else 0
+    vote_total = round(vote_sum / vote_count, 1) if vote_count > 0 else 0
+
+    # Get the count of approved comments for the post
+    comment_count = post.comments.filter(approved=True).count()
 
     return render(
         request, 
@@ -142,25 +145,3 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
-
-
-# def vote_submit(request, slug):
-#     """
-#     view to submit votes
-#     """
-
-#     if request.method == "POST":
-#         queryset = Post.objects.filter(status=0)
-#         post = get_object_or_404(queryset, slug=slug)
-#         vote_form = VoteForm(data=request.POST)
-
-#         if vote_form.is_valid():
-#             vote = vote_form.save(commit=False)
-#             vote.post = post
-#             vote.voter = request.user
-#             vote.save()
-#             messages.add_message(request, messages.SUCCESS, 'Vote submitted!')
-#         else:
-#             messages.add_message(request, messages.ERROR, 'Error submitting vote!')
-
-#     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
