@@ -3,6 +3,7 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
+from better_profanity import profanity
 from .flagged_words import flagged_words
 from .forms import CommentForm, VoteForm
 from .models import Post, Comment
@@ -15,14 +16,17 @@ class PostList(generic.ListView):
     paginate_by = 6
 
 
+
+flagged_words_list = flagged_words
+profanity.load_censor_words(flagged_words_list)
+
+
 def flagged_word_moderator(content):
     """
     Function to moderate the content of the blog posts and comments.
     """
-    flagged_words_list = flagged_words
-    for word in flagged_words_list:
-        if word in content:
-            return True
+    if profanity.contains_profanity(content):
+        return True
     return False
 
 
@@ -73,7 +77,7 @@ def article_detail(request, slug):
             if 'comment_submit' in request.POST:
                 comment_form = CommentForm(data=request.POST)
                 if comment_form.is_valid():
-                    comment_body = request.POST.get('body')
+                    comment_body = request.POST.get('body').lower()
                     if flagged_word_moderator(comment_body):
                         comment = comment_form.save(commit=False)
                         comment.author = request.user
@@ -139,7 +143,7 @@ def comment_edit(request, slug, comment_id):
         comment_form = CommentForm(data=request.POST, instance=comment)
 
         if comment_form.is_valid() and comment.author == request.user:
-            comment_body = request.POST.get('body')
+            comment_body = request.POST.get('body').lower()
             if flagged_word_moderator(comment_body):
                 comment = comment_form.save(commit=False)
                 comment.author = request.user
