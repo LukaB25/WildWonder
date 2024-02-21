@@ -44,8 +44,8 @@
         <span class="about-article">{{ post.view_count }}</span>
     </div>
     <div>
-        <span><i class="far fa-star"></i> Rating:</span>
-        <span class="about-article">{{ post.rating }}</span>
+        <span><i class="far fa-star"></i>Rating:</span>
+        <span class="about-article">{{ vote_total }}</span>
     </div>
     <div>
         <span><i class="far fa-comments"></i> Comments:</span>
@@ -147,15 +147,39 @@
                         </p>
                         {% endif %}
                     </div>
-                    <!-- Our for loop ends here -->
                     {% endfor %}
                 </div>
             </div>
             <div class="col-6">
                 <h2 class="text-center">Votes:</h2>
-                <div class="d-block card-body vote-card">
-                    <!-- Vote section to go here -->
-                    <!-- Under the vote section will be comment form to add comments -->
+                <div class="col-12 mt-3">
+                    <div class="card-body">
+                        <div class="d-flex leave-vote">
+                            <h3>Leave a vote:</h3>
+                            <p>Posting as: {{ user.username }}</p>
+                        </div>
+                        <form class="text-center" id="voteForm" method="post">
+                            {% csrf_token %}
+                            <!-- Iterate through each field in the form -->
+                            {% for field in vote_form %}
+                                <!-- Check if the field is a radio button -->
+                                {% if field.field.widget.input_type == 'radio' %}
+                                    <div class="radio-group d-flex justify-content-center">
+                                        {% for choice in field.field.choices %}
+                                            <div class="radio-option">
+                                                <input type="radio" id="{{ field.auto_id }}_{{ forloop.counter }}" name="{{ field.html_name }}" value="{{ choice.0 }}" {% if field.value == choice.0 %}checked{% endif %}>
+                                                <label for="{{ field.auto_id }}_{{ forloop.counter }}" class="star"><i class="star-icon fas fa-star" id="{{ choice.0 }}"></i></label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Render other types of fields -->
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                            <button name="vote_submit" id="voteSubmit" type="submit" class="btn btn-submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
                 <!-- Creating New Comments -->
                 <div class="col-12 mt-3">
@@ -168,7 +192,7 @@
                         <form class="text-center" id="commentForm" method="post">
                             {{ comment_form | crispy }}
                             {% csrf_token %}
-                            <button id="submitButton" type="submit" class="btn btn-submit">Submit</button>
+                            <button name="comment_submit" id="submitButton" type="submit" class="btn btn-submit">Submit</button>
                         </form>
                         {% else %}
                         <p class="leave-comment">Log in to leave a comment</p>
@@ -263,5 +287,6 @@
 
 {% block extras %}
 <script src="{% static 'js/maps.js' %}"></script>
+<script src="{% static 'js/votes.js' %}"></script>
 <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}

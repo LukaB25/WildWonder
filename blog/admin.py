@@ -9,7 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'author']
     list_filter = ('status', 'created_on', 'updated_on')
     prepopulated_fields = {'slug': ('location_name',)}
-    readonly_fields = ('view_count', 'comment_count', 'rating')
+    readonly_fields = ('view_count', 'comment_count',)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

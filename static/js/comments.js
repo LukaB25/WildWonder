@@ -20,16 +20,11 @@ document.addEventListener("DOMContentLoaded", function() {
   */
   for (let button of editButtons) {
     button.addEventListener("click", (e) => {
-      let commentId = e.target.getAttribute("comment_id");
-      if (commentId === null) {
-        commentId = e.target.parentElement.getAttribute("comment_id");
-      }
+      let commentId = e.target.getAttribute("comment_id") || e.target.parentElement.getAttribute("comment_id");
       let commentContent = document.getElementById(`comment${commentId}`).innerText;
       commentText.value = commentContent;
       submitButton.innerText = "Update";
       commentForm.setAttribute("action", `edit_comment/${commentId}`);
-      console.log(commentId);
-      console.log(commentContent);
     });
   }
 
@@ -45,15 +40,15 @@ document.addEventListener("DOMContentLoaded", function() {
   */
   for (let button of deleteButtons) {
     button.addEventListener("click", (e) => {
-      let commentId = e.target.getAttribute("comment_id");
-      if (commentId === null) {
-        commentId = e.target.parentElement.getAttribute("comment_id");
-      }
+      let commentId = e.target.getAttribute("comment_id") || e.target.parentElement.getAttribute("comment_id");
       deleteConfirm.href = `delete_comment/${commentId}`;
       deleteModal.show();
-      console.log(deleteConfirm.href);
-      console.log(commentId);
       
     });
   }
+  // Submits the comment form upon clicking the submit button
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    commentForm.submit();
+  });
 })
