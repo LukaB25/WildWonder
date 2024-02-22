@@ -6,28 +6,30 @@
 {% block head_title %}{% trans "Log In" %}{% endblock %}
 
 {% block hero %}
-            <h1 class="text-center mb-5">{% trans "Log In" %}</h1>
+<h1 class="text-center mb-5">{% trans "Log In" %}</h1>
 
-            <p class="text-justify">{% blocktrans %}Welcome to WildWonder community. To engage with our articles, leave comments, or show
-              your appreciation by liking posts, please log in. </p> 
-              <p class="text-justify"> If you haven't created an account yet, take a moment to
-              <a class='link' href='{{ signup_url }}' aria-label="Go to the sign up page. Opens in the same tab.">sign up</a> and join our vibrant community of nature
-              enthusiasts.</a>{% endblocktrans %}</p>
-        </div>
+<p class="text-justify text-center">{% blocktrans %}Welcome to WildWonder community. To engage with our articles, leave
+    comments, or show
+    your appreciation by liking posts, please log in. </p>
+<p class="text-justify text-center"> If you haven't created an account yet, take a moment to
+    <a class='link' href='{{ signup_url }}' aria-label="Go to the sign up page. Opens in the same tab.">sign up</a> and
+    join our vibrant community of nature
+    enthusiasts.</a>{% endblocktrans %}</p>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-8 mt-3 offset-md-2">
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="text-center">
+                <button class="btn btn-primary btn-hero" type="submit">{% trans "Log In" %}</button>
+            </div>
+        </form>
     </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <div class="text-center">
-                    <button class="btn btn-primary btn-hero" type="submit">{% trans "Log In" %}</button>
-                </div>
-            </form>
-        </div>
-    </div>
+</div>
 </div>
 {% endblock hero %}

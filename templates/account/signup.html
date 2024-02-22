@@ -7,7 +7,9 @@
 {% block hero %}
 <h1 class="text-center mb-5">{% trans "Sign Up" %}</h1>
 
-<p class="text-justify">{% blocktrans %}Already part of WildWonder? You can <a href="{{ login_url }}" aria-label="Go to the login page. Opens in the same tab.">log in</a> and start interacting with the community.{% endblocktrans %}</p>
+<p class="text-justify text-center">{% blocktrans %}Already part of WildWonder? You can <a href="{{ login_url }}"
+    aria-label="Go to the login page. Opens in the same tab.">log in</a> and start interacting with the
+  community.{% endblocktrans %}</p>
 
 <form class="signup text-center" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
