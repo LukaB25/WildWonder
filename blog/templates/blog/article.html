@@ -97,7 +97,7 @@
                         <span class="col-12" id="map"></span>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        {% if post.author.username == "LukaB25" %}
+                        {% if post.author.is_superuser %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
                         {{ post.secondary_content|safe }}
                         {% else %}

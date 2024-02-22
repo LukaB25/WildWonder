@@ -1,110 +1,142 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# [WildWonder](https://wildwonder-d6e191626f44.herokuapp.com/)
 
-Welcome Luka Black,
+## Introduction
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+- WildWonder is a blog style website that focuses on natural parks and all natural wonders.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+- WildWonder is targeted towards all of the nature lovers and adventurers. It offers it's users a place to share their experiences, favourite natural wonders, to vote for articles they like or places they like, or just engage in discussions inside comments on each post.
 
-## Gitpod Reminders
+- I got the idea for this project as I was building a project along side the learning materials as I wanted to expand on the idea of a blog style website and create my take on it. I believe that natural wonders and beauty is all around us, so I decided to create a project about some of the natural wonders, and offer a chance for other users to expand on my idea by being able to create posts of their own on the same topic.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Wireframes
 
-`python3 -m http.server`
+### ***Wireframes to go here***
 
-A blue button should appear to click: _Make Public_,
+## About the build
 
-Another blue button should appear to click: _Open Browser_.
+- As I started working on this project I created my ERD using [Lucidchart](https://www.lucidchart.com/) to map out the models I would need and to help with the planning and designing process. After creating them I sketched out my wireframes using [Balsamiq](https://balsamiq.com/). Even before starting to design the project, I had an image in my head as to what I wanted it to look like, so I decided to work out my complete desing, I used [Figma](https://www.figma.com/) to create my second wireframes with colors, images and styles. And then I moved to creating the repository, adding the user stories with labels and iteration milestone, preparing the workspace and starting to code the project.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+- To prepare better for the project i went through the older learning material and watched couple of videos and tutorials in order to refresh and expand my knowledge on the topics and languages like javascript and python.
 
-A blue button should appear to click: _Make Public_,
+### Preparing the workspace
 
-Another blue button should appear to click: _Open Browser_.
+- After creating the repository and opening my workspace in VS Code through gitpod, I installed Django and created my project file in the top directory, created my first app called blog. I started setting up all of the starting requirements, PostgreSQL database to store my data, connecting with Heroku for deploying the project.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+- I created my Post, Comment, Country and Vote Models using the ERD's I have drawn out using Lucidchart to the blog app that were necessary for the project. After which I worked on generic post view that would display posts to the site.
 
-To log into the Heroku toolbelt CLI:
+- I added a django summernote package to the requirements to improve the admin panel.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Templates -Top level directory
+#### base.html (template)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+- Using the Code Institute project lessons I created the starter base.html file that will be used as a template for the other html files to keep consistency throughout the site.
 
-------
+- I started by creating the basic structure using bootstrap and went with the responsive design that will, for the most part, respond to most screen sizes with the viewwidth and viewheight sizing in place, as to avoid extensive use of media queries, as I did on my first project.
 
-## Release History
+- base.html consists of navigation bar that is consistent through all of the pages and collapses to be interacted by the toggle button on smaller screen sizes; hero section that has a default image set as background and the hero content changes with each page; main section that displays different content depending on the page user is on; and the footer that is consistent through all site pages.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- base.html has five block elements that are used to display different content depending on the page. Hero block is located inside hero section, and main section constains three different block elements:  article_info, about_section and main, and a block extras that loads necessary javascript files.
 
-**September 20 2023:** Update Python version to 3.9.17.
+- base.html is located inside the top level directory file called templates
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+### Homepage - App
+#### index.html (home)
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- index.html extends base.html template file to display the website homepage. It uses the predefined block elements to add content to the base.html.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+- Hero block element inside the hero section it is displaying the welcome message with couple of paragraphs of user benefits and what the site is for when using the site. Additionally it is checking if the user is logged in or not, and depending on which is the answer it changes the buttons and their use.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- About_section block element inside the main section is displaying an about us message, to give more insite to the user about the page itself.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+- Main block element inside main section is displaying recommended articles that is using a code to display top three articles and a map section that will show some of the WildWonder locations on map.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- The site homepage or index.html was originally located inside of the blog file directory, but due to additional changes that were made and added, I decided to separate the homepage into its own app, as it didn't require the data from Models and views inside the blog directory.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+### Contact - App
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- One Model is in charge of the contact about section, creating required fields for the  titles and messages. Admin can change and update the content in the database that will be displayed to the user from the Admin panel.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- Separate Model is controlling the fields of the contact form and sets all of the requirements for the fields and data for the contact form itself.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+- The views are controlling how to handle the user message post request and displaying of contact about section
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+- The form controlls which fields from the model will be displayed from the Model
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+- The admin file controlls all of the data displayed to the admin. All of the fields are set to read only so Admin can't change it's content and can only control the checkboxes to mark whether the message was read or responded. Admin can also delete any messages inside the admin panel. 
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+#### contact.html (Contact Us)
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+- contact.html extends base.html template to display the website contact page. It uses the predefined block elements to add content to the base.html.
 
-------
+- Hero block element is displaying a title and message that admin wrote and can change inside the admin panel. Additionally it is checking if the user is logged in or not, and depending on which is the answer it changes the buttons and their use.
 
-## FAQ about the uptime script
+- About_section block element is displaying a title and message that admin wrote and can also change inside the admin pagel.
 
-**Why have you added this script?**
+- Main block element is displaying the form that is used to contact the website owner/admin. 
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+- contact.html is located inside of it's own app called contact. The contact app has it's own Models, Views, Form and Admin files that are used to generate and change data displayed to the user on site. 
 
-**How will this affect me?**
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+### Blog - App
+#### articles_page.html (Explore)
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+- articles_page.html extends base.html template to display the Explore page that contains all of the articles. It uses the predefined block elements to add content to the base.html.
 
-**So….?**
+-  Hero block element is showing a message that offers insight and to attract the user to continue reading and that they can read the articles that follow.
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+- About_section block element invites the user to continue exploring the site and to embark on a captivating journey that follows.
 
-**Can I opt out?**
+- Main block element is used to display all of the articles in a paginated section that displays 6 articles at the time on each page.
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+- articles_page.html is a template inside of the blog app that displays articles saved inside the database
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+#### article.html (Article post)
 
-**Anything more?**
+- article.html extends base.html template to display each article when selected. It uses the predefined block elements to add content to the base.html.
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+- Hero block element displays natural wonder name and the small description of the location. The buttons are changed depending on whether the user is logged in or not.
 
----
+- About_section block element displays the article content that let's users know what can be seen at the location they are reading about as the main content to attract the users.
 
-Happy coding!
+- Main block element is showing couple of sections, the first section is split in two, one of which is displaying a map with the location of the WildWonder and the second is populated by another text content about the location. It is followed by a comment and vote section, after which we have related articles section, that will be conditional, and will display the articles that are about the same country or will display random articles as recommendations and write your own article section.
+
+- article.html is a template inside of the blog app that displays each article saved inside the database
+
+## Features
+
+### Base features
+#### Navigation bar
+#### Hero
+#### About
+#### Footer
+### Home
+#### Recommendations
+#### Map
+### Contact form
+### Articles
+### Article
+### Write
+
+### Features left to implement
+
+### Possible future features
+
+## Testing
+## Troubleshooting
+### Unfixed bugs
+
+## Validator testing
+### Performance
+#### Lighthouse
+### HTML, CSS and JavaScript
+#### HTML
+#### CSS
+#### JavaScript
+### Python
+
+## Deployment
+
+## Credits
+### Media
+### Content

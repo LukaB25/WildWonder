@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.contrib import messages
-from .models import ContactAboutSection, ContactForm
+from .models import ContactAboutSection
 from .forms import ContactFormMessage
 
 # Create your views here.
 
 def contact(request):
     """
-    Renders the contact page with the ContactAboutSection and ContactForm.
+    Renders the contact page with the ContactAboutSection and ContactMessageForm.
     """
     contact_form = ContactFormMessage()
     if request.method == 'POST':
