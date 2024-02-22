@@ -385,6 +385,11 @@ span#map{
 
 /* Comments section */
 
+.comment-section, .vote-section {
+    width: 100%;
+    height: auto;
+}
+
 .comment-card {
     font-size: 1.5rem;
     padding: 1rem;
@@ -704,6 +709,26 @@ footer a:hover {
     /* User Login Status Message */
     .user-login-status {
         right: 2.5rem;
+    }
+
+    /* Comment and Vote section media query */
+    .comment-card .comment-author {
+        font-size: 1.5rem;
+    }
+    
+    .comment-card .comment-date {
+        font-size: 1rem;
+    }
+    
+    .comment-body p {
+        font-size: 1.2rem;
+    }
+
+    .comment-approval .approval {
+        font-size: 1rem;
+    }
+    textarea#id_body {
+        font-size: 1.2rem;
     }
 }
 

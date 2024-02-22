@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
@@ -14,7 +15,6 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=0)
     template_name = "blog/articles_page.html"
     paginate_by = 6
-
 
 
 flagged_words_list = flagged_words
@@ -72,6 +72,11 @@ def article_detail(request, slug):
     # Get all the comments for the post and display them in descending order
     comments = post.comments.all().order_by("-created_on")
 
+    # Pagination
+    paginator = Paginator(comments, 3)
+    page_number = request.GET.get('page') or 1
+    page_obj = paginator.get_page(page_number)
+
     if request.method == "POST":
         if 'comment_submit' in request.POST:
             if 'comment_submit' in request.POST:
@@ -84,7 +89,7 @@ def article_detail(request, slug):
                         comment.post = post
                         comment.approved = False
                         comment.save()
-                        messages.add_message(request, messages.ERROR,'Comment has been flagged due to innapropriate language. It will be reviewed by the moderator.')
+                        messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
                     else:
                         comment = comment_form.save(commit=False)
                         comment.author = request.user
@@ -122,7 +127,7 @@ def article_detail(request, slug):
         'blog/article.html', 
         {
             'post': post,
-            "comments": comments,
+            'page_obj': page_obj,
             "comment_count": comment_count,
             "comment_form": comment_form,
             "vote_total": vote_total,

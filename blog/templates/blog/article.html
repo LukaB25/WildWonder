@@ -115,10 +115,12 @@
 <section class="comments-and-votes-section">
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <!-- Comment section -->
+            <div class="col-md-6 comment-section">
                 <h2 class="text-center">Comments:</h2>
                 <div class="card-body comment-card">
-                    {% for comment in comments %}
+                    <!-- Iterate through each comment inside page_obj -->
+                    {% for comment in page_obj %}
                     <div class="p-2 comments
                       {% if not comment.approved and comment.author == user %}
                       comment-approval{% elif not comment.approved %} d-none{% endif %}">
@@ -148,14 +150,30 @@
                         {% endif %}
                     </div>
                     {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}=
+                                <a href="?page={{ page_obj.previous_page_number }}">&laquo</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <!-- Voting section -->
+            <div class="col-md-6 vote-section">
                 <h2 class="text-center">Votes:</h2>
                 <div class="col-12 mt-3">
                     <div class="card-body">
                         <div class="d-flex leave-vote">
-                            <h3>Leave a vote:</h3>
+                            <h3>Vote:</h3>
                             <p>Posting as: {{ user.username }}</p>
                         </div>
                         <form class="text-center" id="voteForm" method="post">
@@ -173,11 +191,10 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <!-- Render other types of fields -->
                                     {{ field }}
                                 {% endif %}
                             {% endfor %}
-                            <button name="vote_submit" id="voteSubmit" type="submit" class="btn btn-submit">Submit</button>
+                            <button name="vote_submit" id="voteSubmit" type="submit" class="btn btn-submit">Vote</button>
                         </form>
                     </div>
                 </div>
@@ -186,7 +203,7 @@
                     <div class="card-body">
                         {% if user.is_authenticated %}
                         <div class="d-flex leave-comment">
-                            <h3>Leave a comment:</h3>
+                            <h3>Comment:</h3>
                             <p>Posting as: {{ user.username }}</p>
                         </div>
                         <form class="text-center" id="commentForm" method="post">

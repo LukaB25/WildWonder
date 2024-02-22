@@ -23,7 +23,9 @@
     the wonders of our planet. Welcome to WildWonder – where every adventure begins with you.
 </p>
 <div class="text-center" id="hero-buttons">
-    <a href="{% url 'articles_page' %}" aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab." class="btn btn-hero">Explore</a>
+    <a href="{% url 'articles_page' %}"
+        aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab."
+        class="btn btn-hero">Explore</a>
     {% if user.is_authenticated %}
     <a href="#" class="btn btn-hero">Write an article</a>
     {% else %}
@@ -32,12 +34,13 @@
 </div>
 {% endblock hero %}
 
- <!-- About section content -->
+<!-- About section content -->
 {% block about_section %}
 <h2 class="text-center about-title">Explore the WildWonder</h2>
 <p class="text-justify about-text">
     Embark on a captivating journey through WildWonder's curated articles, each offering a glimpse into the intricate
-    wonders of the natural world. From majestic mountains to breathtaking waterfalls, our collection of stories invites you to
+    wonders of the natural world. From majestic mountains to breathtaking waterfalls, our collection of stories invites
+    you to
     discover the beauty and diversity of our planet's landscapes and ecosystems. Whether you're seeking inspiration,
     education, or simply a moment of awe, our articles are here to ignite your passion for nature.
 </p>
@@ -76,7 +79,8 @@
                                 <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
                                 {% else %}
                                 <!-- Placeholder image -->
-                                <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Placeholder Image">
+                                <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                    class="card-img-top" alt="Placeholder Image">
                                 {% endif %}
                                 <a href="{% url 'article_detail' slug=post.slug %}" class="post-link">
                                     <h5 class="card-title">{{ post.location_name }}</h2>
@@ -94,18 +98,21 @@
                 </div>
             </div>
         </div>
-            {% if is_paginated %}
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
-        </div>
-        
-        </div>
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREVIOUS</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+
+    </div>
     </div>
 </section>
 
@@ -122,5 +129,5 @@
 </section>
 
 <!-- articles_page.html content ends here -->
-    
+
 {% endblock main %}
