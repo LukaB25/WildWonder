@@ -710,6 +710,13 @@ footer a:hover {
     }
 }
 
+@media screen and (max-width: 700px) {
+    /* Article section media query */
+    .hidden-on-small-screen {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 580px) {
     /* Hero section media query */
     .custom-jumbotron {
@@ -775,13 +782,6 @@ footer a:hover {
     /* Contact section media query */
     .contact-section .card:hover {
         width: auto;
-    }
-
-    /* Article section media query */
-    .article-info {
-        height: 5rem;
-        margin-top: -5rem;
-        font-size: 1rem;
     }
 }
 

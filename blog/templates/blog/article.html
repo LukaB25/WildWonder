@@ -36,23 +36,23 @@
 {% block article_info %}
 <div class="d-flex flex-wrap justify-content-between p-2 mb-3 article-info">
     <div>
-        <span><i class="far fa-user"></i> Article author:</span>
+        <span><i class="far fa-user"></i> <span class="hidden-on-small-screen">Article author</span>:</span>
         <span class="about-article">{{ post.author }}</span>
     </div>
     <div>
-        <span><i class="far fa-eye"></i> View count:</span>
+        <span><i class="far fa-eye"></i> <span class="hidden-on-small-screen">View count</span>:</span>
         <span class="about-article">{{ post.view_count }}</span>
     </div>
     <div>
-        <span><i class="far fa-star"></i>Rating:</span>
+        <span><i class="far fa-star"></i> <span class="hidden-on-small-screen">Rating</span>:</span>
         <span class="about-article">{{ vote_total }}</span>
     </div>
     <div>
-        <span><i class="far fa-comments"></i> Comments:</span>
+        <span><i class="far fa-comments"></i> <span class="hidden-on-small-screen">Comments</span>:</span>
         <span class="about-article"> {{ comment_count }}</span>
     </div>
     <div>
-        <span><i class="fas fa-pencil-alt"></i> Uploaded on:</span>
+        <span><i class="fas fa-pencil-alt"></i> <span class="hidden-on-small-screen">Uploaded on</span>:</span>
         <span class="about-article">{{ post.updated_on }}</span>
     </div>
 </div>
