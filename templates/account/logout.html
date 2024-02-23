@@ -17,7 +17,7 @@
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
       <div class="row">
-        <div class="d-flex col-12 ">
+        <div class="d-inline-flex justify-content-center col-12 ">
           <button class="btn btn-primary btn-hero" type="submit">{% trans 'Logout' %}</button>
           <a class="btn btn-primary btn-hero btn-red" href="{% url 'home' %}"
             aria-label="Cancel and return to home screen. Opens in the same tab.">{% trans 'Cancel' %}</a>

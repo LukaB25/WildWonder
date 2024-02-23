@@ -91,11 +91,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3 class="text-left">{{ post.location_name }} on a map:</h3>
-                <div class="row">
-                    <div class="col-md-6 text-md-left map-container">
-                        <span class="col-12" id="map"></span>
-                    </div>
+                    <h3 class="text-left">{{ post.location_name }} on a map:</h3>
+                    <div class="row">
+                        <div class="col-md-6 text-md-left map-container">
+                            <span class="col-12" id="map"></span>
+                        </div>
                     <div class="col-md-6 text-md-right">
                         {% if post.author.is_superuser %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
@@ -172,6 +172,7 @@
                 <h2 class="text-center">Votes:</h2>
                 <div class="col-12 mt-3">
                     <div class="card-body">
+                        {% if user.is_authenticated %}
                         <div class="d-flex leave-vote">
                             <h3>Vote:</h3>
                             <p>Posting as: {{ user.username }}</p>
@@ -196,6 +197,9 @@
                             {% endfor %}
                             <button name="vote_submit" id="voteSubmit" type="submit" class="btn btn-submit">Vote</button>
                         </form>
+                        {% else %}
+                        <p class="leave-vote">Please login to vote for this article.</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Creating New Comments -->
@@ -212,7 +216,7 @@
                             <button name="comment_submit" id="submitButton" type="submit" class="btn btn-submit">Submit</button>
                         </form>
                         {% else %}
-                        <p class="leave-comment">Log in to leave a comment</p>
+                        <p class="leave-comment">Log in to leave a comment on this article.</p>
                         {% endif %}
                     </div>
                 </div>

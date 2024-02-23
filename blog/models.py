@@ -1,24 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Deleted'))
+STATUS = ((0, 'Published'), (1, 'Draft'))
 
 
 # Create your models here.
-
-
-class Country(models.Model):
-    """
-    Stores the country information for the blog posts.
-    """
-    name = models.CharField(max_length=100, unique=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
     
 
 class Post(models.Model):
@@ -29,7 +15,6 @@ class Post(models.Model):
     location_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     location_description = models.TextField(max_length=500, blank=False)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='posts', blank=False)
     main_content_title = models.CharField(max_length=100, blank=True)
     main_content = models.TextField(max_length=1500, blank=False)
     secondary_content = models.TextField(max_length=1500, blank=False)

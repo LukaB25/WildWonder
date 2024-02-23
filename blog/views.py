@@ -1,12 +1,15 @@
+import datetime
+import random
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
+from django.utils.text import slugify
 from django.views import generic
 from better_profanity import profanity
 from .flagged_words import flagged_words
-from .forms import CommentForm, VoteForm
+from .forms import CommentForm, VoteForm, ArticleForm
 from .models import Post, Comment
 
 # Create your views here.
@@ -25,9 +28,11 @@ def flagged_word_moderator(content):
     """
     Function to moderate the content of the blog posts and comments.
     """
-    if profanity.contains_profanity(content):
-        return True
-    return False
+    words = content.split()
+    for word in words:
+        if profanity.contains_profanity(word):
+            return word
+    return None
 
 
 def articles_page(request):
@@ -79,23 +84,26 @@ def article_detail(request, slug):
 
     if request.method == "POST":
         if 'comment_submit' in request.POST:
-            if 'comment_submit' in request.POST:
-                comment_form = CommentForm(data=request.POST)
-                if comment_form.is_valid():
-                    comment_body = request.POST.get('body').lower()
-                    if flagged_word_moderator(comment_body):
-                        comment = comment_form.save(commit=False)
-                        comment.author = request.user
-                        comment.post = post
-                        comment.approved = False
-                        comment.save()
-                        messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
-                    else:
-                        comment = comment_form.save(commit=False)
-                        comment.author = request.user
-                        comment.post = post
-                        comment.save()
-                        messages.add_message(request, messages.SUCCESS,'Comment submitted')
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                comment_body = request.POST.get('body').lower()
+                if flagged_word_moderator(comment_body):
+                    comment = comment_form.save(commit=False)
+                    comment.author = request.user
+                    comment.post = post
+                    comment.approved = False
+                    comment.save()
+                    messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                else:
+                    comment = comment_form.save(commit=False)
+                    comment.author = request.user
+                    comment.post = post
+                    comment.save()
+                    messages.add_message(request, messages.SUCCESS,'Comment submitted')
+                    # Pagination
+                    paginator = Paginator(comments, 3)
+                    page_number = request.GET.get('page') or 1
+                    page_obj = paginator.get_page(page_number)
             elif not comment_form.is_valid():
                 messages.add_message(request, messages.ERROR,'Comment not submitted. Please try again.')
         elif 'vote_submit' in request.POST:
@@ -155,7 +163,7 @@ def comment_edit(request, slug, comment_id):
                 comment.post = post
                 comment.approved = False
                 comment.save()
-                messages.add_message(request, messages.ERROR,'Comment has been flagged due to innapropriate language. It will be reviewed by the moderator.')
+                messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
             else:
                 comment = comment_form.save(commit=False)
                 comment.author = request.user
@@ -186,3 +194,138 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+
+
+def write_article(request):
+    """
+    view to write a new article
+    """
+    def fictional_views():
+        """
+        Function to calculate the fictional views of the article
+        """
+        return random.randint(300, 1300)
+    
+    def fictional_rating():
+        """
+        Function to calculate the fictional rating of the article
+        """
+        return round(random.randint(10, 50)/10, 1)
+    
+    def fictional_comments():
+        """
+        Function to calculate the fictional comments of the article
+        """
+        return random.randint(1, 300)
+    
+    
+    fictional_view_count = fictional_views()
+    fictional_vote_total = fictional_rating()
+    fictional_comment_count = fictional_comments()
+    fictional_updated_on = datetime.datetime.now()
+
+    if request.method == "POST":
+        article_form = ArticleForm(data=request.POST)
+        if article_form.is_valid():
+            location_name = request.POST.get('location_name')
+            location_description = request.POST.get('location_description')
+            main_content_title = request.POST.get('main_content_title')
+            main_content = request.POST.get('main_content')
+            secondary_content = request.POST.get('secondary_content')
+            longitude = request.POST.get('longitude')
+            latitude = request.POST.get('latitude')
+
+            condensed_article_text = '\n'.join([
+                    location_name,
+                    location_description,
+                    main_content_title,
+                    main_content,
+                    secondary_content,
+                    longitude,
+                    latitude
+                    ])
+            if flagged_word_moderator(condensed_article_text):
+                messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+            else:
+                slug = slugify(location_name)
+                post_instance = article_form.save(commit=False)
+                post_instance.location_name = location_name
+                post_instance.slug = slug
+                post_instance.location_description = location_description
+                post_instance.author = request.user
+                post_instance.main_content_title = main_content_title
+                post_instance.main_content = main_content
+                post_instance.secondary_content = secondary_content
+                post_instance.longitude = longitude
+                post_instance.latitude = latitude
+                post_instance.save()
+                messages.add_message(request, messages.SUCCESS, 'Article submitted!')
+                return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
+    else:
+        article_form = ArticleForm()
+
+    context = {
+        'fictional_view_count': fictional_view_count,
+        'fictional_vote_total': fictional_vote_total,
+        'fictional_comment_count': fictional_comment_count,
+        'fictional_updated_on': fictional_updated_on,
+        'article_form': article_form,
+    }
+    
+    print('Article created!')
+    return render(request, 'blog/article_create.html', context)
+
+
+# def write_article(request):
+#     """
+#     view to write a new article
+#     """
+#     if request.method == "POST":
+#         article_form = ArticleForm(data=request.POST)
+#         if article_form.is_valid():
+#             location_name = request.POST.get('location_name')
+#             location_description = request.POST.get('location_description')
+#             main_content_title = request.POST.get('main_content_title')
+#             main_content = request.POST.get('main_content')
+#             secondary_content = request.POST.get('secondary_content')
+#             longitude = request.POST.get('longitude')
+#             latitude = request.POST.get('latitude')
+
+#             condensed_article_text = '\n'.join([
+#                     location_name,
+#                     location_description,
+#                     main_content_title,
+#                     main_content,
+#                     secondary_content,
+#                     longitude,
+#                     latitude
+#                     ])
+#             if flagged_word_moderator(condensed_article_text):
+#                 messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+#             else:
+#                 slug = slugify(location_name)
+#                 post_instance = article_form.save(commit=False)
+#                 post_instance.location_name = location_name
+#                 post_instance.slug = slug
+#                 post_instance.location_description = location_description
+#                 post_instance.author = request.user
+#                 post_instance.main_content_title = main_content_title
+#                 post_instance.main_content = main_content
+#                 post_instance.secondary_content = secondary_content
+#                 post_instance.longitude = longitude
+#                 post_instance.latitude = latitude
+#                 post_instance.save()
+#                 messages.add_message(request, messages.SUCCESS, 'Article submitted!')
+#                 return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+#         elif not article_form.is_valid():
+#             messages.add_message(request, messages.ERROR, 'Error submitting article!')
+#             all_errors = article_form.errors
+#             print(all_errors)
+#     else:
+#         article_form = ArticleForm()
+
+#     context = {
+#         'article_form': article_form,
+#     }
+
+#     return render(request, 'blog/article_create.html', context)

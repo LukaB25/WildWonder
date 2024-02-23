@@ -52,6 +52,10 @@ body {
     padding: 0 1rem;
 }
 
+.navbar-toggler {
+    margin-right: 2rem;
+}
+
 /* Alert Messages */
 .alert-messages {
     font-family: 'Lato', sans-serif;
@@ -178,7 +182,6 @@ body {
 }
 
 /* Buttons */
-
 .btn-hero, .btn-submit, .btn-edit, .btn-delete, .btn-confirm-delete, .btn-cancel {
     font-size: 1.5rem;
     font-weight: 600;
@@ -293,7 +296,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.maps-section .list-inline-item {
+.maps-section .list-inline-item, .extra-section p {
     font-size: 2rem;
     display: flex;
     justify-content: space-around;
@@ -401,7 +404,7 @@ span#map{
     color: #000000;
 }
 
-.comments, textarea#id_body {
+.comments, textarea, input {
     background: linear-gradient(25deg, #74f7df, #2fb9a0, #669f53);
     border-radius: 1rem;
     margin-bottom: 0.5rem;
@@ -516,6 +519,38 @@ input[type="radio"] {
     color: #daa520;
 }
 
+/* Write an article page */
+input {
+    text-align: center;
+}
+
+textarea {
+    font-size: 1.5rem;
+    text-align: justify;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #000000;
+}
+
+textarea.write-article {
+    width: 100%;
+}
+
+#location_name {
+    font-size: 2rem;
+}
+
+.about-title input {
+    font-size: 3rem;
+}
+
+.coordinates {
+    position: relative;
+    font-size: 1.25rem;
+    top: 15rem;
+}
+
 /* Footer Section */
 .footer {
     position: relative;
@@ -603,6 +638,122 @@ footer a:hover {
     background-color: #0077B5;
 }
 
+@media screen and (min-width: 1600px) {
+    /* Navbar section media query */
+    .navbar {
+        height: 10rem;
+    }
+    .navbar .navbar-brand {
+        font-size: 6rem;
+    }
+    .navbar .navbar-nav .nav-item {
+        font-size: 3rem;
+    }
+
+    /* Alert Messages */
+    .alert-messages {
+        font-size: 2.5rem;
+        top: 10rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        font-size: 2.5rem;
+        margin-top: 10rem;
+    }
+    .user-login-status .user-message {
+        font-size: 2.5rem;
+    }
+
+    /* Hero section media query */
+    .custom-jumbotron {
+        width: 40%;
+        margin-top: 20rem;
+    }
+    .custom-jumbotron h1 {
+        font-size: 3rem;
+    }
+    .custom-jumbotron p {
+        font-size: 2rem;
+    }
+
+    /* Buttons */
+    .btn-hero, .btn-submit, .btn-edit, .btn-delete, .btn-confirm-delete, .btn-cancel {
+        font-size: 2rem;
+    }
+
+    /* About Section */
+    .about-title, .comments-and-votes-section h2 {
+        font-size: 5rem;
+    }
+    .about-text {
+        font-size: 2.5rem;
+    }
+
+    /* Main section */
+    .recommended-articles h2, .contact-section h2, .articles-section h2{
+        font-size: 5rem;
+    }
+    .recommended-articles .card .card-title, .articles-section .card .card-title{
+        font-size: 3rem;
+    }
+    .recommended-articles .card .card-text, .contact-section .card .form-label, .articles-section .card .card-text {
+        font-size: 2rem;
+    }
+
+    /* Maps Section and Extra Section */
+    .maps-section h2, .extra-section h2{
+        font-size: 5rem;
+    }
+    .maps-section .list-inline-item, .extra-section p {
+        font-size: 2.5rem;
+    }
+    .maps-section-article h3 {
+        font-size: 3rem;
+    }
+    .maps-section-article p {
+        font-size: 2.5rem;
+    }
+    .map-container {
+        align-self: center;
+    }
+
+    /* Form Section */
+    .contact-section h2 {
+        font-size: 4rem;
+    }
+    .form-label {
+        font-size: 3rem;
+    }
+    .form-control {
+        font-size: 2rem;
+    }
+    #id_subject, #id_name, #id_email, #id_message {
+        font-size: 2rem;
+    }
+
+    /* Article section */
+    .article-info {
+        font-size: 2.5rem;
+        height: 5rem;
+        margin-top: -5rem;
+    }
+
+    /* Comments section */
+    .comments-and-votes-section p {
+        font-size: 2.5rem;
+    }
+    .comment-card {
+        font-size: 2rem;
+    }
+    .comment-card .comment-date {
+        font-size: 1.75rem;
+    }
+    .star-icon {
+        font-size: 7rem;
+    }
+}
+
 @media screen and (min-width: 1200px) and (max-width: 1600px) {
     /* Hero section media query */
     .hero-section {
@@ -610,7 +761,7 @@ footer a:hover {
     }
     .custom-jumbotron {
         width: 40%;
-        margin-top: 10rem;
+        margin-top: 20rem;
     }
     .custom-jumbotron h1 {
         font-size: 2rem;
@@ -618,8 +769,36 @@ footer a:hover {
     .custom-jumbotron p {
         font-size: 1.25rem;
     }
+
+    /* Alert Messages */
+    .alert-messages {
+        font-size: 2rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        font-size: 2rem;
+    }
+    .user-login-status .user-message {
+        font-size: 2rem;
+    }
 }
 
+
+@media screen and (max-width: 1200px) {
+    /* Alert Messages */
+    .alert-messages {
+        font-size: 2rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        font-size: 2rem;
+    }
+    .user-login-status .user-message {
+        font-size: 2rem;
+    }
+}
 
 
 @media screen and (max-width: 992px) {
@@ -630,6 +809,19 @@ footer a:hover {
     }
     .maps-section .list-inline-item {
         display: inline-flex;
+    }
+
+    /* Alert Messages */
+    .alert-messages {
+        font-size: 1.5rem;
+    }
+
+    /* User Login Status Message */
+    .user-login-status {
+        font-size: 1.5rem;
+    }
+    .user-login-status .user-message {
+        font-size: 1.5rem;
     }
 }
 
@@ -709,6 +901,12 @@ footer a:hover {
         font-size: 1.5rem;
         padding: 2rem 0;
     }
+
+    /* Write an article page */
+    
+    .about-title input {
+        font-size: 2.5rem;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -770,6 +968,10 @@ footer a:hover {
     }
     textarea#id_body {
         font-size: 1.2rem;
+    }/* Write an article page */
+    
+    .about-title input {
+        font-size: 2rem;
     }
 }
 

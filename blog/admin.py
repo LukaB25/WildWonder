@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Country, Vote
+from .models import Post, Comment, Vote
 
 
 @admin.register(Post)
@@ -18,6 +18,4 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ['post', 'author']
     list_filter = ('created_on',)
 
-
-admin.site.register(Country)
 admin.site.register(Vote)
