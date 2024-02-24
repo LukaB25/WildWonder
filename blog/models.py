@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-STATUS = ((0, 'Published'), (1, 'Draft'))
+STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Flagged'))
 
 
 # Create your models here.

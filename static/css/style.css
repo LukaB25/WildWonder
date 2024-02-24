@@ -551,6 +551,42 @@ textarea.write-article {
     top: 15rem;
 }
 
+/* Pagination */
+
+.article-pagination .step-links {
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+.article-pagination a {
+    color: #89e46b;
+}
+
+.article-pagination a:hover {
+    color:#2fb9a0;
+}
+
+.comment-pagination a {
+    color: #374F2F;
+}
+.comment-pagination a:hover {
+    color:#2fb9a0;
+
+}
+
+/* Modal */
+.modal-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+}
+.modal-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.5rem;
+    text-align: justify;
+}
+
 /* Footer Section */
 .footer {
     position: relative;

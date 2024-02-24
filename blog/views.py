@@ -4,20 +4,14 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.utils.text import slugify
-from django.views import generic
 from better_profanity import profanity
 from .flagged_words import flagged_words
 from .forms import CommentForm, VoteForm, ArticleForm
 from .models import Post, Comment
 
 # Create your views here.
-
-class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=0)
-    template_name = "blog/articles_page.html"
-    paginate_by = 6
 
 
 flagged_words_list = flagged_words
@@ -47,9 +41,15 @@ def articles_page(request):
 
     published_posts = Post.objects.filter(status=0)
 
+    # Pagination
+    paginator = Paginator(published_posts, 6)
+    page_number = request.GET.get('page') or 1
+    article_page_obj = paginator.get_page(page_number)
+
     # Pass the published posts/articles to the template context
     context = {
         'posts': published_posts,
+        'article_page_obj': article_page_obj,
     }
 
     # Render the articles page template with the context
@@ -246,21 +246,25 @@ def write_article(request):
                     ])
             if flagged_word_moderator(condensed_article_text):
                 messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
-            else:
-                slug = slugify(location_name)
                 post_instance = article_form.save(commit=False)
-                post_instance.location_name = location_name
-                post_instance.slug = slug
-                post_instance.location_description = location_description
-                post_instance.author = request.user
-                post_instance.main_content_title = main_content_title
-                post_instance.main_content = main_content
-                post_instance.secondary_content = secondary_content
-                post_instance.longitude = longitude
-                post_instance.latitude = latitude
-                post_instance.save()
+                post_instance.status = 2
+            else:
                 messages.add_message(request, messages.SUCCESS, 'Article submitted!')
-                return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
+                post_instance = article_form.save(commit=False)
+                post_instance.status = 0
+
+            slug = slugify(location_name)
+            post_instance.location_name = location_name
+            post_instance.slug = slug
+            post_instance.location_description = location_description
+            post_instance.author = request.user
+            post_instance.main_content_title = main_content_title
+            post_instance.main_content = main_content
+            post_instance.secondary_content = secondary_content
+            post_instance.longitude = longitude
+            post_instance.latitude = latitude
+            post_instance.save()
+            return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
     else:
         article_form = ArticleForm()
 
@@ -275,57 +279,75 @@ def write_article(request):
     print('Article created!')
     return render(request, 'blog/article_create.html', context)
 
+def edit_article(request, slug):
+    """
+    View to edit an article
+    """
+    queryset = Post.objects.filter(status=0)
+    post = get_object_or_404(queryset, slug=slug)
 
-# def write_article(request):
-#     """
-#     view to write a new article
-#     """
-#     if request.method == "POST":
-#         article_form = ArticleForm(data=request.POST)
-#         if article_form.is_valid():
-#             location_name = request.POST.get('location_name')
-#             location_description = request.POST.get('location_description')
-#             main_content_title = request.POST.get('main_content_title')
-#             main_content = request.POST.get('main_content')
-#             secondary_content = request.POST.get('secondary_content')
-#             longitude = request.POST.get('longitude')
-#             latitude = request.POST.get('latitude')
+    if request.method == "POST":
+        article_form = ArticleForm(data=request.POST, instance=post)
+        if article_form.is_valid() and post.author == request.user:
+            location_name = request.POST.get('location_name')
+            location_description = request.POST.get('location_description')
+            main_content_title = request.POST.get('main_content_title')
+            main_content = request.POST.get('main_content')
+            secondary_content = request.POST.get('secondary_content')
+            longitude = request.POST.get('longitude')
+            latitude = request.POST.get('latitude')
 
-#             condensed_article_text = '\n'.join([
-#                     location_name,
-#                     location_description,
-#                     main_content_title,
-#                     main_content,
-#                     secondary_content,
-#                     longitude,
-#                     latitude
-#                     ])
-#             if flagged_word_moderator(condensed_article_text):
-#                 messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
-#             else:
-#                 slug = slugify(location_name)
-#                 post_instance = article_form.save(commit=False)
-#                 post_instance.location_name = location_name
-#                 post_instance.slug = slug
-#                 post_instance.location_description = location_description
-#                 post_instance.author = request.user
-#                 post_instance.main_content_title = main_content_title
-#                 post_instance.main_content = main_content
-#                 post_instance.secondary_content = secondary_content
-#                 post_instance.longitude = longitude
-#                 post_instance.latitude = latitude
-#                 post_instance.save()
-#                 messages.add_message(request, messages.SUCCESS, 'Article submitted!')
-#                 return HttpResponseRedirect(reverse('article_detail', args=[slug]))
-#         elif not article_form.is_valid():
-#             messages.add_message(request, messages.ERROR, 'Error submitting article!')
-#             all_errors = article_form.errors
-#             print(all_errors)
-#     else:
-#         article_form = ArticleForm()
+            condensed_article_text = '\n'.join([
+                    location_name,
+                    location_description,
+                    main_content_title,
+                    main_content,
+                    secondary_content,
+                    longitude,
+                    latitude
+                    ])
+            if flagged_word_moderator(condensed_article_text):
+                messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                post_instance = article_form.save(commit=False)
+                post_instance.status = 2
+            else:
+                messages.add_message(request, messages.SUCCESS, 'Article updated!')
+                post_instance = article_form.save(commit=False)
+                post_instance.status = 0
+            post_instance.location_name = location_name
+            post_instance.slug = slug
+            post_instance.location_description = location_description
+            post_instance.author = request.user
+            post_instance.main_content_title = main_content_title
+            post_instance.main_content = main_content
+            post_instance.secondary_content = secondary_content
+            post_instance.longitude = longitude
+            post_instance.latitude = latitude
+            post_instance.save()
+            return redirect('article_detail', slug=post.slug)
+        else:
+            if not post.author == request.user:
+                messages.add_message(request, messages.ERROR, 'You are not authorized to edit this article.')
+            return render(request, 'blog/article_edit.html', {'post':post, 'article_form': article_form})
+    else:
+        article_form = ArticleForm(instance=post)
 
-#     context = {
-#         'article_form': article_form,
-#     }
+    return render(request, 'blog/article_edit.html', {'post':post, 'article_form': article_form})
 
-#     return render(request, 'blog/article_create.html', context)
+def delete_article(request, slug):
+    """
+    View to delete an article
+    """
+    queryset = Post.objects.filter(status=0)
+    post = get_object_or_404(queryset, slug=slug)
+
+    if post.author == request.user:
+        post.delete()
+        messages.add_message(request, messages.SUCCESS, 'Article deleted!')
+    elif request.user.is_superuser:
+        post.delete()
+        messages.add_message(request, messages.SUCCESS, 'Article deleted by superuser!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own articles!')
+
+    return HttpResponseRedirect(reverse('articles_page'))

@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!-- article_create.html content starts here -->
+<!-- article_edit.html content starts here -->
 
 <!-- Hero section content -->
 {% block hero %}
-<form id="article-form" method="post" action="{% url 'write_article' %}">
+<form id="article-form" method="post" action="{% url 'edit_article' post.slug %}">
     {% csrf_token %}
     <span class="text-center"><input class="write-article" type="text" name="location_name" id="location_name"
-            placeholder="Location title..." required></span>
+        value="{{ post.location_name }}" required></span>
     <br>
     <div class="text-justify">
         <span>
             <textarea class="write-article" name="location_description" id="location_description" cols="70" rows="8"
-                placeholder="About the location..." required></textarea>
+                placeholder="About the location..." required> {{ post.location_description }}</textarea>
         </span>
     </div>
     <div class="text-center" id="hero-buttons">
@@ -52,10 +52,10 @@
     <!-- About section content -->
     {% block about_section %}
     <span class="text-center about-title"><input class="write-article" type="text" name="main_content_title"
-            id="main_content_title" placeholder="About title... (optional)"></span>
+            id="main_content_title"  value="{{ post.main_content_title }}"></span>
     <div class="text-justify about-text">
         <span><textarea class="write-article" name="main_content" id="main_content" cols="120" rows="10"
-                placeholder="Main article content..." required></textarea></span>
+                 required>{{ post.main_content }}</textarea></span>
     </div>
     {% endblock about_section %}
 
@@ -75,16 +75,16 @@
                             <div class="text-center coordinates">
                                 <div class="text-center align-content-center">
                                     <input class="write-article" type="text" name="longitude" id="longitude"
-                                        placeholder="Longitude" required>
+                                        value="{{ post.longitude }}" required>
                                     <input class="write-article" type="text" name="latitude" id="latitude"
-                                        placeholder="Latitude" required>
+                                    value="{{ post.latitude }}" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 text-md-right">
                             <span class="text-justify"><textarea class="write-article" name="secondary_content"
-                                    id="secondary_content" cols="50" rows="15"
-                                    placeholder="Secondary article content..." required></textarea></span>
+                                    id="secondary_content" cols="50" rows="15" required>
+                                    {{ post.secondary_content }}</textarea></span>
                         </div>
                     </div>
                 </div>
@@ -97,17 +97,17 @@
     {% block submit-article-section %}
     <!-- Submit article section | Extra section -->
     <h2 class="text-center">Satisfied with your article?</h2>
-    <p class="text-center">If you are satisfied with the way your article looks, press the Post article button.</p>
+    <p class="text-center">If you are satisfied with the way your article looks, press the Update article button.</p>
     <p>Your article will be posted if it meets the page requirements and doesn’t include harmful information or
         languages.</p>
     <p>Thank you for contributing to the community, we are looking forward to growing with each and every one of you.
     </p>
-    <button name="article_submit" id="submit-article" type="submit" class="btn btn-submit">Post article</button>
+    <button name="article_submit" id="submit-article" type="submit" class="btn btn-submit">Update article</button>
 </form>
 {% endblock submit-article-section %}
 
 
-<!-- article_create.html content ends here -->
+<!-- article_edit.html content ends here -->
 
 {% block extras %}
 <script src="{% static 'js/maps.js' %}"></script>
