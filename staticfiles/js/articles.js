@@ -1,37 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
     const editButton = document.getElementById("article-edit")
-    const articleSlug = editButton.getAttribute('post_id')
     
     const deleteModal = new bootstrap.Modal(document.getElementById("deleteArticleModal"));
     const deleteButton = document.getElementById("article-delete");
     const deleteConfirm = document.getElementById("deleteArticleConfirm");
     
     /**
-     * Initializes edit functionality for the provided edit buttons.
+     * Initializes edit functionality for the provided edit button.
      * 
-     * For `editButton` in the collection:
-     * - Retrieves the associated article's ID upon click.
+     * For 'editButton':
      * - Fetches the content of the corresponding article.
-     * - Populates the `articleText` input/textarea with the article's content for editing.
-     * - Updates the submit button's text to "Update".
-     * - Sets the form's action attribute to the `edit_article/{articleId}` endpoint.
+     * - Triggers a window location change to the 'edit/' endpoint.
      */
     editButton.addEventListener("click", (e) => {
-        window.location.href = `edit/`;
+        window.location.href = 'edit/';
         });
     
     /**
-     * Initializes deletion functionality for the provided delete buttons.
+     * Initializes deletion functionality for the provided delete button.
      * 
-     * For `deleteButton` in the collection:
-     * - Retrieves the associated article's ID upon click.
+     * For 'deleteButton':
      * - Updates the `deleteConfirm` link's href to point to the 
      * deletion endpoint for the specific article.
      * - Displays a confirmation modal (`deleteModal`) to prompt 
      * the user for confirmation before deletion.
      */
     deleteButton.addEventListener("click", (e) => {
-        deleteConfirm.href = `delete/`;
+        deleteConfirm.href = 'delete/';
         deleteModal.show();
         });
 });

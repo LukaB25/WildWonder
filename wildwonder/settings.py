@@ -27,6 +27,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage', # Adds the cloudinary_storage app to the list
     'django.contrib.sites', # Adds the sites app to the list
     'allauth', # Adds the allauth app to the list
     'allauth.account', # Adds the allauth.account app to the list
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'crispy_forms', # Adds the crispy_forms app to the list
     'crispy_bootstrap5', # Adds the crispy_bootstrap5 app to the list
     'django_summernote', # Adds the summernote app to the list
+    'cloudinary', # Adds the cloudinary app to the list
     'blog', # Adds the blog app to the list
     'contact', # Adds the contact app to the list
     'homepage', # Adds the homepage app to the list
@@ -169,3 +172,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

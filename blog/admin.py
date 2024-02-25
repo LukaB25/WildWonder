@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Vote
+from .models import Post, Comment, Vote, Image
 
 
 @admin.register(Post)
@@ -19,3 +19,4 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('created_on',)
 
 admin.site.register(Vote)
+admin.site.register(Image)

@@ -75,18 +75,19 @@
                         {% for post in article_page_obj %}
                         <div class="col-md-4">
                             <div class="card mb-4">
-                                {% if post.image %}
-                                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
-                                {% else %}
-                                <!-- Placeholder image -->
-                                <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
-                                    class="card-img-top" alt="Placeholder Image">
-                                {% endif %}
                                 <a href="{% url 'article_detail' slug=post.slug %}" class="post-link">
-                                    <h5 class="card-title">{{ post.location_name }}</h2>
+                                    {% if post.hero_image.url %}
+                                    <img src="{{ post.hero_image.url }}" class="card-img-top" alt="{{ post.location_name }}">
+                                    {% else %}
+                                    <!-- Placeholder image -->
+                                    <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                        class="card-img-top" alt="Article Placeholder Image">
+                                    {% endif %}
+                                        <h5 class="card-title">{{ post.location_name }}</h2>
+                                    
+                                    <hr />
+                                    <p class="card-text text-muted h6">{{ post.created_on }}</p>
                                 </a>
-                                <hr />
-                                <p class="card-text text-muted h6">{{ post.created_on }}</p>
                             </div>
                         </div>
                         {% if forloop.counter|divisibleby:3 %}

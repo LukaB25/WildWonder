@@ -1,14 +1,16 @@
 import datetime
 import random
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.utils.text import slugify
+from cloudinary.forms import cl_init_js_callbacks
 from better_profanity import profanity
 from .flagged_words import flagged_words
-from .forms import CommentForm, VoteForm, ArticleForm
+from .forms import CommentForm, VoteForm, ArticleForm, ImageForm
 from .models import Post, Comment
 
 # Create your views here.
@@ -77,6 +79,8 @@ def article_detail(request, slug):
     # Get all the comments for the post and display them in descending order
     comments = post.comments.all().order_by("-created_on")
 
+    post_input_type = post.post_input_type
+
     # Pagination
     paginator = Paginator(comments, 3)
     page_number = request.GET.get('page') or 1
@@ -136,6 +140,7 @@ def article_detail(request, slug):
         {
             'post': post,
             'page_obj': page_obj,
+            'post_input_type': post_input_type,
             "comment_count": comment_count,
             "comment_form": comment_form,
             "vote_total": vote_total,
@@ -144,6 +149,7 @@ def article_detail(request, slug):
     )
 
 
+@login_required
 def comment_edit(request, slug, comment_id):
     """
     view to edit comments
@@ -176,6 +182,7 @@ def comment_edit(request, slug, comment_id):
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
 
+@login_required
 def comment_delete(request, slug, comment_id):
     """
     view to delete comment
@@ -196,6 +203,7 @@ def comment_delete(request, slug, comment_id):
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
 
+@login_required
 def write_article(request):
     """
     view to write a new article
@@ -226,7 +234,8 @@ def write_article(request):
 
     if request.method == "POST":
         article_form = ArticleForm(data=request.POST)
-        if article_form.is_valid():
+        image_form = ImageForm(request.POST, request.FILES)
+        if article_form.is_valid() and image_form.is_valid():
             location_name = request.POST.get('location_name')
             location_description = request.POST.get('location_description')
             main_content_title = request.POST.get('main_content_title')
@@ -252,6 +261,11 @@ def write_article(request):
                 messages.add_message(request, messages.SUCCESS, 'Article submitted!')
                 post_instance = article_form.save(commit=False)
                 post_instance.status = 0
+            
+            if request.user.is_superuser:
+                post_input_type = 'Code' if article_form.cleaned_data['code_input'] else 'Normal'
+                post_instance.post_input_type = post_input_type
+
 
             slug = slugify(location_name)
             post_instance.location_name = location_name
@@ -264,9 +278,18 @@ def write_article(request):
             post_instance.longitude = longitude
             post_instance.latitude = latitude
             post_instance.save()
+
+            image_instance = image_form.save(commit=False)
+            image_instance.post = post_instance
+            image_instance.author = request.user
+            image_instance.save()
+            
+            post_instance.hero_image = image_instance.image
+            post_instance.save()
             return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
     else:
         article_form = ArticleForm()
+        image_form = ImageForm()
 
     context = {
         'fictional_view_count': fictional_view_count,
@@ -274,11 +297,14 @@ def write_article(request):
         'fictional_comment_count': fictional_comment_count,
         'fictional_updated_on': fictional_updated_on,
         'article_form': article_form,
+        'image_form': image_form,
     }
     
     print('Article created!')
     return render(request, 'blog/article_create.html', context)
 
+
+@login_required
 def edit_article(request, slug):
     """
     View to edit an article
@@ -288,7 +314,8 @@ def edit_article(request, slug):
 
     if request.method == "POST":
         article_form = ArticleForm(data=request.POST, instance=post)
-        if article_form.is_valid() and post.author == request.user:
+        image_form = ImageForm(request.POST, request.FILES)
+        if article_form.is_valid() and image_form.is_valid() and (post.author == request.user or request.user.is_superuser):
             location_name = request.POST.get('location_name')
             location_description = request.POST.get('location_description')
             main_content_title = request.POST.get('main_content_title')
@@ -307,33 +334,61 @@ def edit_article(request, slug):
                     latitude
                     ])
             if flagged_word_moderator(condensed_article_text):
-                messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                messages.error(request, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
                 post_instance = article_form.save(commit=False)
                 post_instance.status = 2
             else:
-                messages.add_message(request, messages.SUCCESS, 'Article updated!')
+                if post.author == request.user:
+                    messages.success(request, 'Article updated!')
+                elif request.user.is_superuser:
+                    messages.success(request, 'Article updated by superuser!')
                 post_instance = article_form.save(commit=False)
                 post_instance.status = 0
+
+            if request.user.is_superuser:
+                post_input_type = 'Code' if article_form.cleaned_data['code_input'] else 'Normal'
+                post_instance.post_input_type = post_input_type
+
             post_instance.location_name = location_name
             post_instance.slug = slug
             post_instance.location_description = location_description
-            post_instance.author = request.user
+            post_instance.author = post.author
             post_instance.main_content_title = main_content_title
             post_instance.main_content = main_content
             post_instance.secondary_content = secondary_content
             post_instance.longitude = longitude
             post_instance.latitude = latitude
             post_instance.save()
-            return redirect('article_detail', slug=post.slug)
+
+            image_instance = image_form.save(commit=False)
+            image_instance.post = post_instance
+            image_instance.author = request.user
+            image_instance.save()
+            
+            post_instance.hero_image = image_instance.image
+            post_instance.save()
+            return HttpResponseRedirect(reverse('article_detail', args=[slug]))
         else:
             if not post.author == request.user:
-                messages.add_message(request, messages.ERROR, 'You are not authorized to edit this article.')
-            return render(request, 'blog/article_edit.html', {'post':post, 'article_form': article_form})
+                messages.error(request, 'You are not authorized to edit this article.')
+
+            image_form = ImageForm(request.POST, request.FILES)
+            return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
     else:
         article_form = ArticleForm(instance=post)
+        image_form = ImageForm()
 
-    return render(request, 'blog/article_edit.html', {'post':post, 'article_form': article_form})
+    context = {
+        'post': post,
+        'article_form': article_form,
+        'image_form': image_form,
+    }
 
+    return render(request, 'blog/article_edit.html', context)
+
+
+
+@login_required
 def delete_article(request, slug):
     """
     View to delete an article

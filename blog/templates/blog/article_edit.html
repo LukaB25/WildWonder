@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cloudinary %}
 
 <!-- article_edit.html content starts here -->
 
 <!-- Hero section content -->
 {% block hero %}
-<form id="article-form" method="post" action="{% url 'edit_article' post.slug %}">
+<form id="article-form" method="post" action="{% url 'edit_article' post.slug %}" enctype="multipart/form-data">
     {% csrf_token %}
     <span class="text-center"><input class="write-article" type="text" name="location_name" id="location_name"
         value="{{ post.location_name }}" required></span>
@@ -17,7 +18,7 @@
         </span>
     </div>
     <div class="text-center" id="hero-buttons">
-        <input class="write-article" type="file" name="location_image" id="location_image">
+        {{ image_form.as_p }}
         <span>Please upload your image for main hero image.</span>
     </div>
     {% endblock hero %}
@@ -102,6 +103,10 @@
         languages.</p>
     <p>Thank you for contributing to the community, we are looking forward to growing with each and every one of you.
     </p>
+    {% if user.is_superuser %}
+        <input type="checkbox" id="post_type" name="post_type" value="code">
+        <label for="post_type"><span>! Check the tick box if article contains code !</span></label><br>
+    {% endif %}
     <button name="article_submit" id="submit-article" type="submit" class="btn btn-submit">Update article</button>
 </form>
 {% endblock submit-article-section %}
@@ -111,5 +116,4 @@
 
 {% block extras %}
 <script src="{% static 'js/maps.js' %}"></script>
-<script src="{% static 'js/articles.js' %}"></script>
 {% endblock %}

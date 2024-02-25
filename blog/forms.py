@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, Vote, Post
+from .models import Comment, Vote, Post, Image
 
 
 class CommentForm(forms.ModelForm):
@@ -24,10 +24,14 @@ class ArticleForm(forms.ModelForm):
     longitude = forms.DecimalField(label='Longitude')
     latitude = forms.DecimalField(label='Latitude')
     secondary_content = forms.CharField(label='Secondary article content', widget=forms.Textarea)
+    post_input_type = forms.CharField(label='Code input', required=False)
 
     class Meta:
         model = Post
         fields = ('location_name', 'location_description', 'main_content_title', 'main_content', 'longitude', 'latitude', 'secondary_content')
-        widgets = {
-            'country': forms.Select(),
-        }
+
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ('image',)

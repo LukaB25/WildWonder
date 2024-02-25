@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Flagged'))
-
+POST_TYPE_CHOICES = (('Normal', 'Normal'), ('Code', 'Code'))
 
 # Create your models here.
     
-
 class Post(models.Model):
     """
     Stores the article blog posts and their content.
@@ -17,6 +17,7 @@ class Post(models.Model):
     location_description = models.TextField(max_length=500, blank=False)
     main_content_title = models.CharField(max_length=100, blank=True)
     main_content = models.TextField(max_length=1500, blank=False)
+    hero_image = CloudinaryField('image', default='placeholder')
     secondary_content = models.TextField(max_length=1500, blank=False)
     longitude = models.FloatField(blank=False)
     latitude = models.FloatField(blank=False)
@@ -26,6 +27,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     approved = models.BooleanField(default=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    post_input_type = models.CharField(choices=POST_TYPE_CHOICES, max_length=10, default='Normal')
 
     class Meta:
         ordering = ["-created_on"]
@@ -82,3 +84,16 @@ class Vote(models.Model):
 
     def __str__(self):
         return f"Vote: {self.user_vote} | On a post: {self.post.location_name} | By: {self.voter}"
+    
+
+class Image(models.Model):
+    image = CloudinaryField('image', blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='image_author')
+    created_on = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ["created_on"]
+
+    def __str__(self):
+        return f"Image: {self.image} | On a post: {self.post.location_name}"

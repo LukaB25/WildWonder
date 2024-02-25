@@ -8,7 +8,7 @@
 {% block hero %}
 <h1 class="text-center" id="location_name">{{ post.location_name }}</h1>
 <br>
-{% if post.author.is_superuser %}
+{% if post.author.is_superuser and post.post_input_type == 'Code' %}
 <!-- if post.author is superuser display -->
 <div class="text-justify">
     <span id="location_description">{{ post.location_description|safe }}</span>
@@ -21,7 +21,9 @@
 {% endif %}
 <div class="text-center" id="hero-buttons">
     {% if user.is_authenticated %}
-    <input class="write-article" type="file" name="location_image" id="location_image">
+    <a href="{% url 'articles_page' %}"
+        aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab."
+        class="btn btn-hero">Explore</a>
     <a href="{% url 'write_article' %}" class="btn btn-hero">Write</a>
     {% else %}
     <a href="{% url 'articles_page' %}"
@@ -63,7 +65,7 @@
     {% if user.is_authenticated and post.author == user or user.is_superuser %}
     <button class="btn btn-edit" id="article-edit" post_id="{{ post.slug }}">Edit</button>
     {% endif %}
-    {% if user.is_authenticated and post.author == user or user.is_superuser or user.is_superuser %}
+    {% if user.is_authenticated and post.author == user or user.is_superuser %}
     <button class="btn btn-delete" id="article-delete"  post_id="{{ post.slug }}">Delete</button>
     {% endif %}
 </div>
@@ -74,7 +76,7 @@
 <!-- About section content -->
 {% block about_section %}
 <h2 class="text-center about-title" id="main_content_title">{{ post.main_content_title }}</h2>
-{% if post.author.username == "LukaB25" %}
+{% if post.author.is_superuser and post.post_input_type == 'Code' %}
 <!-- if post.author is "LukaB25" (Admin) display -->
 <div class="text-justify about-text">
     <span id="main_content">{{ post.main_content|safe }}</span>
@@ -101,7 +103,7 @@
                             <span class="col-12" id="map"></span>
                         </div>
                     <div class="col-md-6 text-md-right">
-                        {% if post.author.is_superuser %}
+                        {% if post.author.is_superuser and post.post_input_type == 'Code' %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
                         <span id="secondary_content">{{ post.secondary_content|safe }}</span>
                         {% else %}
@@ -346,3 +348,4 @@
 <script src="{% static 'js/articles.js' %}"></script>
 <script src="{% static 'js/maps.js' %}"></script>
 {% endblock %}
+
