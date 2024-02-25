@@ -43,6 +43,7 @@ def articles_page(request):
 
     published_posts = Post.objects.filter(status=0)
 
+
     # Pagination
     paginator = Paginator(published_posts, 6)
     page_number = request.GET.get('page') or 1
@@ -75,6 +76,9 @@ def article_detail(request, slug):
     # Increment the view count of the post each time the article is viewed
     post.view_count += 1 # Luka!!! Return to 0 before deployment!!!
     post.save()
+
+
+    random_posts = queryset.order_by('?')[:3]
 
     # Get all the comments for the post and display them in descending order
     comments = post.comments.all().order_by("-created_on")
@@ -145,6 +149,7 @@ def article_detail(request, slug):
             "comment_form": comment_form,
             "vote_total": vote_total,
             "vote_form": vote_form,
+            "random_posts": random_posts,
         },
     )
 

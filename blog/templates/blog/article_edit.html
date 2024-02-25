@@ -96,18 +96,20 @@
     {% endblock main %}
 
     {% block submit-article-section %}
-    <!-- Submit article section | Extra section -->
+    <!-- Submit article section -->
     <h2 class="text-center">Satisfied with your article?</h2>
-    <p class="text-center">If you are satisfied with the way your article looks, press the Update article button.</p>
-    <p>Your article will be posted if it meets the page requirements and doesn’t include harmful information or
+    <p class="text-justify">If you are satisfied with the way your article looks, press the Update article button.</p>
+    <p class="text-justify">Your article will be posted if it meets the page requirements and doesn’t include harmful information or
         languages.</p>
-    <p>Thank you for contributing to the community, we are looking forward to growing with each and every one of you.
+    <p class="text-justify">Thank you for contributing to the community, we are looking forward to growing with each and every one of you.
     </p>
+    <div class="text-center">
     {% if user.is_superuser %}
         <input type="checkbox" id="post_type" name="post_type" value="code">
-        <label for="post_type"><span>! Check the tick box if article contains code !</span></label><br>
+        <label for="post_type"><span class="code_input-msg">! Check the tick box if article contains code !</span></label><br>
     {% endif %}
     <button name="article_submit" id="submit-article" type="submit" class="btn btn-submit">Update article</button>
+    </div>
 </form>
 {% endblock submit-article-section %}
 

@@ -243,7 +243,7 @@ body {
 
 
 /* Main section */
-.recommended-articles, .contact-section, .articles-section, .maps-section-article {
+.recommended-articles, .contact-section, .articles-section, .maps-section-article, .write-section-green {
     width: auto;
     height: auto;
     padding: 7.5rem 0;
@@ -251,7 +251,7 @@ body {
     color: #f2f2f2;
 }
 
-.recommended-articles h2, .contact-section h2, .articles-section h2{
+.recommended-articles h2, .contact-section h2, .articles-section h2, .write-section-green h2{
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
@@ -283,24 +283,24 @@ body {
 }
 
 
-/* Maps Section and Extra Section */
+/* Maps Section and Write Section */
 /* Adjust for smaller screens!!! */
 
-.maps-section, .extra-section {
+.maps-section, .write-section {
     width: 100%;
     height: auto;
     padding: 7.5rem 0;
     background-color: #f2f2f2;
 }
 
-.maps-section h2, .extra-section h2{
+.maps-section h2, .write-section h2{
     font-size: 4rem;
     font-weight: 600;
     margin-bottom: 4rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.maps-section .list-inline-item, .extra-section p {
+.maps-section .list-inline-item, .write-section p, .write-section-green p {
     font-size: 2rem;
     display: flex;
     justify-content: space-around;
@@ -333,6 +333,13 @@ span#map{
     overflow: visible !important;
     height: auto !important;
 }
+.write-section-green a.btn-hero {
+    background: linear-gradient(25deg, #74f7df, #2fb9a0, #669f53);
+    color:#000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(89, 197, 230, 0.5);
+}
+
 
 /* Form Section */
 .contact-section h2 {
@@ -372,6 +379,11 @@ span#map{
 /* Articles section */
 .articles-section .card {
     min-height: 48rem;
+}
+
+.articles-section a {
+    color: #000000;
+    text-decoration: none;
 }
 
 .card-img-top {
@@ -555,6 +567,10 @@ textarea.write-article {
     top: 15rem;
 }
 
+.code_input-msg {
+    font-size: 1.2rem;
+}
+
 /* Pagination */
 
 .article-pagination .step-links {
@@ -608,10 +624,10 @@ textarea.write-article {
 }
 
 footer a {
-    color:#89e46b;
+    color:#74f7df;
 }
 footer a:hover {
-    color:#74f7df;
+    color: #2fb9a0;
 }
 
 .social-icons {
@@ -695,7 +711,7 @@ footer a:hover {
 
     /* Hero section media query */
     .custom-jumbotron {
-        width: 40%;
+        width: 35%;
         margin-top: 20rem;
     }
     .custom-jumbotron h1 {
@@ -780,10 +796,10 @@ footer a:hover {
         margin-top: 20rem;
     }
     .custom-jumbotron h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     .custom-jumbotron p {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
     }
 
     /* Alert Messages */
@@ -814,6 +830,16 @@ footer a:hover {
     .user-login-status .user-message {
         font-size: 2rem;
     }
+
+    /* Articles section */
+    .articles-section .card {
+        min-height: 35rem;
+    }
+
+    .card-img-top {
+        height: 20rem;
+        object-fit: cover;
+    }
 }
 
 
@@ -838,6 +864,16 @@ footer a:hover {
     }
     .user-login-status .user-message {
         font-size: 1.5rem;
+    }
+
+    /* Articles section */
+    .articles-section .card {
+        min-height: 30rem;
+    }
+
+    .card-img-top {
+        height: 15rem;
+        object-fit: cover;
     }
 }
 
@@ -923,6 +959,16 @@ footer a:hover {
     
     .about-title input {
         font-size: 2.5rem;
+    }
+
+    /* Articles section */
+    .articles-section .card {
+        min-height: 40rem;
+    }
+
+    .card-img-top {
+        height: 30rem;
+        object-fit: cover;
     }
 }
 
@@ -1024,5 +1070,25 @@ footer a:hover {
         font-size: 1.rem;
         padding: 0.5rem 1.5rem;
         margin: 0.5rem 1rem;
+    }
+
+    /* About section */
+    .about-text {
+        font-size: 1.5rem;
+    }
+
+    /* Maps section media query */
+    .map-container {
+        height: 30rem;
+    }
+
+    /* Articles section */
+    .articles-section .card {
+        min-height: 25rem;
+    }
+
+    .card-img-top {
+        height: 20rem;
+        object-fit: cover;
     }
 }

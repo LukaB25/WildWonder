@@ -26,7 +26,9 @@
     WildWonder – where every adventure starts with you.
 </p>
 <div class="text-center" id="hero-buttons">
-    <a href="{% url 'articles_page' %}" aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab." class="btn btn-hero">Explore</a>
+    <a href="{% url 'articles_page' %}"
+        aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab."
+        class="btn btn-hero">Explore</a>
     {% if user.is_authenticated %}
     <a href="{% url 'write_article' %}" class="btn btn-hero">Write an article</a>
     {% else %}
@@ -70,32 +72,28 @@
                 <h2 class="text-center">Some of our favourite WildWonders</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
-                    <div class="card-body">
-                        <h5 class="card-title">Relaxing view</h5>
-                        <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
+        <div class="row articles-section">
+            <div class="col-12">
+                <div class="row">
+                    {% for post in top_posts %}
+                    <div class="col-md-4">
+                        <a href="{% url 'article_detail' slug=post.slug %}" class="post-link">
+                            <div class="card mb-4">
+                                {% if post.hero_image.url %}
+                                <img src="{{ post.hero_image.url }}" class="card-img-top"
+                                    alt="{{ post.location_name }}">
+                                {% else %}
+                                <!-- Placeholder image -->
+                                <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}"
+                                    class="card-img-top" alt="Article Placeholder Image">
+                                {% endif %}
+                                <h3 class="card-title">{{ post.location_name }}</3>
+                                <hr />
+                                <p class="card-text text-muted h6">{{ post.created_on }}</p>
+                            </div>
+                        </a>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
-                    <div class="card-body">
-                        <h5 class="card-title">Relaxing view</h5>
-                        <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{% static 'images/08A60406-9095-43F5-B535-BAA6381BCA61.jpg' %}" class="card-img-top" alt="Beautiful lake with a forest and mountains behid it, as placeholder image.">
-                    <div class="card-body">
-                        <h5 class="card-title">Relaxing view</h5>
-                        <p class="card-text">Beautiful lake with a forest and mountains behid it, as placeholder image.</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -135,8 +133,34 @@
     </div>
 </section>
 
+<section class="write-section-green">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Share your WildWonder</h2>
+                <div class="row text-center">
+                    <div class="col-12">
+                        <p class="text-justify">
+                            Write your own stories, insights, and experiences exploring our planet's natural wonders.
+                            Share your passion for nature and inspire others to embark on their own adventures.
+                        </p>
+                        <p class="text-justify">
+                            Whether you're a seasoned explorer or a first-time writer, your voice is a valuable addition,
+                            so get writing, share your story, join or start the discussions in the comments and 
+                            above all, know that you are heard.
+                        </p>
+                        <span class="justify-content-center">
+                        <a href="{% url 'write_article' %}" class="btn btn-hero">Write an article</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- index.html content ends here -->
-    
+
 {% endblock main %}
 
 {% block extras %}
