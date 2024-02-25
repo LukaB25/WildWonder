@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.shortcuts import render, get_object_or_404, reverse
 from django.utils.text import slugify
 from cloudinary.forms import cl_init_js_callbacks
 from better_profanity import profanity
@@ -23,6 +23,8 @@ profanity.load_censor_words(flagged_words_list)
 def flagged_word_moderator(content):
     """
     Function to moderate the content of the blog posts and comments.
+    If the content contains any of the flagged words, 
+    the content will be flagged for review by the moderator.
     """
     words = content.split()
     for word in words:
@@ -61,12 +63,31 @@ def articles_page(request):
 
 def article_detail(request, slug):
     """
-    Display an individual :model:`blog.Post`.
+    Display an individual :model:`blog.Post` and its comments from :model:`blog.Comment`.
 
     **Context**
     
     ``post``
         An instance of :model:`blog.Post`.
+
+    ``page_obj``
+        An instance of :model:`django.core.paginator.Page` for paginating comments on the post.
+        Displays all of the comments from :model:`blog.Comment` for the specific post.
+    
+    ``comment_count``
+        The count of approved comments for the post.
+
+    ``comment_form``
+        An instance of :form:`blog.CommentForm`.
+
+    ``vote_total``
+        The total vote score for the post.
+
+    ``vote_form``
+        An instance of :form:`blog.VoteForm`.
+
+    ``random_posts``
+        A queryset of random posts to display under the existing post.
 
     **Template:**
     :template:`blog/article.html`
@@ -108,10 +129,10 @@ def article_detail(request, slug):
                     comment.post = post
                     comment.save()
                     messages.add_message(request, messages.SUCCESS,'Comment submitted')
-                    # Pagination
-                    paginator = Paginator(comments, 3)
-                    page_number = request.GET.get('page') or 1
-                    page_obj = paginator.get_page(page_number)
+                # Pagination
+                paginator = Paginator(comments, 3)
+                page_number = request.GET.get('page') or 1
+                page_obj = paginator.get_page(page_number)
             elif not comment_form.is_valid():
                 messages.add_message(request, messages.ERROR,'Comment not submitted. Please try again.')
         elif 'vote_submit' in request.POST:
@@ -157,7 +178,20 @@ def article_detail(request, slug):
 @login_required
 def comment_edit(request, slug, comment_id):
     """
-    view to edit comments
+    Edit comments from :model:`blog.Comment`.
+
+    **Context**
+    ``post``
+        An instance of :model:`blog.Post`.
+    
+    ``comment``
+        An instance of :model:`blog.Comment`.
+
+    ``comment_form``
+        An instance of :form:`blog.CommentForm`.
+
+    **Template:**
+    :template:`blog/article.html`
     """
     if request.method == "POST":
 
@@ -179,6 +213,7 @@ def comment_edit(request, slug, comment_id):
                 comment = comment_form.save(commit=False)
                 comment.author = request.user
                 comment.post = post
+                comment.approved = True
                 comment.save()
                 messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
         else:
@@ -190,7 +225,14 @@ def comment_edit(request, slug, comment_id):
 @login_required
 def comment_delete(request, slug, comment_id):
     """
-    view to delete comment
+    Delete comments from :model:`blog.Comment`.
+
+    **Context**
+    ``post``
+        An instance of :model:`blog.Post`.
+    
+    ``comment``
+        An instance of :model:`blog.Comment`.
     """
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
@@ -211,7 +253,31 @@ def comment_delete(request, slug, comment_id):
 @login_required
 def write_article(request):
     """
-    view to write a new article
+    Write a new article using :form:`blog.ArticleForm` and :form:`blog.ImageForm`.
+    Submit the article to the :model:`blog.Post` model.
+
+    **Context**
+    ``fictional_view_count``
+        A random integer between 300 and 1300 to simulate the views of the article.
+
+    ``fictional_vote_total``
+        A random float between 1.0 and 5.0 to simulate the rating of the article.
+
+    ``fictional_comment_count``
+        A random integer between 1 and 300 to simulate the comments of the article.
+
+    ``fictional_updated_on``
+        The current date and time to simulate the uploaded on date in the article.
+
+    ``article_form``
+        An instance of :form:`blog.ArticleForm`.
+
+    ``image_form``
+        An instance of :form:`blog.ImageForm`.
+
+    **Template:**
+    :template:`blog/article_create.html`
+
     """
     def fictional_views():
         """
@@ -312,7 +378,21 @@ def write_article(request):
 @login_required
 def edit_article(request, slug):
     """
-    View to edit an article
+    Edit an article using :form:`blog.ArticleForm` and :form:`blog.ImageForm`.
+    Submit the edited article to the :model:`blog.Post` model.
+
+    **Context**
+    ``post``
+        An instance of :model:`blog.Post`.
+
+    ``article_form``
+        An instance of :form:`blog.ArticleForm`.
+
+    ``image_form``
+        An instance of :form:`blog.ImageForm`.
+
+    **Template:**
+    :template:`blog/article_edit.html`
     """
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
@@ -328,6 +408,7 @@ def edit_article(request, slug):
             secondary_content = request.POST.get('secondary_content')
             longitude = request.POST.get('longitude')
             latitude = request.POST.get('latitude')
+            post_input_type = post.post_input_type
 
             condensed_article_text = '\n'.join([
                     location_name,
@@ -351,7 +432,7 @@ def edit_article(request, slug):
                 post_instance.status = 0
 
             if request.user.is_superuser:
-                post_input_type = 'Code' if article_form.cleaned_data['code_input'] else 'Normal'
+                post_input_type = 'Code' if request.POST.get('code_input') else 'Normal'
                 post_instance.post_input_type = post_input_type
 
             post_instance.location_name = location_name
@@ -380,7 +461,8 @@ def edit_article(request, slug):
             image_form = ImageForm(request.POST, request.FILES)
             return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
     else:
-        article_form = ArticleForm(instance=post)
+        initial = {'code_input': post.post_input_type == 'Code'}
+        article_form = ArticleForm(instance=post, initial=initial)
         image_form = ImageForm()
 
     context = {
@@ -393,10 +475,18 @@ def edit_article(request, slug):
 
 
 
+
 @login_required
 def delete_article(request, slug):
     """
-    View to delete an article
+    Delete an article from :model:`blog.Post`.
+
+    **Context**
+    ``post``
+        An instance of :model:`blog.Post`.
+    
+    **Template:**
+    :template:`blog/articles_page.html`
     """
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)

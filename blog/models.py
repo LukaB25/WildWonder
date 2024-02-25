@@ -87,6 +87,9 @@ class Vote(models.Model):
     
 
 class Image(models.Model):
+    """
+    Stores the images on the blog posts.
+    """
     image = CloudinaryField('image', blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='image_author')

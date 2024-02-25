@@ -7,7 +7,17 @@ from .forms import ContactFormMessage
 
 def contact(request):
     """
-    Renders the contact page with the ContactAboutSection and ContactMessageForm.
+    A view to return the contact page from :model:`contact.ContactAboutSection` and :model:`contact.ContactFormMessage`.
+
+    **Context**
+    ``contact``
+        An instance of :model:`contact.ContactAboutSection` to display the contact information.
+
+    ``contact_form``
+        An instance of :model:`contact.ContactFormMessage` to display the contact form.
+
+    **Template:**
+    :template:`contact/contact.html`
     """
     contact_form = ContactFormMessage()
     if request.method == 'POST':
