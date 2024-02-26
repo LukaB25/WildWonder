@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Flagged'))
-POST_TYPE_CHOICES = (('Normal', 'Normal'), ('Code', 'Code'))
 
 # Create your models here.
     
@@ -27,7 +26,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     approved = models.BooleanField(default=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    post_input_type = models.CharField(choices=POST_TYPE_CHOICES, max_length=10, default='Normal')
+    post_code_type = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-created_on"]
@@ -98,5 +97,3 @@ class Image(models.Model):
     class Meta:
         ordering = ["created_on"]
 
-    def __str__(self):
-        return f"Image: {self.image} | On a post: {self.post.location_name}"

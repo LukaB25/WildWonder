@@ -8,7 +8,7 @@
 {% block hero %}
 <h1 class="text-center" id="location_name">{{ post.location_name }}</h1>
 <br>
-{% if post.author.is_superuser and post.post_input_type == 'Code' %}
+{% if post.author.is_superuser and post.post_code_type == True %}
 <!-- if post.author is superuser display -->
 <div class="text-justify">
     <span id="location_description">{{ post.location_description|safe }}</span>
@@ -76,7 +76,7 @@
 <!-- About section content -->
 {% block about_section %}
 <h2 class="text-center about-title" id="main_content_title">{{ post.main_content_title }}</h2>
-{% if post.author.is_superuser and post.post_input_type == 'Code' %}
+{% if post.author.is_superuser and post.post_code_type == True %}
 <!-- if post.author is "LukaB25" (Admin) display -->
 <div class="text-justify about-text">
     <span id="main_content">{{ post.main_content|safe }}</span>
@@ -103,7 +103,7 @@
                             <span class="col-12" id="map"></span>
                         </div>
                     <div class="col-md-6 text-md-right">
-                        {% if post.author.is_superuser and post.post_input_type == 'Code' %}
+                        {% if post.author.is_superuser and post.post_code_type == True %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
                         <span id="secondary_content">{{ post.secondary_content|safe }}</span>
                         {% else %}
@@ -352,9 +352,12 @@
 {% endblock main %}
 
 {% block extras %}
-<script src="{% static 'js/votes.js' %}"></script>
-<script src="{% static 'js/comments.js' %}"></script>
-<script src="{% static 'js/articles.js' %}"></script>
+{% if user.is_authenticated %}
+    <script src="{% static 'js/votes.js' %}"></script>
+    <script src="{% static 'js/comments.js' %}"></script>
+    <script src="{% static 'js/articles.js' %}"></script>
+{% endif %}
 <script src="{% static 'js/maps.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2riI28lDfS3D_G-ixaZz67ksOmx58Vw&callback=initMap" async defer></script>
 {% endblock %}
 

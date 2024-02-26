@@ -1,26 +1,26 @@
-function initMap() {
-    let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 2,
-        center: {
-            lat: 46.619261,
-            lng: -33.134766
-        },
+let map;
+
+window.initMap = async function() {
+    let latitude = parseFloat(document.getElementById('map').getAttribute('data-latitude'));
+    let longitude = parseFloat(document.getElementById('map').getAttribute('data-longitude'));
+
+    console.log(latitude, longitude);
+
+    let position = { lat: isNaN(latitude) ? 0 : latitude, lng: isNaN(longitude) ? 0 : longitude };
+
+    const { Map } = await google.maps.importLibrary('maps');
+    const { Marker } = await google.maps.importLibrary('marker');
+
+    map = new Map(document.getElementById('map'), {
+        center: position,
+        zoom: isNaN(latitude) || isNaN(longitude) ? 2 : 10,
     });
 
-    let labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let locations = [{
-        lat: 44.8654, lng: 15.5820
-    }];
-
-    let markers = locations.map(function (location, i) {
-        return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+        new Marker({
+            position: position,
+            map: map,
+            title: 'Location',
         });
-    });
-
-    let markerCluster = new MarkerClusterer(map, markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-    });
-}
+    }
+};

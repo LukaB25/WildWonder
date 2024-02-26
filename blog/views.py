@@ -104,7 +104,7 @@ def article_detail(request, slug):
     # Get all the comments for the post and display them in descending order
     comments = post.comments.all().order_by("-created_on")
 
-    post_input_type = post.post_input_type
+    post_code_type = post.post_code_type
 
     # Pagination
     paginator = Paginator(comments, 3)
@@ -165,7 +165,7 @@ def article_detail(request, slug):
         {
             'post': post,
             'page_obj': page_obj,
-            'post_input_type': post_input_type,
+            'post_code_type': post_code_type,
             "comment_count": comment_count,
             "comment_form": comment_form,
             "vote_total": vote_total,
@@ -303,10 +303,14 @@ def write_article(request):
     fictional_comment_count = fictional_comments()
     fictional_updated_on = datetime.datetime.now()
 
+    post = Post.objects.filter(status=0)
+
+
     if request.method == "POST":
         article_form = ArticleForm(data=request.POST)
         image_form = ImageForm(request.POST, request.FILES)
         if article_form.is_valid() and image_form.is_valid():
+            
             location_name = request.POST.get('location_name')
             location_description = request.POST.get('location_description')
             main_content_title = request.POST.get('main_content_title')
@@ -314,6 +318,13 @@ def write_article(request):
             secondary_content = request.POST.get('secondary_content')
             longitude = request.POST.get('longitude')
             latitude = request.POST.get('latitude')
+            post_code_type = request.POST.get('post_code_type')
+
+            if request.user.is_superuser:
+                if post_code_type == 'True':
+                    post_code_type = True
+            else:
+                post_code_type = False
 
             condensed_article_text = '\n'.join([
                     location_name,
@@ -327,16 +338,13 @@ def write_article(request):
             if flagged_word_moderator(condensed_article_text):
                 messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
                 post_instance = article_form.save(commit=False)
+                image_instance = image_form.save(commit=False)
                 post_instance.status = 2
             else:
                 messages.add_message(request, messages.SUCCESS, 'Article submitted!')
                 post_instance = article_form.save(commit=False)
+                image_instance = image_form.save(commit=False)
                 post_instance.status = 0
-            
-            if request.user.is_superuser:
-                post_input_type = 'Code' if article_form.cleaned_data['code_input'] else 'Normal'
-                post_instance.post_input_type = post_input_type
-
 
             slug = slugify(location_name)
             post_instance.location_name = location_name
@@ -348,13 +356,10 @@ def write_article(request):
             post_instance.secondary_content = secondary_content
             post_instance.longitude = longitude
             post_instance.latitude = latitude
-            post_instance.save()
 
-            image_instance = image_form.save(commit=False)
             image_instance.post = post_instance
             image_instance.author = request.user
-            image_instance.save()
-            
+
             post_instance.hero_image = image_instance.image
             post_instance.save()
             return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
@@ -370,8 +375,6 @@ def write_article(request):
         'article_form': article_form,
         'image_form': image_form,
     }
-    
-    print('Article created!')
     return render(request, 'blog/article_create.html', context)
 
 
@@ -408,7 +411,13 @@ def edit_article(request, slug):
             secondary_content = request.POST.get('secondary_content')
             longitude = request.POST.get('longitude')
             latitude = request.POST.get('latitude')
-            post_input_type = post.post_input_type
+            post_code_type = request.POST.get('post_code_type')
+
+            if post.author.is_superuser:
+                if post_code_type == 'True':
+                    post_code_type = True
+            else:
+                post_code_type = False
 
             condensed_article_text = '\n'.join([
                     location_name,
@@ -431,9 +440,6 @@ def edit_article(request, slug):
                 post_instance = article_form.save(commit=False)
                 post_instance.status = 0
 
-            if request.user.is_superuser:
-                post_input_type = 'Code' if request.POST.get('code_input') else 'Normal'
-                post_instance.post_input_type = post_input_type
 
             post_instance.location_name = location_name
             post_instance.slug = slug
@@ -450,7 +456,7 @@ def edit_article(request, slug):
             image_instance.post = post_instance
             image_instance.author = request.user
             image_instance.save()
-            
+
             post_instance.hero_image = image_instance.image
             post_instance.save()
             return HttpResponseRedirect(reverse('article_detail', args=[slug]))
@@ -461,8 +467,7 @@ def edit_article(request, slug):
             image_form = ImageForm(request.POST, request.FILES)
             return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
     else:
-        initial = {'code_input': post.post_input_type == 'Code'}
-        article_form = ArticleForm(instance=post, initial=initial)
+        article_form = ArticleForm(instance=post)
         image_form = ImageForm()
 
     context = {

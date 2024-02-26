@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 if os.path.isfile('env.py'):
     import env
 
@@ -167,6 +170,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Cloudinary configuration
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
