@@ -12,17 +12,21 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Boostrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -31,6 +35,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>WildWonder</title>
 </head>
+
 <body class="d-flex flex-column h-100 main-bg">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light" id="main-nav">
@@ -56,10 +61,12 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == write_url %}active{% endif %}" aria-current="page" href="{% url 'write_article' %}">Write</a>
+                        <a class="nav-link {% if request.path == write_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'write_article' %}">Write</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -67,7 +74,8 @@
                             href="{% url 'account_signup' %}">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -78,29 +86,32 @@
     <!-- Hero section -->
     <section class="hero-section">
         <div class="alert-messages">
-        {% if messages %}
+            {% if messages %}
             {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><i class="fas fa-times"></i></button>
-                </div>
+            <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                {{ message | safe }}
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><i
+                        class="fas fa-times"></i></button>
+            </div>
             {% endfor %}
-        {% endif %}
+            {% endif %}
         </div>
         <div class="user-login-status">
             {% if user.is_authenticated %}
-                <p class="user-message">You are logged in as {{ user.username }}!</p>
+            <p class="user-message">You are logged in as {{ user.username }}!</p>
             {% else %}
-                <p class="user-message">For the full experience please <a href="{% url 'account_signup' %}">sign up</a> / <a href="{% url 'account_login' %}">log in</a>.</p>
+            <p class="user-message">For the full experience please <a href="{% url 'account_signup' %}">sign up</a> / <a
+                    href="{% url 'account_login' %}">log in</a>.</p>
             {% endif %}
         </div>
         <div class="hero-background">
             {% if post.hero_image.url %}
             <img src="{{ post.hero_image.url }}" alt="{{ post.location_name }}">
             {% else %}
-            <img src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg" alt="placeholder image">
+            <img src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg"
+                alt="placeholder image">
             {% endif %}
-        </div>        
+        </div>
         <div class="container jumbotron custom-jumbotron offset-1 ">
             <div class="row">
                 <div class="col-12 text-center">
@@ -133,20 +144,10 @@
         <!-- Main content goes here -->
         {% endblock main %}
 
-    <section class="write-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 submit-article">
-                    {% block submit-article-section %}
-
-                    <!-- Extra section goes here -->
-                    {% endblock submit-article-section %}
-                </div>
-            </div>
-        </div>
-    </section>
+        {% block submit-article-section %}
+        <!-- Extra section goes here -->
+        {% endblock submit-article-section %}
     </main>
-
     <!-- Footer -->
     <footer class="footer mt-auto py-3 custom-footer">
         <div class="container">
@@ -155,7 +156,8 @@
                     {% if user.is_authenticated %}
                     <span class="d-block">Thank you for being a part of WildWonder.</span>
                     <span class="d-block">
-                        <a href="{% url 'articles_page' %}" aria-label="Opens explore page with all of the articles in the same tab.">Explore</a>
+                        <a href="{% url 'articles_page' %}"
+                            aria-label="Opens explore page with all of the articles in the same tab.">Explore</a>
                         /
                         <a href="{% url 'write_article' %}" class="">Write</a>
                     </span>
@@ -176,18 +178,28 @@
                     <a href="https://www.linkedin.com/" class="social-link5"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="col-md-4 text-center ">
-                    <span class="d-block">This site was created as a project for <a href="https://codeinstitute.net/ie/" target="_blank" aria-label="Code Institute website. Opens in separate tab.">Code Institute</a></span>
-                    <span class="d-block">By: <a href="https://github.com/LukaB25" target="_blank" aria-label="GitHub repository from Luka Black. Opens in separate tab.">Luka Black</a></span>
+                    <span class="d-block">This site was created as a project for <a href="https://codeinstitute.net/ie/"
+                            target="_blank" aria-label="Code Institute website. Opens in separate tab.">Code
+                            Institute</a></span>
+                    <span class="d-block">By: <a href="https://github.com/LukaB25" target="_blank"
+                            aria-label="GitHub repository from Luka Black. Opens in separate tab.">Luka Black</a></span>
                 </div>
             </div>
         </div>
     </footer>
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
     {% block extras %}
     {% endblock %}
 </body>
+
 </html>
