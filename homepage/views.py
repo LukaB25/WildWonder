@@ -17,4 +17,13 @@ def homepage(request):
     post = Post.objects.all()
 
     top_posts = post.order_by("-view_count")[:3]
-    return render(request, 'homepage/index.html', context={'top_posts': top_posts})
+    list_of_posts = post.order_by('-view_count')
+    list_of_posts1 = list_of_posts[:5]
+    list_of_posts2 = list_of_posts[5:10]
+
+    context={
+            'top_posts': top_posts,
+            "list_of_posts1": list_of_posts1,
+            "list_of_posts2": list_of_posts2,
+            }
+    return render(request, 'homepage/index.html', context)
