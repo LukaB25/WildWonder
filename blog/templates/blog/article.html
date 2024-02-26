@@ -100,7 +100,7 @@
                     <h3 class="text-left" id="location_name">{{ post.location_name }} on a map:</h3>
                     <div class="row">
                         <div class="col-md-6 text-md-left map-container">
-                            <span class="col-12" id="map" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}"></span>
+                            <span class="col-12" id="map" data-latitude="{{ post.latitude }}" data-longitude="{{ post.longitude }}"></span>
                         </div>
                     <div class="col-md-6 text-md-right">
                         {% if post.author.is_superuser and post.post_code_type == True %}
