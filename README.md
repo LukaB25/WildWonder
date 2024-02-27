@@ -265,12 +265,33 @@
 - ***Logout*** - While logged in a user can decide to logout at any point, when the logout is clicked, it will redirect user to confirm whether they want to logout or stay signed in. After confirming the user will be sucessfully logged out and taken to the homepage
 
 ### Features left to implement
+- ***Google maps*** on home page to display the top 10 article locations as pins on the map. Not implemented due to lack of leftover time for the project.
 
 ### Possible future features
+- ***User profile*** - Each user has their own profile page where they can update their information, add their picture, see their posts, drafts, comments and votes. Users can choose to have their profile picture displayed on the comments and articles.
+- ***Drafts*** - Users can write drafts and save unfinished posts to continue later and start where they left off.
+- ***Social Media*** - Users can share their favourite posts directly on social media and the article data is compressed to display basic information to be shared on other platforms along side the picture.
+- ***Images*** - Users can add and delete their own images to the existing posts to share their favourite images.
+- ***Contact section upgrade*** - Admin can change the information on the contact page without accessing the admin panel. Admin can view all of the messages and user requests inside the contact us page and control and reply to users directly from the site.
+- ***Messaging*** - Users can message the post author to start the direct conversation about common interests.
 
 ## Testing
+
 ## Troubleshooting
+- While creating this project I had couple of major issues that I spent a lot of time troubleshooting.
+- ***Postgresql*** - The biggest issue I had was my postgresql database was corrupted and I was unable to do a migrations. I was receiving errors that there were duplicate files and the migration couldn't be done. I decided to troubleshoot it myself, as tutor service was finished for the day, I managed to access my postgresql database and I decided to delete the tables that were causing the issues, that ended up causing new errors stating that the database has no table needed, I tried to add/replace the deleted table, but the errors continued and I was unable to repair it myself. I sent a message to the Tutor support and waited until the next morning. One of the tutors, John, reached out to me and tried helping me, before instructing me that it would be better if I just requested a new database from Code Institute and create new migrations inside the new database, which I ended up doing. Luckily I stored most of t he data in my notes, so I was able to restore my content quickly.
+- ***Cloudinary images*** - I was having issues with my cloudinary images being updated and edited. At firs I got it to work, but while I was coding my views and rest of the project I must have changed something which created issues with my images on articles not being uploaded and were continuously loading the site without posting the article to the page, when posting the article without an image, everything worked fine. I ended up following Code Institue lessons and tried searching the stackoverflow but it was not working, I watched a tutorial on how to implement Cloudinary Images and I kept changing the code back and forth, restoring it to previous code from github, but no luck. I left for a little while, and when I came back it started to work, so I am unsure in how I fixed it. But it started to work, so I decided to stop working on that part of code and to have it work like this. This is one of the reasons there is an unfixed bug with the images having to be reuploaded when the article is being edited.
+- I kept commenting out code and trying to create a new code when the created code did not work, as to try and work out where my errors are. I also left couple of notes for myself as to make sure to come back to the code while coding.
+- ***Country model(Deleted)*** - originally I created a Country model that was supposed to be used as a tag as to categorise the articles by country the article is written about. I kept having issues with the code, and I couldn't get it to work as planned, so I decided to scrap the model as my project deadline was coming closer.
+- I tried to add the checkbox to confirm whether the admin is writing post, and whether they are writing a plain post or coded article. After the images incident the code in article was not working, so I decided to remove it from the site, but it can still be ticked on inside of the admin page, as to make the article more visually appealing.
+- I realised users could still access the write a post page while logged out if they decided to append /write/ to end of explore url, after which I reserched a bit and added the login_required from django. 
+- After talking with my mentor and him pointing the login_required I remembered I forgot to check if my /edit/ was secure, it was not. I added the if statement to the edit_article view as to make sure my site is secure.
+- I realised I have forgot to add target="_blank" to my social links, so they were opening in the same tab, that has been corrected.
+- I tried to write a code and even find online on how to protect my Google Maps API key and nothing worked, so I decided to leave my Google Maps API open, but I have restrictions in place.
+- I have been getting the cache errors on my lighthouse reports that are caused by the Cloudinary URLs that were reducing my Best Practises in the report.
+
 ### Unfixed bugs
+- ***Image loading*** when the article is being edited. As currently the image needs to be reuploaded to work, otherwise it is removed and placeholder is set as current picture
 
 ## Validator testing
 ### Performance
