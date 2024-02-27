@@ -10,7 +10,43 @@
 
 ## Wireframes
 
-### ***Wireframes to go here***
+### WildWonder Homepage
+
+![First sketch - Homepage](static/images/wildwonder_wireframe_homepage.avif)
+
+### WildWonder Contact page
+
+![First sketch - Contact page](static/images/wildwonder_wireframe_contact_page.avif)
+
+### WildWonder Explore page - all articles page
+
+![First sketch - Explore page](static/images/wildwonder_wireframe_explore_page.avif)
+
+### WildWonder article page
+
+![First sketch - Article page](static/images/wildwonder_wireframe_article_page.avif)
+
+### WildWonder login/signup page
+
+![First sketch - Contact page](static/images/wildwonder_wireframe_contact_page.avif)
+
+### WildWonder write page
+
+![First sketch - Write page](static/images/wildwonder_wireframe_write_page.avif)
+
+### WildWonder tablet wireframes
+
+![First sketch - Contact page](static/images/wildwonder_wireframe_tablet1.avif)
+![First sketch - Contact page](static/images/wildwonder_wireframe_tablet2.avif)
+
+### WildWonder phone wireframe
+
+![First sketch - Contact page](static/images/wildwonder_wireframe_phone.avif)
+
+### WildWonder Figma design
+
+![First sketch - Contact page](static/images/wildwonder_figma_designs1.avif)
+![First sketch - Contact page](static/images/wildwonder_figma_designs2.avif)
 
 ## About the build
 
