@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Log Out" %}{% endblock %}
@@ -28,3 +29,7 @@
 </div>
 </div>
 {% endblock hero %}
+
+{% block extras %}
+<script src="{% static 'js/accounts.js' %}"></script>
+{% endblock %}

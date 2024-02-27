@@ -106,9 +106,9 @@
         </div>
         <div class="hero-background">
             {% if post.hero_image.url %}
-            <img src="{{ post.hero_image.url }}" alt="{{ post.location_name }}">
+            <img id="hero-img" src="{{ post.hero_image.url }}" alt="{{ post.location_name }}">
             {% else %}
-            <img src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg"
+            <img id="hero-img" src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg"
                 alt="placeholder image">
             {% endif %}
         </div>
@@ -171,17 +171,17 @@
                     {% endif %}
                 </div>
                 <div class="social-icons col-md-4 my-sm-3 text-center">
-                    <a href="https://www.facebook.com/" class="social-link1"><i class="fab fa-facebook"></i></a>
-                    <a href="https://twitter.com/" class="social-link2"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/" class="social-link3"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/" class="social-link4"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.linkedin.com/" class="social-link5"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/" class="social-link-facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com/" class="social-link-twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" class="social-link-instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/" class="social-link-youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/" class="social-link-linkedin"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="col-md-4 text-center ">
-                    <span class="d-block">This site was created as a project for <a href="https://codeinstitute.net/ie/"
-                            target="_blank" aria-label="Code Institute website. Opens in separate tab.">Code
-                            Institute</a></span>
-                    <span class="d-block">By: <a href="https://github.com/LukaB25" target="_blank"
+                    <span class="d-block">This site was created as a project for</span>
+                    <span class="d-block"><a href="https://codeinstitute.net/ie/"
+                        target="_blank" aria-label="Code Institute website. Opens in separate tab.">Code
+                        Institute</a> By: <a href="https://github.com/LukaB25" target="_blank"
                             aria-label="GitHub repository from Luka Black. Opens in separate tab.">Luka Black</a></span>
                 </div>
             </div>

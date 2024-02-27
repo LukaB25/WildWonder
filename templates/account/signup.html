@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock head_title %}
@@ -21,3 +22,7 @@
 </form>
 
 {% endblock hero %}
+
+{% block extras %}
+<script src="{% static 'js/accounts.js' %}"></script>
+{% endblock %}
