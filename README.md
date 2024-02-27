@@ -48,6 +48,10 @@
 ![First sketch - Contact page](static/images/wildwonder_figma_designs1.avif)
 ![First sketch - Contact page](static/images/wildwonder_figma_designs2.avif)
 
+### WildWonder ERD
+
+![First sketch - Contact page](static/images/wildwonder_erd.avif)
+
 ## About the build
 
 - As I started working on this project I created my ERD using [Lucidchart](https://www.lucidchart.com/) to map out the models I would need and to help with the planning and designing process. After creating them I sketched out my wireframes using [Balsamiq](https://balsamiq.com/). Even before starting to design the project, I had an image in my head as to what I wanted it to look like, so I decided to work out my complete desing, I used [Figma](https://www.figma.com/) to create my second wireframes with colors, images and styles. And then I moved to creating the repository, adding the user stories with labels and iteration milestone, preparing the workspace and starting to code the project.
@@ -141,16 +145,70 @@
 
 ## Features
 
-### Base features
-#### Navigation bar
-#### Hero
+### Base features on all pages
+#### Navigation bar and hero section
+- The navigation bar is fully responsive, it shrinks and expands with the screen change. 
+- When hovered on, the nav bar is fully visible, but when it is not in focus, the opacity is lowered as to show the image beneath it.
+- The navigation links respond with size and collapse into a toggle switch that when clicked on displays all of the links as a list in the right hand corner of the screen. The navigation link is darker color when the page is active for each page user is on.
+- The logo is fully interactive and when clicked will take user to the homepage.
+- Under the navigation links is a user status message, that either showes the "For the full experience please signup/login" message when user is not logged in, and "You are logged in as: ***Username***"
+- The page alerts show up on the left hand side underneath the logo. And display either success(green) or error(red) messages, depending on the alert style.
+- The hero image is displayed underneath the whole hero section and the navbar. The image adjusts with the screen size and is fully responsive.
+- The hero section has a jumbotron displaying the content which changes depending on the page user is on.
+- The jumbotron has a hover effect that makes the content fully visible when hovered on, but sets the opacity when it is not in focus, as to reduce the distraction from other content and to make the image underneath visible.
+- The jumbotron has two buttons that either prompt and take user to the articles page called "Explore" and the "Join Us" button that takes user to the sign up page, which changes to "Write" button when user is logged in to prompt user to write an article.
+- The jumbotron is fully responsive and responds to the screen size change
+
+![First sketch - Contact page](static/images/wildwonder_navbar_and_hero_section.avif)
+
+![First sketch - Contact page](static/images/wildwonder_login_confirmation.avif)
+
 #### About
+- The about section contains a couple of paragraphs of content that change depending on the page user is on.
+- The about section is fully responsive and changes with screen size.
+
+![First sketch - Contact page](static/images/wildwonder_about_section.avif)
 #### Footer
-### Home
-#### Recommendations
-#### Map
-### Contact form
-### Articles
+- The footer is fully responsive and changes with screen size.
+- The footer consists of the "Join us to post and discuss about WildWonders" message and "Sign Up/Log In" links on the left when the user is not logged in. The meessage and links change to "Thank you for being a part of WildWonder" and "Explore/Write" after the user is logged into the site. On small screens the message moves above. Followed by social link icons in the middle that respond and take users to the corresponding site to the logo on the "button". And on the right there is a message with a link "This site is created as a project for [Code Institute](https://codeinstitute.net/ie/) By: [Luka Black](https://github.com/LukaB25)", which moves to the bottom, underneath the links, on small screens.
+- The footer links and social media icons change colors on hover and all open in new tab when clicked.
+
+![First sketch - Contact page](static/images/wildwonder_footer.avif)
+
+![First sketch - Contact page](static/images/wildwonder_footer_after_login.avif)
+
+### Homepage
+- ***Hero section*** gives users some idea what the WildWonder is about and what they could gain from joining the community.
+- ***About us section*** explains a little about the WildWonder and it is promting users to join the community.
+- ***Recommended articles section*** displayes the top three articles by views. The articles strictly depend on which article has the most views. All of the displayed articles show as a card that increses in size on hover, the card contains the article image, name of the location and the date it was posted on. The article card can be clicked anywhere to be taken to the corresponding article it contains.
+- ***Map section*** displays a world map and the names/article links of top 10 articles, 5 on either side on medium and larger screens, and 5 above and underneath the map on smaller screens. The homepage map at the moment doesn't display the locations, but could be part of future features. The links are displayed in the order by the view count.
+- ***Write an article section*** is there as to prompt users to write their own article about their own favourite place.
+
+![First sketch - Contact page](static/images/wildwonder_navbar_and_hero_section.avif)
+![First sketch - Contact page](static/images/wildwonder_about_section.avif)
+![First sketch - Contact page](static/images/wildwonder_recommended_articles.avif)
+![First sketch - Contact page](static/images/wildwonder_maps_section.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article.avif)
+
+### Contact Us
+- ***Page hero*** and ***about section*** are used to display a messages about the site and contact options, Admin has full control and can change the hero title and message, but also the about title and message from the admin panel. The messages are there to nudge the user to send a message to the admin.
+- ***Contact form*** lets users send their own messages and contact the site owner/admin in order to submit general inquiry, to report a bug they have noticed, site feature request, any special requests or other. When the user sends a message, they receive the message confirmation of success if message submitted or an error message that the request failed if that happens. The admin can access all of the messages inside the admin panel, they can view the form, but can not change the content of the message or details, the admin can read and decide to respond to the message, depending on that they can mark the message as read or responded in the checkbox inside each message.
+- Underneath the contact form there is another ***Write an article section*** as to prompt users to write their own article
+
+![First sketch - Contact page](static/images/wildwonder_contact_hero.avif)
+![First sketch - Contact page](static/images/wildwonder_contact_about.avif)
+![First sketch - Contact page](static/images/wildwonder_contact_form.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
+
+### Explore/Articles page
+- ***Hero section*** and ***about section*** give users the insite of what they can find on the explore page, it paints a picture for users to feel invited and welcome to explore the wonders that await within the articles.
+- ***Articles section*** displays six articles per page as two rows of three article cards on medium or larger screens, and one at the time on small screens. The article cards are responsive and enlarge on hover and shrink back on hover out. The card consists of the image at the top followed by the location name and the date article was posted. When the card is clicked it opens the article in the same tab.
+- There is another write an article section on the bottom of the screen underneath the articles section.
+
+![First sketch - Contact page](static/images/wildwonder_explore_hero.avif)
+![First sketch - Contact page](static/images/wildwonder_explore_about.avif)
+![First sketch - Contact page](static/images/wildwonder_explore_articles_section.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
 ### Article
 ### Write
 
