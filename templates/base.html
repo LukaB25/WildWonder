@@ -108,7 +108,7 @@
             {% if post.hero_image.url %}
             <img id="hero-img" src="{{ post.hero_image.url }}" alt="{{ post.location_name }}">
             {% else %}
-            <img id="hero-img" src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg"
+            <img id="hero-img" src="{% static 'images/placeholder.jpg' %}"
                 alt="placeholder image">
             {% endif %}
         </div>
