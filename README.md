@@ -192,7 +192,7 @@
 
 ### Contact Us
 - ***Page hero*** and ***about section*** are used to display a messages about the site and contact options, Admin has full control and can change the hero title and message, but also the about title and message from the admin panel. The messages are there to nudge the user to send a message to the admin.
-- ***Contact form*** lets users send their own messages and contact the site owner/admin in order to submit general inquiry, to report a bug they have noticed, site feature request, any special requests or other. When the user sends a message, they receive the message confirmation of success if message submitted or an error message that the request failed if that happens. The admin can access all of the messages inside the admin panel, they can view the form, but can not change the content of the message or details, the admin can read and decide to respond to the message, depending on that they can mark the message as read or responded in the checkbox inside each message.
+- ***Contact form*** lets users send their own messages and contact the site owner/admin in order to submit general inquiry, to report a bug they have noticed, site feature request, any special requests or other. When the user sends a message, they receive the message confirmation of success if message submitted or an error message that the request failed if that happens. The admin can access all of the messages inside the admin panel, they can view the form, but can not change the content of the message or details, the admin can read and decide to respond to the message, depending on that they can mark the message as read or responded in the checkbox inside each message. User doesn't need to be logged in to send a message to the user and anyone can submit a request/message.
 - Underneath the contact form there is another ***Write an article section*** as to prompt users to write their own article
 
 ![First sketch - Contact page](static/images/wildwonder_contact_hero.avif)
@@ -210,7 +210,59 @@
 ![First sketch - Contact page](static/images/wildwonder_explore_articles_section.avif)
 ![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
 ### Article
-### Write
+- ***Hero section*** displays basic information about the natural wonder of authors choosing. The placeholder image is replaced by the image of the location the article is written about.
+- ***About the article center*** displays who wrote the article, article view count, rating status, comment cound and when the article was uploaded.
+    * Author is the username of the user that posted the article
+    * View count increments and changes each time the site is loaded and opened.
+    * Rating status adds all of the votes up and then divides them by the amount of votes(count of votes made on the post). It changes with each vote and is calculated and displayed as a float between 1 and 5(0 on posts that have no active votes)
+    * Comment count counts how many published comments are being displayed (flagged comments are not included in the count). It changes with each vote
+    * Uploaded on displays the date and time the article was posted on.
+- ***Edit and Delete buttons*** only show up if the logged in user is the same as the user that wrote the article or if the user is admin/superuser. The user can choose to edit their article. If user is not logged in or not the user that wrote the article or superuser/admin they will not see the buttons and will not be able to access them.
+    * Article edit - If user decides to edit their article, they are taken to the edit site, the data from the existing article are prepopulated and can be changed inside of the edit screen. The error I haven't yet troubleshoot and sorted is the fact that the image needs to be reuploaded every time the article is edited on the live site or it will default back to the placeholder image, if changed from within the admin panel the image will show up same as before edit.
+    * Delete article - the user that wrote the article or the superuser can decide to delete an article at any point. Admin has the ability to delete any article as to make sure he has control over them on live site.
+- ***Map section*** consists of two parts, a map and the article paragraph
+    * Map uses google maps api and js libraries and js to display a map on the screen. I used google maps documentation and couple of video tutorials to implement the javascript code to read and display the map coordinates set as data sets on the map span that display a marker on the map to show the location of the place in article
+    * Paragraph is another section to display content about the location user is writing about
+- ***Comment and vote section*** is divided onto comments and votes.
+    * Comments are displayed on the left (above on smaller screens). They are paginated as three comments per page. I created a flagged words python list that uses better_profanity python package to moderate and flag inappropriate comments posted on the site. If the word or variation of the word is detected inside of the comment body, the comment is flagged and hidden from view. The alert message will show on the screen under the nav bar (red for flagged comment and green for submitted comment). The comment is only visible to the user that made a comment and the admin unless the comment is either updated as not to contain the flagged word or unless it is approved by the admin. In the right corner of the comment user posted they will have two buttons Edit(green button with notepad with pencil icon) and Delete(red button with trashcan icon), admin will see Edit and Delete buttons on their comments and Delete button on other users comments. Admin has full control over the comments and can delete them at any time even if the comment is not their own, the users on the other hand can only delete their own comments, whether they are flagged or not. If user-admin decides to delete a comment a modal will pop up as a confirmation requirement to confirm its deletion. The submit comment form is located on the right(bottom of comment/vote section on small screens)
+    * Votes are displayed on the right (beneath the comments on smaller screens) as star icons that will change color on hover and click. User can change their vote by clicking on any other button, when they are ready they can submit their vote by pressing on Vote button. Users can place as many votes on an article as they would like. Each time the vote is sent the votes on the article will be updated and will display new vote total. Votes can only be deleted by a superuser inside the admin panel, if deleted the votes will increment a new total.
+- ***Recommended articles section*** displays three random articles that are published on the site. The articles that are displayed are fully random and change with each refresh.
+- There is write an article section underneath the recommended articles section.
+
+![First sketch - Contact page](static/images/wildwonder_article_hero.avif)
+![First sketch - Contact page](static/images/wildwonder_features_article_section.avif)
+![First sketch - Contact page](static/images/wildwonder_features_article_section_smaller_screen.avif)
+![First sketch - Contact page](static/images/wildwonder_article_about_section.avif)
+![First sketch - Contact page](static/images/wildwonder_delete_article_modal.avif)
+![First sketch - Contact page](static/images/wildwonder_map_section.avif)
+![First sketch - Contact page](static/images/wildwonder_comment_vote_section.avif)
+![First sketch - Contact page](static/images/wildwonder_comment_flagged_msg.avif)
+![First sketch - Contact page](static/images/wildwonder_comment_edit.avif)
+![First sketch - Contact page](static/images/wildwonder_comment_after_edit.avif)
+![First sketch - Contact page](static/images/wildwonder_comment_updated_msg.avif)
+![First sketch - Contact page](static/images/wildwonder_delete_comment_modal.avif)
+![First sketch - Contact page](static/images/wildwonder_voting_system.avif)
+![First sketch - Contact page](static/images/wildwonder_features_article_section_vote_updated.avif)
+![First sketch - Contact page](static/images/wildwonder_recommended_articles_section.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
+
+### Write/Edit page
+- ***Hero section*** consists of an input field for the location title/name, text field as first paragraph about the location and an image field.
+- ***About section*** consists of an input field for a secondary title which is not mandatory and mandatory the main content text field that should include a larger paragraph of text to be displayed on the site.
+- ***Map section*** with a partial map of the world on the left, with two input fields for coordinates(latitude and longitude) and a paragraph field on the right for a larger text content.
+- ***Submit section*** a massages that informs user they can press the post article button if they are satisfied with their article.
+
+![First sketch - Contact page](static/images/wildwonder_write_article_hero.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_stats.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_about_section.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_maps_section.avif)
+![First sketch - Contact page](static/images/wildwonder_write_article_confirm.avif)
+
+### Sign up, Login, Logout pages
+- While logged out the user won't be able to interact with the site fully. They won't be able to write or edit post and comments and they won't be able to place a vote. The site has been secured by using login_required django function and if user tries to access the edit/write page they will be redirected to login page.
+- ***Sign up*** - The users can sign up and create an account to access the sites full functions.
+- ***Login*** - After signing up and creating an account the user can start writing posts, commenting on existing posts or vote for them. on successful log in user will be taken to the home screen or write/edit page if they tried accessing it by url.
+- ***Logout*** - While logged in a user can decide to logout at any point, when the logout is clicked, it will redirect user to confirm whether they want to logout or stay signed in. After confirming the user will be sucessfully logged out and taken to the homepage
 
 ### Features left to implement
 

@@ -399,84 +399,87 @@ def edit_article(request, slug):
     """
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
-
-    if request.method == "POST":
-        article_form = ArticleForm(data=request.POST, instance=post)
-        image_form = ImageForm(request.POST, request.FILES)
-        if article_form.is_valid() and image_form.is_valid() and (post.author == request.user or request.user.is_superuser):
-            location_name = request.POST.get('location_name')
-            location_description = request.POST.get('location_description')
-            main_content_title = request.POST.get('main_content_title')
-            main_content = request.POST.get('main_content')
-            secondary_content = request.POST.get('secondary_content')
-            longitude = request.POST.get('longitude')
-            latitude = request.POST.get('latitude')
-            post_code_type = request.POST.get('post_code_type')
-
-            if post.author.is_superuser:
-                if post_code_type == 'True':
-                    post_code_type = True
-            else:
-                post_code_type = False
-
-            condensed_article_text = '\n'.join([
-                    location_name,
-                    location_description,
-                    main_content_title,
-                    main_content,
-                    secondary_content,
-                    longitude,
-                    latitude
-                    ])
-            if flagged_word_moderator(condensed_article_text):
-                messages.error(request, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
-                post_instance = article_form.save(commit=False)
-                post_instance.status = 2
-            else:
-                if post.author == request.user:
-                    messages.success(request, 'Article updated!')
-                elif request.user.is_superuser:
-                    messages.success(request, 'Article updated by superuser!')
-                post_instance = article_form.save(commit=False)
-                post_instance.status = 0
-
-
-            post_instance.location_name = location_name
-            post_instance.slug = slug
-            post_instance.location_description = location_description
-            post_instance.author = post.author
-            post_instance.main_content_title = main_content_title
-            post_instance.main_content = main_content
-            post_instance.secondary_content = secondary_content
-            post_instance.longitude = longitude
-            post_instance.latitude = latitude
-            post_instance.save()
-
-            image_instance = image_form.save(commit=False)
-            image_instance.post = post_instance
-            image_instance.author = request.user
-            image_instance.save()
-
-            post_instance.hero_image = image_instance.image
-            post_instance.save()
-            return HttpResponseRedirect(reverse('article_detail', args=[slug]))
-        else:
-            if not post.author == request.user:
-                messages.error(request, 'You are not authorized to edit this article.')
-
+    if request.user == post.author or request.user.is_superuser:
+        if request.method == "POST":
+            article_form = ArticleForm(data=request.POST, instance=post)
             image_form = ImageForm(request.POST, request.FILES)
-            return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
+            if article_form.is_valid() and image_form.is_valid() and (post.author == request.user or request.user.is_superuser):
+                location_name = request.POST.get('location_name')
+                location_description = request.POST.get('location_description')
+                main_content_title = request.POST.get('main_content_title')
+                main_content = request.POST.get('main_content')
+                secondary_content = request.POST.get('secondary_content')
+                longitude = request.POST.get('longitude')
+                latitude = request.POST.get('latitude')
+                post_code_type = request.POST.get('post_code_type')
+
+                if post.author.is_superuser:
+                    if post_code_type == 'True':
+                        post_code_type = True
+                else:
+                    post_code_type = False
+
+                condensed_article_text = '\n'.join([
+                        location_name,
+                        location_description,
+                        main_content_title,
+                        main_content,
+                        secondary_content,
+                        longitude,
+                        latitude
+                        ])
+                if flagged_word_moderator(condensed_article_text):
+                    messages.error(request, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                    post_instance = article_form.save(commit=False)
+                    post_instance.status = 2
+                else:
+                    if post.author == request.user:
+                        messages.success(request, 'Article updated!')
+                    elif request.user.is_superuser:
+                        messages.success(request, 'Article updated by superuser!')
+                    post_instance = article_form.save(commit=False)
+                    post_instance.status = 0
+
+
+                post_instance.location_name = location_name
+                post_instance.slug = slug
+                post_instance.location_description = location_description
+                post_instance.author = post.author
+                post_instance.main_content_title = main_content_title
+                post_instance.main_content = main_content
+                post_instance.secondary_content = secondary_content
+                post_instance.longitude = longitude
+                post_instance.latitude = latitude
+                post_instance.save()
+
+                image_instance = image_form.save(commit=False)
+                image_instance.post = post_instance
+                image_instance.author = request.user
+                image_instance.save()
+
+                post_instance.hero_image = image_instance.image
+                post_instance.save()
+                return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+            else:
+                if not post.author == request.user:
+                    messages.error(request, 'You are not authorized to edit this article.')
+
+                image_form = ImageForm(request.POST, request.FILES)
+                return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
+        else:
+            article_form = ArticleForm(instance=post)
+            image_form = ImageForm()
+
+        context = {
+            'post': post,
+            'article_form': article_form,
+            'image_form': image_form,
+        }
+
+        return render(request, 'blog/article_edit.html', context)
     else:
-        article_form = ArticleForm(instance=post)
-        image_form = ImageForm()
-
-    context = {
-        'post': post,
-        'article_form': article_form,
-        'image_form': image_form,
-    }
-
-    return render(request, 'blog/article_edit.html', context)
+        messages.error(request, 'You are not authorized to edit this article.')
+        return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
 
 
