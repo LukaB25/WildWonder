@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const editButton = document.getElementById("article-edit")
+    const editButton = document.getElementById("article-edit");
     
     const deleteModal = new bootstrap.Modal(document.getElementById("deleteArticleModal"));
     const deleteButton = document.getElementById("article-delete");

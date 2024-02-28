@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const star4 = document.getElementById('4');
     const star5 = document.getElementById('5');
 
-    const starArr = [star1, star2, star3, star4, star5]
+    const starArr = [star1, star2, star3, star4, star5];
     stars.forEach(star => {
         star.addEventListener('click', function() {
             const radioButtonId = this.getAttribute('for');
