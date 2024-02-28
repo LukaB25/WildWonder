@@ -339,6 +339,7 @@ body {
     display: flex;
     width: 100%;
     height: 40rem;
+    justify-content: space-around;
 }
 span#map{
     position: static !important;
@@ -580,7 +581,7 @@ textarea.write-article {
 .coordinates {
     position: relative;
     font-size: 1.25rem;
-    top: 15rem;
+    top: 18rem;
 }
 
 .code_input-msg {
