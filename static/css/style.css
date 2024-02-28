@@ -579,7 +579,7 @@ textarea.write-article {
 }
 
 .coordinates {
-    position: relative;
+    position: absolute;
     font-size: 1.25rem;
     top: 18rem;
 }
