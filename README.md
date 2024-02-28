@@ -277,6 +277,95 @@
 
 ## Testing
 
+|           Action            |        Expectation                           | Outcome |
+| :-------------------------: |   :-------------------------------------:    | :-----: |
+|           Homepage        |   The homepage loads on page start        |  Pass   |
+|       Navigation bar      |   The navigation bar responds to screen size change |  Pass   |
+|       Navigation bar :not:hover       |   The opacity is turned down to reduce distraction   |  Pass   |
+|       Navigation bar:hover       |   The opacity is turned up and the nav bar is fully visible  |  Pass   |
+|       Logo       |        When clicked User is taken to homepage          |  Pass   |
+|       Nav link - home     |      When clicked User is taken to homepage    |  Pass   |
+|   Nav link - contact us   |      When clicked User is taken to contact page  |  Pass   |
+|          Contact Us       |   The contact page loads without issues    |  Pass   |
+|       Nav link - explore  |      When clicked User is taken to articles page   |  Pass   |
+|           Explore        |   The explore/articles page loads without issues        |  Pass   |
+|       Nav link - sign up  |      When clicked User is taken to sign up page, when user logged in it switches to write   |  Pass   |
+|           Sign Up        |   The sign up page loads without issues        |  Pass   |
+|       Nav link - write    |      When clicked User is taken to write an article, when user logges out it switches to sign up   |  Pass   |
+|           Write        |   The write page loads without issues        |  Pass   |
+|       Nav link - login    |      When clicked User is taken to login page, after user is logged in it changes to logout   |  Pass   |
+|           Login        |   The login page loads without issues        |  Pass   |
+|       Nav link - logout   |      When clicked User is taken to logout confiramtion page, after logging out it becomes login link   |  Pass   |
+|           Logout        |   The logout page loads without issues        |  Pass   |
+|       Navigation bar:active link    |   The navigation bar link is darker color when user is on matching page |  Pass   |
+|       Navigation bar - small screens     |   The navigation bar links are collapsed into a toggle switch, that when clicked displays list of links |  Pass   |
+|       User status message     |   User status message underneath the navbar displays different message whether user is logged in or not  |  Pass   |
+|       Hero section        |        Responds with screen size change          |  Pass   |
+|       Hero section jumbotron        |        Responds with screen size change. It is slighly transparent to show the picture beneath        |  Pass   |
+|       Hero section jumbotron:hover        |         The screen opacity is turned up so the container is fully visible, becomes transparent on hover out         |  Pass   |
+|       Hero section jumbotron content       |        Displays the right content depending on the page using templates          |  Pass   |
+|       Hero section Explore btn       |        Takes user to the explore/articles page          |  Pass   |
+|       Hero section Join Us btn       |       Showed when user is logged out. Takes user to the sign up page, changes to Write btn if user is logged in          |  Pass   |
+|       Hero section Write btn       |       Showed when user is logged in. Takes user to the write an article page, changes to Join Us btn if user is logged in          |  Pass   |
+|       About section        |       Responds to the screen size change. Different content is displayed on different pages using templates           |  Pass   |
+|       Recommended articles         |        Display top three articles depending on the view count to show most popular articles.          |  Pass   |
+|       Recommended articles: cards         |        Display the article image, location name and date article was posted. When card is clicked it opens the article.       |  Pass   |
+|       Map      |         The map showes on the screen and can be interacted with. Responds with screen size change         |  Pass   |
+|       Links around the map        |       Displays top 10 articles on the site. When hovered the text color changes, on click the article is opened          |  Pass   |
+|       Write an article section        |       Displays a message promting users to write their own article           |  Pass   |
+|       Write an article btn        |         Takes user to write an article, logged out user is redirected to login page to log in before being redirected to write an article         |  Pass   |
+|       Footer        |        Fully responsive to screen size change, the layout changes on smaller screens.          |  Pass   |
+|       Footer user msg       |        On the left(top on small screen) there is different message depending on if user is logged in or not          |  Pass   |
+|       Footer social links       |        Change color on hover. Open the corresponding social links in new tab         |  Pass   |
+|       Footer creator msg       |         On the right(top on small screen) a message is displayed what for and by whom the page created for/by         |  Pass   |
+|       Contact us jumbotron and about section       |        Display a messages with titles that admin can change from within the admin panel          |  Pass   |
+|       Contact form       |        When filled up and submitted displays a success or error message depending on status         |  Pass   |
+|       Contact form - not logged in       |        Users can write and send messages without having to be logged in          |  Pass   |
+|       Explore - articles       |         Articles are displayed correctly in descending order, from newest to oldest         |  Pass   |
+|       Explore pagination       |         Articles are paginated by 6 per page. User can switch between pages freely         |  Pass   |
+|       Explore - published       |         Only published articles are displayed on the site.         |  Pass   |
+|       Explore - cards       |          The cards display article image, location title and date posted, the complete card is clickable and opens the article        |  Pass   |
+|       Article       |        Users can read the article without having to be logged in          |  Pass   |
+|       Article - image      |        The regular placeholder image is replaced by the location image published along with the article          |  Pass   |
+|       Article - stats      |        Users can view stats of the post, Author username, view count, rating, comments and upload date          |  Pass   |
+|       Article - author     |        Author username is displayed with each article posted on the site          |  Pass   |
+|       Article - views      |        View count is incremented each time the site is opened and loaded in by 1          |  Pass   |
+|       Article - rating     |        Rating is updated each time a vote is placed on an article and recalculated          |  Pass   |
+|       Article - comments   |        Comment count displays the number of published and approved comments          |  Pass   |
+|       Article - post date  |        Uploaded on displays the date and time the article has been posted, Irish Time        |  Pass   |
+|       Article - hero       |        Hero section jumbotron displays the location name and short into into the location          |  Pass   |
+|       Article - about      |        About consists of main title(optional) and content text         |  Pass   |
+|       Article - location map      |        Above the map the subtitle displays name of the location along side "on the map:"          |  Pass   |
+|       Article - map        |        Map section displays the correct location using the coordinates provided inside the article, users can interact with the map, zoom and move the map around as google maps.          |  Pass   |
+|       Article - paragraph  |        Paragraph next to the map displays additional content about the location          |  Pass   |
+|       Article - comments   |        Users can read the article comments without having to be logged in          |  Pass   |
+|       Article - comment pagination      |        Comments are paginated by three          |  Pass   |
+|       Article - flagged comment pagination      |        Flagged comments do not effect the pagination process and are not taken into account when not visible on site          |  Fail   |
+|       Article - leaving comments      |        User has to be logged in to leave a comment, user comments are posted and approved          |  Pass   |
+|       Article - flagged comments      |        In case a comment contains one of the words on the flagged words list they are automatically flagged and not approved, i.e. hidden from user views unless authorised by admin or corrected by user         |  Pass   |
+|       Article - votes       |        Users has to be logged in to vote, users can vote as many times they would like          |  Pass   |
+|       Article - recommended section      |        There are three random articles inside the recommended section that change each time the site is loaded up          |  Pass   |
+|       Article - recommended article       |       When one of the articles is clicked on the article page is opened           |  Pass   |
+|       Article - edit btn       |        If user is the article author or an admin they will be able to see edit article btn         |  Pass   |
+|       Article - edit page       |        If user is the article author or an admin they will be transfered to the edit article page         |  Pass   |
+|       Article - edit page data      |        Input and text fields are populated with the data from the published article        |  Pass   |
+|       Article - edit page image      |        Image field is prepopulated with the existing image, if one was posted with the article         |  Fail   |
+|       Article - edit page submit      |        After editing the post, when clicked on update post button the user will be redirected to the published post with updated content         |  Pass   |
+|       Article - delete btn     |        If user is the article author or an admin they will be able to see delete article btn          |  Pass   |
+|       Article - delete btn confirm     |        When clicked, user has to confirm their delete article request inside the modal          |  Pass   |
+|       Comment - edit btn       |        If user is the comment author or an admin they will be able to see edit article btn          |  Pass   |
+|       Comment - delete btn     |        If user is the comment author or an admin they will be able to see edit article btn          |  Pass   |
+|       Comment - delete btn confirm     |        When clicked, user has to confirm their delete comment request inside the modal          |  Pass   |
+|       Sign Up page      |         Users can sign up and create an account without problems, when user signes up they are automatically logged in         |  Pass   |
+|       Login page      |           Users can log in and start fully interacting with the site, after logging in user is taken to home page       |  Pass   |
+|       Logout page      |          Users can decide to log out at any point and get sent to logout confirmation page        |  Pass   |
+|       Write       |         Users can write their own post, all of the required input and text fields need to be filled out         |  Pass   |
+|       Write - img       |         Image is not mandatory when writing a new article and will display a placeholder if one is not supplied with the article         |  Pass   |
+|       Write - submit       |         When the article is posted by clicking on Post article button, the user is redirected to the live article         |  Pass   |
+|       Write - approval       |         Article is automatically approved and posted on the site, unless it contains a flagged word, when it will be flagged and won't be posted         |  Pass   |
+|      Flagged post        |         Flagged posts will throw a message that the post will need to be reviewed by the moderator to approve the article if the flagged words are triggered         |  Pass   |
+
+
 ## Troubleshooting
 - While creating this project I had couple of major issues that I spent a lot of time troubleshooting.
 - ***Postgresql*** - The biggest issue I had was my postgresql database was corrupted and I was unable to do a migrations. I was receiving errors that there were duplicate files and the migration couldn't be done. I decided to troubleshoot it myself, as tutor service was finished for the day, I managed to access my postgresql database and I decided to delete the tables that were causing the issues, that ended up causing new errors stating that the database has no table needed, I tried to add/replace the deleted table, but the errors continued and I was unable to repair it myself. I sent a message to the Tutor support and waited until the next morning. One of the tutors, John, reached out to me and tried helping me, before instructing me that it would be better if I just requested a new database from Code Institute and create new migrations inside the new database, which I ended up doing. Luckily I stored most of t he data in my notes, so I was able to restore my content quickly.
@@ -292,6 +381,7 @@
 
 ### Unfixed bugs
 - ***Image loading*** when the article is being edited. As currently the image needs to be reuploaded to work, otherwise it is removed and placeholder is set as current picture
+- ***Comment pagination*** when the comments are being paginated, if there are flagged comments not visible by the user, they will be taken into the count of paginated comments, I haven't had time to fix this error, but it could have been resolved with an if statement inside of the template separating the approved comments from the flagged comments.
 
 ## Validator testing
 ### Performance
