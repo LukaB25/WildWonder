@@ -5,9 +5,11 @@
 <!-- article_create.html content starts here -->
 
 <!-- Hero section content -->
+<!-- Content will be displayed inside the hero section jumbotron -->
 {% block hero %}
 <form id="article-form" method="post" action="{% url 'write_article' %}" enctype="multipart/form-data">
     {% csrf_token %}
+    <!-- Hero section content area input and text fields -->
     <span class="text-center"><input class="write-article" type="text" name="location_name" id="location_name"
             placeholder="Location title..." required></span>
     <br>
@@ -17,6 +19,7 @@
                 placeholder="About the location..." required></textarea>
         </span>
     </div>
+    <!-- Hero section upload image file are -->
     <div class="text-center" id="hero-buttons">
         {{ image_form.as_p }}
         <span>Please upload your image for main hero image.</span>
@@ -24,25 +27,31 @@
     {% endblock hero %}
 
     <!-- Article Info content -->
+    <!-- Fictional article info stats will be added here -->
     {% block article_info %}
     <div class="d-flex flex-wrap justify-content-between p-2 mb-3 article-info">
         <div>
+            <!-- Displays Article author -->
             <span><i class="far fa-user"></i> <span class="hidden-on-small-screen">Article author</span>:</span>
             <span class="about-article">{{ user.username }}</span>
         </div>
         <div>
+            <!-- Displays Fictional View count -->
             <span><i class="far fa-eye"></i> <span class="hidden-on-small-screen">View count</span>:</span>
             <span class="about-article">{{ fictional_view_count }}</span>
         </div>
         <div>
+            <!-- Displays Fictional Vote total -->
             <span><i class="far fa-star"></i> <span class="hidden-on-small-screen">Rating</span>:</span>
             <span class="about-article">{{ fictional_vote_total }}</span>
         </div>
         <div>
+            <!-- Displays Fictional Comment count -->
             <span><i class="far fa-comments"></i> <span class="hidden-on-small-screen">Comments</span>:</span>
             <span class="about-article"> {{ fictional_comment_count }}</span>
         </div>
         <div>
+            <!-- Displays Fictional Updated on -->
             <span><i class="fas fa-pencil-alt"></i> <span class="hidden-on-small-screen">Uploaded on</span>:</span>
             <span class="about-article">{{ fictional_updated_on }}</span>
         </div>
@@ -51,7 +60,9 @@
 
 
     <!-- About section content -->
+    <!-- Content will be displayed inside the about section -->
     {% block about_section %}
+    <!-- Main content area input and text fields -->
     <span class="text-center about-title"><input class="write-article" type="text" name="main_content_title"
             id="main_content_title" placeholder="About title... (optional)"></span>
     <div class="text-justify about-text">
@@ -61,9 +72,8 @@
     {% endblock about_section %}
 
     <!-- Main section content -->
+    <!-- Content will be displayed inside the main section -->
     {% block main %}
-
-    <!-- Maps section content -->
     <section class="maps-section-article">
         <div class="container">
             <div class="row">
@@ -72,6 +82,7 @@
                     <p>Please add the coordinates in designated area.</p>
                     <div class="row">
                         <div class="col-md-6 text-md-left map-container">
+                            <!-- Displays google maps with latitude and longitude input fields -->
                             <span class="col-12" id="map" data-latitude="{{ post.latitude }}"
                                 data-longitude="{{ post.longitude }}"></span>
                             <div class="text-center coordinates">
@@ -84,6 +95,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-md-right">
+                            <!-- Secondary content input section -->
                             <span class="text-justify"><textarea class="write-article" name="secondary_content"
                                     id="secondary_content" cols="50" rows="15"
                                     placeholder="Secondary article content..." required></textarea></span>
@@ -102,6 +114,7 @@
             <div class="row">
                 <div class="col-12 submit-article">
                     <!-- Submit article section -->
+                    <!-- If user is satisfied with the article they wrote, they can post it to the site -->
                     <h2 class="text-center">Satisfied with your article?</h2>
                     <p class="text-justify">If you are satisfied with the way your article looks, press the Post article
                         button.</p>
@@ -122,10 +135,11 @@
 </form>
 {% endblock submit-article-section %}
 
-
 <!-- article_create.html content ends here -->
 
 {% block extras %}
+<!-- script imports necessary for aritcle_edit.html page -->
+<!-- Google maps imports -->
 <script src="{% static 'js/maps.js' %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2riI28lDfS3D_G-ixaZz67ksOmx58Vw&callback=initMap" async
     defer></script>

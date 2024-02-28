@@ -37,7 +37,8 @@
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
-    <!-- Navigation -->
+    <!-- Navigation bar -->
+    <!-- Navigation bar is displayed on all of the pages -->
     <nav class="navbar navbar-expand-md navbar-light" id="main-nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">WildWonder</a>
@@ -59,6 +60,7 @@
                         <a class="nav-link {% if request.path == articles_url %}active{% endif %}" aria-current="page"
                             href="{% url 'articles_page' %}">Explore</a>
                     </li>
+                    <!-- If user is logged in links will be Write and Logout -->
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == write_url %}active{% endif %}" aria-current="page"
@@ -68,6 +70,7 @@
                         <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
                             href="{% url 'account_logout' %}">Logout</a>
                     </li>
+                    <!-- If user is not logged in links will be Sign Up and Login -->
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
@@ -85,6 +88,8 @@
 
     <!-- Hero section -->
     <section class="hero-section">
+        <!-- Display alerts at the top of the screen -->
+        <!-- Messages displayed are Success and Error messages -->
         <div class="alert-messages">
             {% if messages %}
             {% for message in messages %}
@@ -97,26 +102,35 @@
             {% endif %}
         </div>
         <div class="user-login-status">
+            <!-- Login status message -->
+            <!-- Displays if user is logged in -->
             {% if user.is_authenticated %}
             <p class="user-message">You are logged in as {{ user.username }}!</p>
+            <!-- Displays if user is not logged in -->
             {% else %}
             <p class="user-message">For the full experience please <a href="{% url 'account_signup' %}">sign up</a> / <a
                     href="{% url 'account_login' %}">log in</a>.</p>
             {% endif %}
         </div>
         <div class="hero-background">
+            <!-- Hero background is loaded for each site -->
+            <!-- For articles the hero image is changed to uploaded image along side the article -->
             {% if post.hero_image.url %}
             <img id="hero-img" src="{{ post.hero_image.url }}" alt="{{ post.location_name }}">
             {% else %}
+            <!-- All other pages and if user doesn't upload image for article placeholder will be used -->
             <img id="hero-img" src="https://res.cloudinary.com/dfhay1cmj/image/upload/v1708789453/placeholder.jpg"
                 alt="placeholder image">
             {% endif %}
         </div>
+        <!-- Jumbotron inside the hero section -->
+        <!-- Displays different content depending on the page user is on -->
         <div class="container jumbotron custom-jumbotron offset-1 ">
             <div class="row">
                 <div class="col-12 text-center">
                     {% block hero %}
                     <!-- Hero content goes here -->
+                    <!-- Adds content from the extending templates onto the site -->
                     {% endblock hero %}
                 </div>
             </div>
@@ -127,6 +141,8 @@
     <main class="main-section">
         {% block article_info %}
         <!-- Article info goes here -->
+        <!-- Adds article info content on the published articles -->
+        <!-- Displays author, vies count, rating, comemnt count and when the article has been uploaded -->
         {% endblock article_info %}
         <!-- About section -->
         <section class="about-section">
@@ -135,6 +151,7 @@
                     <div class="col-12 text-center">
                         {% block about_section %}
                         <!-- About content goes here -->
+                        <!-- Displays the about content that is extended by the templates -->
                         {% endblock about_section %}
                     </div>
                 </div>
@@ -142,13 +159,16 @@
         </section>
         {% block main %}
         <!-- Main content goes here -->
+        <!-- Displays all of the main content that is different with each site -->
         {% endblock main %}
 
         {% block submit-article-section %}
         <!-- Extra section goes here -->
+        <!-- Displays the submit article section on write and edit pages -->
         {% endblock submit-article-section %}
     </main>
     <!-- Footer -->
+    <!-- Displays the footer on all of the pages -->
     <footer class="footer mt-auto py-3 custom-footer">
         <div class="container">
             <div class="row align-items-center">
@@ -171,17 +191,21 @@
                     {% endif %}
                 </div>
                 <div class="social-icons col-md-4 my-sm-3 text-center">
-                    <a href="https://www.facebook.com/" class="facebook" target="_blank"><i class="fab fa-facebook" ></i></a>
+                    <a href="https://www.facebook.com/" class="facebook" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
                     <a href="https://twitter.com/" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.linkedin.com/" class="linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/" class="instagram" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/" class="youtube" target="_blank"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/" class="linkedin" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="col-md-4 text-center ">
                     <span class="d-block">This site was created as a project for</span>
-                    <span class="d-block"><a href="https://codeinstitute.net/ie/"
-                        target="_blank" aria-label="Code Institute website. Opens in separate tab.">Code
-                        Institute</a> By: <a href="https://github.com/LukaB25" target="_blank"
+                    <span class="d-block"><a href="https://codeinstitute.net/ie/" target="_blank"
+                            aria-label="Code Institute website. Opens in separate tab.">Code
+                            Institute</a> By: <a href="https://github.com/LukaB25" target="_blank"
                             aria-label="GitHub repository from Luka Black. Opens in separate tab.">Luka Black</a></span>
                 </div>
             </div>
@@ -199,6 +223,10 @@
     </script>
 
     {% block extras %}
+    <!-- Extra scripts go here -->
+    <!-- Additional scripts are loaded with each template to avoid unneccesary
+        issues with all scripts being loaded at the same time even when they
+        are not needed for the page -->
     {% endblock %}
 </body>
 

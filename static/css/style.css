@@ -336,7 +336,7 @@ body {
 .map-container {
     position: relative;
     overflow: hidden;
-    display: flexbox;
+    display: flex;
     width: 100%;
     height: 40rem;
 }
@@ -1093,9 +1093,9 @@ footer a:hover {
     }
 
     .custom-jumbotron .btn-hero {
-        font-size: 1.rem;
-        padding: 0.5rem 1.5rem;
-        margin: 0.5rem 1rem;
+        font-size: 1rem;
+        padding: 0.5rem;
+        margin: 0.5rem;
     }
 
     /* About section */

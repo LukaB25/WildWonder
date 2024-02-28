@@ -5,7 +5,10 @@
 
 {% block hero %}
 <!-- Hero section content -->
+<!-- Content will be displayed inside the hero section jumbotron -->
+<!-- Displays content admin wrote inside the admin panel -->
 <h1 class="text-center">
+
     {{ contact.hero_title }}
 </h1>
 <br>
@@ -13,8 +16,11 @@
     {{ contact.hero_message | safe }}
 </div>
 <div class="text-center" id="hero-buttons">
+    <!-- Displays Explore link styled as button that takes user to the articles page -->
     <a href="{% url 'articles_page' %}" aria-label="Explore link. Opens a page with all of the articles. Opens in the same tab." class="btn btn-hero">Explore</a>
     {% if user.is_authenticated %}
+    <!-- If user is authenticated, displays Write an article button that takes user to the write article page -->
+    <!-- If user is not authenticated, displays Join Us button that takes user to the sign up page -->
     <a href="{% url 'write_article' %}" class="btn btn-hero">Write an article</a>
     {% else %}
     <a href="{% url 'account_signup' %}" aria-label="Sign Up link. Opens in same tab." class="btn btn-hero">Join Us</a>
@@ -25,6 +31,8 @@
 
 {% block about_section %}
 <!-- About section content -->
+<!-- Content will be displayed inside the about section -->
+<!-- Displays content admin wrote inside the admin panel -->
 <h2 class="text-center about-title">
     {{ contact.main_title }}
 </h2>
@@ -35,6 +43,7 @@
 
 {% block main %}
 <!-- Main section content -->
+<!-- Content will be displayed inside the main section -->
 <div class="row justify-content-center contact-section">
     <div class="col-12 col-sm-6 my-5 card">
         <h2 class="text-center">Contact us</h2>

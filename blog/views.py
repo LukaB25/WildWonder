@@ -250,6 +250,31 @@ def comment_delete(request, slug, comment_id):
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
 
+def fictional_views():
+    """
+    Function to calculate the fictional views of the article
+    """
+    return random.randint(300, 1300)
+
+def fictional_rating():
+    """
+    Function to calculate the fictional rating of the article
+    """
+    return round(random.randint(10, 50)/10, 1)
+
+def fictional_comments():
+    """
+    Function to calculate the fictional comments of the article
+    """
+    return random.randint(1, 300)
+
+
+fictional_view_count = fictional_views()
+fictional_vote_total = fictional_rating()
+fictional_comment_count = fictional_comments()
+fictional_updated_on = datetime.datetime.now()
+
+
 @login_required
 def write_article(request):
     """
@@ -279,30 +304,6 @@ def write_article(request):
     :template:`blog/article_create.html`
 
     """
-    def fictional_views():
-        """
-        Function to calculate the fictional views of the article
-        """
-        return random.randint(300, 1300)
-    
-    def fictional_rating():
-        """
-        Function to calculate the fictional rating of the article
-        """
-        return round(random.randint(10, 50)/10, 1)
-    
-    def fictional_comments():
-        """
-        Function to calculate the fictional comments of the article
-        """
-        return random.randint(1, 300)
-    
-    
-    fictional_view_count = fictional_views()
-    fictional_vote_total = fictional_rating()
-    fictional_comment_count = fictional_comments()
-    fictional_updated_on = datetime.datetime.now()
-
     post = Post.objects.filter(status=0)
 
 
@@ -472,6 +473,10 @@ def edit_article(request, slug):
 
         context = {
             'post': post,
+            'fictional_view_count': fictional_view_count,
+            'fictional_vote_total': fictional_vote_total,
+            'fictional_comment_count': fictional_comment_count,
+            'fictional_updated_on': fictional_updated_on,
             'article_form': article_form,
             'image_form': image_form,
         }
