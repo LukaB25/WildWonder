@@ -15,7 +15,7 @@ def homepage(request):
     **Template:**
     :template:`homepage/index.html`
     """
-    post = Post.objects.all()
+    post = Post.objects.filter(status=0)
 
     top_posts = post.order_by("-view_count")[:3]
     list_of_posts = post.order_by('-view_count')

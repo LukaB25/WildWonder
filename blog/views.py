@@ -115,8 +115,11 @@ def article_detail(request, slug):
     if request.method == "POST":
         if 'comment_submit' in request.POST:
             comment_form = CommentForm(data=request.POST)
+            # If the comment form is valid, save the comment
             if comment_form.is_valid():
                 comment_body = request.POST.get('body').lower()
+                # If the comment contains any flagged words
+                # Mark it as flagged for review by the moderator
                 if flagged_word_moderator(comment_body):
                     comment = comment_form.save(commit=False)
                     comment.author = request.user
@@ -145,6 +148,7 @@ def article_detail(request, slug):
                                      'again.')
         elif 'vote_submit' in request.POST:
             vote_form = VoteForm(data=request.POST)
+            # If the vote form is valid, save the vote
             if vote_form.is_valid():
                 vote = vote_form.save(commit=False)
                 vote.post = post
@@ -211,6 +215,8 @@ def comment_edit(request, slug, comment_id):
         comment = get_object_or_404(Comment, pk=comment_id)
         comment_form = CommentForm(data=request.POST, instance=comment)
 
+        # If the comment form is valid and user is comment author
+        # save the comment
         if comment_form.is_valid() and comment.author == request.user:
             comment_body = request.POST.get('body').lower()
             if flagged_word_moderator(comment_body):
@@ -254,6 +260,8 @@ def comment_delete(request, slug, comment_id):
     post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
+    # If the user is the author of the comment or a superuser
+    # delete the comment
     if comment.author == request.user:
         comment.delete()
         messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
@@ -271,6 +279,7 @@ def comment_delete(request, slug, comment_id):
 def fictional_views():
     """
     Function to calculate the fictional views of the article
+    To be used inside the write and edit views
     """
     return random.randint(300, 1300)
 
@@ -278,6 +287,7 @@ def fictional_views():
 def fictional_rating():
     """
     Function to calculate the fictional rating of the article
+    To be used inside the write and edit views
     """
     return round(random.randint(10, 50)/10, 1)
 
@@ -285,6 +295,7 @@ def fictional_rating():
 def fictional_comments():
     """
     Function to calculate the fictional comments of the article
+    To be used inside the write and edit views
     """
     return random.randint(1, 300)
 
@@ -414,6 +425,21 @@ def edit_article(request, slug):
     Submit the edited article to the :model:`blog.Post` model.
 
     **Context**
+    ``fictional_view_count``
+        A random integer between 300 and 1300 to simulate the views of
+        the article.
+
+    ``fictional_vote_total``
+        A random float between 1.0 and 5.0 to simulate the rating of
+        the article.
+
+    ``fictional_comment_count``
+        A random integer between 1 and 300 to simulate the comments of
+        the article.
+
+    ``fictional_updated_on``
+        The current date and time to simulate the uploaded on date in
+        the article.
     ``post``
         An instance of :model:`blog.Post`.
 
@@ -428,6 +454,9 @@ def edit_article(request, slug):
     """
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
+
+    # If the user is the author of the article or a superuser
+    # allow them to edit the article
     if request.user == post.author or request.user.is_superuser:
         if request.method == "POST":
             article_form = ArticleForm(data=request.POST, instance=post)
@@ -459,6 +488,8 @@ def edit_article(request, slug):
                         longitude,
                         latitude
                         ])
+                # If the article contains any flagged words
+                # Mark it as flagged for review by the moderator
                 if flagged_word_moderator(condensed_article_text):
                     messages.error(request, 'Article has been flagged due to '
                                    'inappropriate language. It will be '
@@ -500,7 +531,7 @@ def edit_article(request, slug):
                                    'this article.')
 
                 image_form = ImageForm(request.POST, request.FILES)
-                contex = {
+                context = {
                     'post': post,
                     'article_form': article_form,
                     'image_form': image_form
@@ -541,6 +572,8 @@ def delete_article(request, slug):
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
 
+    # If the user is the author of the article or a superuser
+    # delete the article
     if post.author == request.user:
         post.delete()
         messages.add_message(request, messages.SUCCESS, 'Article deleted!')

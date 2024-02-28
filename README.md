@@ -36,21 +36,21 @@
 
 ### WildWonder tablet wireframes
 
-![First sketch - Contact page](static/images/wildwonder_wireframe_tablet1.avif)
-![First sketch - Contact page](static/images/wildwonder_wireframe_tablet2.avif)
+![First sketch - Tablet wireframe 1](static/images/wildwonder_wireframe_tablet1.avif)
+![First sketch - Tablet wireframe 2](static/images/wildwonder_wireframe_tablet2.avif)
 
 ### WildWonder phone wireframe
 
-![First sketch - Contact page](static/images/wildwonder_wireframe_phone.avif)
+![First sketch - Phone wireframe](static/images/wildwonder_wireframe_phone.avif)
 
 ### WildWonder Figma design
 
-![First sketch - Contact page](static/images/wildwonder_figma_designs1.avif)
-![First sketch - Contact page](static/images/wildwonder_figma_designs2.avif)
+![Figma design 1](static/images/wildwonder_figma_designs1.avif)
+![Figma design 2](static/images/wildwonder_figma_designs2.avif)
 
 ### WildWonder ERD
 
-![First sketch - Contact page](static/images/wildwonder_erd.avif)
+![ Wildwonder ERD](static/images/wildwonder_erd.avif)
 
 ## About the build
 
@@ -159,23 +159,23 @@
 - The jumbotron has two buttons that either prompt and take user to the articles page called "Explore" and the "Join Us" button that takes user to the sign up page, which changes to "Write" button when user is logged in to prompt user to write an article.
 - The jumbotron is fully responsive and responds to the screen size change
 
-![First sketch - Contact page](static/images/wildwonder_navbar_and_hero_section.avif)
+![Navbar and Hero section](static/images/wildwonder_navbar_and_hero_section.avif)
 
-![First sketch - Contact page](static/images/wildwonder_login_confirmation.avif)
+![Login confirmation](static/images/wildwonder_login_confirmation.avif)
 
 #### About
 - The about section contains a couple of paragraphs of content that change depending on the page user is on.
 - The about section is fully responsive and changes with screen size.
 
-![First sketch - Contact page](static/images/wildwonder_about_section.avif)
+![About section](static/images/wildwonder_about_section.avif)
 #### Footer
 - The footer is fully responsive and changes with screen size.
 - The footer consists of the "Join us to post and discuss about WildWonders" message and "Sign Up/Log In" links on the left when the user is not logged in. The meessage and links change to "Thank you for being a part of WildWonder" and "Explore/Write" after the user is logged into the site. On small screens the message moves above. Followed by social link icons in the middle that respond and take users to the corresponding site to the logo on the "button". And on the right there is a message with a link "This site is created as a project for [Code Institute](https://codeinstitute.net/ie/) By: [Luka Black](https://github.com/LukaB25)", which moves to the bottom, underneath the links, on small screens.
 - The footer links and social media icons change colors on hover and all open in new tab when clicked.
 
-![First sketch - Contact page](static/images/wildwonder_footer.avif)
+![Footer](static/images/wildwonder_footer.avif)
 
-![First sketch - Contact page](static/images/wildwonder_footer_after_login.avif)
+![Footer - after login](static/images/wildwonder_footer_after_login.avif)
 
 ### Homepage
 - ***Hero section*** gives users some idea what the WildWonder is about and what they could gain from joining the community.
@@ -184,31 +184,32 @@
 - ***Map section*** displays a world map and the names/article links of top 10 articles, 5 on either side on medium and larger screens, and 5 above and underneath the map on smaller screens. The homepage map at the moment doesn't display the locations, but could be part of future features. The links are displayed in the order by the view count.
 - ***Write an article section*** is there as to prompt users to write their own article about their own favourite place.
 
-![First sketch - Contact page](static/images/wildwonder_navbar_and_hero_section.avif)
-![First sketch - Contact page](static/images/wildwonder_about_section.avif)
-![First sketch - Contact page](static/images/wildwonder_recommended_articles.avif)
-![First sketch - Contact page](static/images/wildwonder_maps_section.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article.avif)
+![Homepage - Navbar and hero section](static/images/wildwonder_navbar_and_hero_section.avif)
+![Homepage - about section](static/images/wildwonder_about_section.avif)
+![Homepage - recommended articles](static/images/wildwonder_recommended_articles.avif)
+![Homepage - map section](static/images/wildwonder_maps_section.avif)
+![Homepage - write section](static/images/wildwonder_write_article.avif)
 
 ### Contact Us
 - ***Page hero*** and ***about section*** are used to display a messages about the site and contact options, Admin has full control and can change the hero title and message, but also the about title and message from the admin panel. The messages are there to nudge the user to send a message to the admin.
 - ***Contact form*** lets users send their own messages and contact the site owner/admin in order to submit general inquiry, to report a bug they have noticed, site feature request, any special requests or other. When the user sends a message, they receive the message confirmation of success if message submitted or an error message that the request failed if that happens. The admin can access all of the messages inside the admin panel, they can view the form, but can not change the content of the message or details, the admin can read and decide to respond to the message, depending on that they can mark the message as read or responded in the checkbox inside each message. User doesn't need to be logged in to send a message to the user and anyone can submit a request/message.
 - Underneath the contact form there is another ***Write an article section*** as to prompt users to write their own article
 
-![First sketch - Contact page](static/images/wildwonder_contact_hero.avif)
-![First sketch - Contact page](static/images/wildwonder_contact_about.avif)
-![First sketch - Contact page](static/images/wildwonder_contact_form.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
+![Contact Us - Navbar and hero section](static/images/wildwonder_contact_hero.avif)
+![Contact Us - about section](static/images/wildwonder_contact_about.avif)
+![Contact Us - contact form](static/images/wildwonder_contact_form.avif)
+![Contact Us - write section](static/images/wildwonder_write_article_white.avif)
 
 ### Explore/Articles page
 - ***Hero section*** and ***about section*** give users the insite of what they can find on the explore page, it paints a picture for users to feel invited and welcome to explore the wonders that await within the articles.
 - ***Articles section*** displays six articles per page as two rows of three article cards on medium or larger screens, and one at the time on small screens. The article cards are responsive and enlarge on hover and shrink back on hover out. The card consists of the image at the top followed by the location name and the date article was posted. When the card is clicked it opens the article in the same tab.
 - There is another write an article section on the bottom of the screen underneath the articles section.
 
-![First sketch - Contact page](static/images/wildwonder_explore_hero.avif)
-![First sketch - Contact page](static/images/wildwonder_explore_about.avif)
-![First sketch - Contact page](static/images/wildwonder_explore_articles_section.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
+![Explore - navbar and hero section](static/images/wildwonder_explore_hero.avif)
+![Explore - about section](static/images/wildwonder_explore_about.avif)
+![Explore - articles section](static/images/wildwonder_explore_articles_section.avif)
+![Explore - write section](static/images/wildwonder_write_article_white.avif)
+
 ### Article
 - ***Hero section*** displays basic information about the natural wonder of authors choosing. The placeholder image is replaced by the image of the location the article is written about.
 - ***About the article center*** displays who wrote the article, article view count, rating status, comment cound and when the article was uploaded.
@@ -229,22 +230,22 @@
 - ***Recommended articles section*** displays three random articles that are published on the site. The articles that are displayed are fully random and change with each refresh.
 - There is write an article section underneath the recommended articles section.
 
-![First sketch - Contact page](static/images/wildwonder_article_hero.avif)
-![First sketch - Contact page](static/images/wildwonder_features_article_section.avif)
-![First sketch - Contact page](static/images/wildwonder_features_article_section_smaller_screen.avif)
-![First sketch - Contact page](static/images/wildwonder_article_about_section.avif)
-![First sketch - Contact page](static/images/wildwonder_delete_article_modal.avif)
-![First sketch - Contact page](static/images/wildwonder_map_section.avif)
-![First sketch - Contact page](static/images/wildwonder_comment_vote_section.avif)
-![First sketch - Contact page](static/images/wildwonder_comment_flagged_msg.avif)
-![First sketch - Contact page](static/images/wildwonder_comment_edit.avif)
-![First sketch - Contact page](static/images/wildwonder_comment_after_edit.avif)
-![First sketch - Contact page](static/images/wildwonder_comment_updated_msg.avif)
-![First sketch - Contact page](static/images/wildwonder_delete_comment_modal.avif)
-![First sketch - Contact page](static/images/wildwonder_voting_system.avif)
-![First sketch - Contact page](static/images/wildwonder_features_article_section_vote_updated.avif)
-![First sketch - Contact page](static/images/wildwonder_recommended_articles_section.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_white.avif)
+![Article page - navbar and hero section](static/images/wildwonder_article_hero.avif)
+![Article page - article stats](static/images/wildwonder_features_article_section.avif)
+![Article page - article stats small screen](static/images/wildwonder_features_article_section_smaller_screen.avif)
+![Article page - about section](static/images/wildwonder_article_about_section.avif)
+![Article page - delete article modal](static/images/wildwonder_delete_article_modal.avif)
+![Article page - map section](static/images/wildwonder_map_section.avif)
+![Article page - comment/vote section](static/images/wildwonder_comment_vote_section.avif)
+![Article page - flagged message](static/images/wildwonder_comment_flagged_msg.avif)
+![Article page - edit comment](static/images/wildwonder_comment_edit.avif)
+![Article page - comment after edit](static/images/wildwonder_comment_after_edit.avif)
+![Article page - update message](static/images/wildwonder_comment_updated_msg.avif)
+![Article page - delete comment modal](static/images/wildwonder_delete_comment_modal.avif)
+![Article page - voting system](static/images/wildwonder_voting_system.avif)
+![Article page - rating updated](static/images/wildwonder_features_article_section_vote_updated.avif)
+![Article page - recommended articles](static/images/wildwonder_recommended_articles_section.avif)
+![Article page - write article](static/images/wildwonder_write_article_white.avif)
 
 ### Write/Edit page
 - ***Hero section*** consists of an input field for the location title/name, text field as first paragraph about the location and an image field.
@@ -252,11 +253,11 @@
 - ***Map section*** with a partial map of the world on the left, with two input fields for coordinates(latitude and longitude) and a paragraph field on the right for a larger text content.
 - ***Submit section*** a massages that informs user they can press the post article button if they are satisfied with their article.
 
-![First sketch - Contact page](static/images/wildwonder_write_article_hero.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_stats.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_about_section.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_maps_section.avif)
-![First sketch - Contact page](static/images/wildwonder_write_article_confirm.avif)
+![Write - Navbar and hero section](static/images/wildwonder_write_article_hero.avif)
+![Write - article stats -fictional](static/images/wildwonder_write_article_stats.avif)
+![Write - about section](static/images/wildwonder_write_article_about_section.avif)
+![Write - map section](static/images/wildwonder_write_article_maps_section.avif)
+![Write - submit article](static/images/wildwonder_write_article_confirm.avif)
 
 ### Sign up, Login, Logout pages
 - While logged out the user won't be able to interact with the site fully. They won't be able to write or edit post and comments and they won't be able to place a vote. The site has been secured by using login_required django function and if user tries to access the edit/write page they will be redirected to login page.
@@ -274,6 +275,12 @@
 - ***Images*** - Users can add and delete their own images to the existing posts to share their favourite images.
 - ***Contact section upgrade*** - Admin can change the information on the contact page without accessing the admin panel. Admin can view all of the messages and user requests inside the contact us page and control and reply to users directly from the site.
 - ***Messaging*** - Users can message the post author to start the direct conversation about common interests.
+
+## Security features
+- The project was secured using Django decorator login_required which is protecting the views to write and edit aricles and comments, users cannot bypass and type in a write/edit urls to make changes to the site content. The edit was additionally protected by creating a statement that checks if the user is the same as user that wrote the post or if the user is superuser before giving access to the edit a post page.
+- Regular users can't access the admin panel, only superusers are allowed the access to the admin panel.
+- The SECRET_KEY was accidentally published on github when I created the project but I used online SECURITY_KEY generator to generate the new key, which was changed, stored inside the env.py file and config vars on Heroku site.
+- DATABASE_URL and CLOUDINARY_URL were stored inside the env.py and config vars the whole time, after my database got corrupted and I ended up deleting the data, I created a new database url which has been changed inside both the env.py and the config vars on Heroku.
 
 ## Testing
 
@@ -364,6 +371,13 @@
 |       Write - submit       |         When the article is posted by clicking on Post article button, the user is redirected to the live article         |  Pass   |
 |       Write - approval       |         Article is automatically approved and posted on the site, unless it contains a flagged word, when it will be flagged and won't be posted         |  Pass   |
 |      Flagged post        |         Flagged posts will throw a message that the post will need to be reviewed by the moderator to approve the article if the flagged words are triggered         |  Pass   |
+|      User Comment CRUD functionalities      |        Users can create, read, update and delete their own comments          |  Pass   |
+|      Admin Comment CRUD functionalities      |        Admins can create, read, update and delete their own comments, they can also delete other users comments          |  Pass   |
+|      User Article CRUD functionalities     |         Users can create, read, update and delete their own posts          |  Pass   |
+|      Admin Article CRUD functionalities      |        Admins can create, read, update and delete their own articles, they can also edit and delete other users articles          |  Pass   |
+|      User Image CRUD functionalities      |        Users can add images to the new posts, they can view them, they can update their own images inside the edit post, the images are automatically deleted when users access the edit page          |  Pass   |
+|      Admin Image CRUD functionalities      |        Admin can add images to the new posts, they can view them, they can update their own images inside the edit post, the images are automatically deleted when users access the edit page. Admin can add and change all images from admin panel          |  Pass   |
+
 
 
 ## Troubleshooting
@@ -378,6 +392,8 @@
 - I realised I have forgot to add target="_blank" to my social links, so they were opening in the same tab, that has been corrected.
 - I tried to write a code and even find online on how to protect my Google Maps API key and nothing worked, so I decided to leave my Google Maps API open, but I have restrictions in place.
 - I have been getting the cache errors on my lighthouse reports that are caused by the Cloudinary URLs that were reducing my Best Practises in the report.
+- Inside the lighthouse report the best practices report was 78 on most of the pages due to the cloudinary urls that had to be used to display the pictures and couldn't be changed. They were left as is due to no solution found on how to avoid the issues with cloudinary urls.
+- I noticed an error that was displaying all of the articles on the main page, even the flagged ones, the error was corrected by changing the homepage app view, by changing the post to filter instead of selecting all.
 
 ### Unfixed bugs
 - ***Image loading*** when the article is being edited. As currently the image needs to be reuploaded to work, otherwise it is removed and placeholder is set as current picture
@@ -385,15 +401,166 @@
 
 ## Validator testing
 ### Performance
-#### Lighthouse
+
+#### Lighthouse performance reports
+
+- Homepage
+
+![Lighthouse performance - Homepage](static/images/wildwonder_homepage_lighthouse_performance.avif)
+
+- Contact Us page
+
+![Lighthouse performance - Contact Us](static/images/wildwonder_contact_lighthouse_performance.avif)
+
+- Explore page
+
+![Lighthouse performance - Explore](static/images/wildwonder_explore_lighthouse_performance.avif)
+
+- Article page
+
+![Lighthouse performance - Article](static/images/wildwonder_article_lighthouse_performance.avif)
+
+- Edit page
+
+![Lighthouse performance - Edit](static/images/wildwonder_edit_lighthouse_performance.avif)
+
+- Write page
+
+![Lighthouse performance - Write](static/images/wildwonder_write_lighthouse_performance.avif)
+
+- Sign Up page
+'NAME': 'test_mydatabase',
+![Lighthouse performance - Sign Up](static/images/wildwonder_sign_up_lighthouse_performance.avif)
+
+- Login page
+
+![Lighthouse performance - Login](static/images/wildwonder_login_lighthouse_performance.avif)
+
+- Logout page
+
+![Lighthouse performance - Logout](static/images/wildwonder_logout_lighthouse_performance.avif)
+
+- Best practice report
+
+![Lighthouse performance - Best practice 1](static/images/wildwonder_best_practices.avif)
+
+- Best practice report 2
+
+![Lighthouse performance - Best practice 2](static/images/wildwonder_best_practices2.avif)
+
 ### HTML, CSS and JavaScript
+
 #### HTML
+- HTML is fully valid and passes all of the tests without any errors, there are couple of warnings but those are not concerning as they do not create any issues on the page. There are couple of errors on the sign up page, but they are within the django forms for signup and I was unable to access them.
+
+- Homepage
+
+![HTML performance - Homepage](static/images/wildwonder_html_validator_homepage.avif)
+
+- Contact
+
+![HTML performance - Contact](static/images/wildwonder_html_validator_contact.avif)
+
+- Explore
+
+![HTML performance - Explore](static/images/wildwonder_html_validator_explore.avif)
+
+- Article
+
+![HTML performance - Article](static/images/wildwonder_html_validator_article_page.avif)
+
+- Edit
+- Warning showes up due to input field instead of h2 element for editing the article
+- Info about trailing slash is coming from the upload file field for image
+
+![HTML performance - Edit](static/images/wildwonder_html_validator_edit.avif)
+
+- Write
+- Warning showes up due to input field instead of h2 element for editing the article
+- Info about trailing slash is coming from the upload file field for image
+
+![HTML performance - Write](static/images/wildwonder_html_validator_write.avif)
+
+- Sign Up
+- The errors that are showing up inside the sign up url are due to the django forms that I can not change and I couldn't find the exact source of the errors.
+- The warning in relation to the about section is not important as the section is being hidden on Sign up, login and log out pages and is not being used.
+
+![HTML performance - Sign up](static/images/wildwonder_html_validator_signup.avif)
+
+- Login
+- The warning in relation to the about section is not important as the section is being hidden on Sign up, login and log out pages and is not being used.
+
+![HTML performance - Login](static/images/wildwonder_html_validator_login.avif)
+
+- Logout
+
+![HTML performance - Logout](static/images/wildwonder_html_validator_logout.avif)
+
 #### CSS
+
+- CSS passes all of the tests without any issues, the couple of issues that were flagged were corrected and fixed, there was couple minor errors in display style or wrong font size due to extra dot
+
+![HTML performance - Logout](static/images/wildwonder_css_validator.avif)
+
 #### JavaScript
+
+- Javascript code passes without any errors and is correct. There was one error on the article.js file stating: Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (commentContent, commentId). But I was unable to avoid it as I am using similar code to the CI lessons, and was limited with time, so I couldn't change my code as I didn't have enough time to focus on it.
+
 ### Python
+
+- Python code passes without any errors, when checked in the linter I received couple of errors due to line length and trailing whitespaces, but all errors were corrected to fix the layout of the code.
 
 ## Deployment
 
+### Create a list of requirements
+- in terminal write command: pip3 freeze > requirements.txt
+- requirements.txt is updated. 
+- commit changes and push to github
+
+### Login or Create account with Heroku
+- Signup - fill out the form, as a role select student
+- Confirm your email
+- Login - enter login details
+
+### Create new app
+- select create new app button
+- select the name, name has to be unique
+- select region, Europe for me
+
+#### Settings
+- go to Config Vars and set them up by writing you key value pairs
+    * Key: SECRET_KEY, Value: SECRET_KEY_VALUE
+        - You will get your secret key from settings.py file, it will be created automatically by django. If you accidentaly leak your api, you can make your own or use online SECRET_KEY generator that will generate completely random key you can save as your new SECRET_KEY to your env.py file and config vars
+    * Key: DATABASE_URL, Value: DATABASE_URL_VALUE
+        - DATABASE_URL will be your postgreSQL database url you will receive when you register for the database on elephantSQL or Code Institute postgreSQL database
+    * Key: CLOUDINARY_URL, Value: CLOUDINARY_URL_VALUE
+        - This will be your own personal CLOUDINARY_URL that you can find on your Cloudinary Dashboard
+- It is highly important you keep your Config Vars a complete secret and not publish them on your github repo or your live site as it will compromise your site and leave it vulnerable.
+
+#### Deploy
+- go down to Deployment method section, select GitHub as a method
+- copy the name of your repository, click on search button
+- click on connect button to link up the repository
+- scroll down to automatic deploys, select it to enable automatic deployment of any changes made to GitHub repository or you can do manual deployments yourself each time, which gives you more control over the app.
+- in Manual deploy section, click on Deploy Branch button.
+- the app will run the logs while creating
+- when the app is created the app was successfully deployed message and the view button will appear
+- the app is built, open the app and test it to make sure there are no errors.
+- if connected correctly the data should be updated in the google spreadsheets.
+
 ## Credits
+
 ### Media
+- All of the media was downloaded from [Unsplash](https://unsplash.com/)
+- Icons used were taken from [FontAwesome](https://fontawesome.com/)
+- Better-Profanity python package was installed through pip from [pypi](https://pypi.org/project/better-profanity/) to improve the word moderation on the site
+
 ### Content
+- In the beginning of the project I relied a lot on the Code Institute learning materials and I kept going back and forth making sure I get ideas and implement code
+- During the project build I used couple of tutorials in order to better understand Django, and refresh my knowledge on JavaScript and Python. Some of which are following videos but also accounts I used to learn a bit more:
+[Google Maps Platform](https://www.youtube.com/watch?v=B4p3A00uXAs) + the google maps documentation
+[Majin Dev](https://www.youtube.com/watch?v=1T6G7Znrbfg) = Cloudinary tutorials
+[Programmin with Mosh](https://www.youtube.com/watch?v=rHux0gMZ3Eg&t=2s)
+[Tech With Tim](https://www.youtube.com/watch?v=nGIg40xs9e4)
+[Dennis Ivy](https://www.youtube.com/watch?v=0sMtoedWaf0)
+[Codemy.com](https://www.youtube.com/watch?v=B40bteAMM_M&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
