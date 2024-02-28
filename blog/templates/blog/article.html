@@ -10,8 +10,8 @@
 <br>
 {% if post.author.is_superuser and post.post_code_type == True %}
 <!-- if post.author is superuser display -->
-<div class="text-justify">
-    <span id="location_description">{{ post.location_description|safe }}</span>
+<div class="text-justify" id="location_description">
+    {{ post.location_description|safe }}
 </div>
 {% else %}
 <!-- if post.author is any other user display -->
@@ -37,25 +37,25 @@
 <!-- Article Info content -->
 {% block article_info %}
 <div class="d-flex flex-wrap justify-content-between p-2 mb-3 article-info">
-    <div>
+    <div class="about-article">
         <span><i class="far fa-user"></i> <span class="hidden-on-small-screen">Article author</span>:</span>
-        <span class="about-article">{{ post.author }}</span>
+        {{ post.author }}
     </div>
-    <div>
+    <div class="about-article">
         <span><i class="far fa-eye"></i> <span class="hidden-on-small-screen">View count</span>:</span>
-        <span class="about-article">{{ post.view_count }}</span>
+        {{ post.view_count }}
     </div>
-    <div>
+    <div class="about-article">
         <span><i class="far fa-star"></i> <span class="hidden-on-small-screen">Rating</span>:</span>
-        <span class="about-article">{{ vote_total }}</span>
+        {{ vote_total }}
     </div>
-    <div>
+    <div class="about-article">
         <span><i class="far fa-comments"></i> <span class="hidden-on-small-screen">Comments</span>:</span>
-        <span class="about-article"> {{ comment_count }}</span>
+        {{ comment_count }}
     </div>
-    <div>
+    <div class="about-article">
         <span><i class="fas fa-pencil-alt"></i> <span class="hidden-on-small-screen">Uploaded on</span>:</span>
-        <span class="about-article">{{ post.updated_on }}</span>
+        {{ post.updated_on }}
     </div>
 </div>
 
@@ -79,7 +79,7 @@
 {% if post.author.is_superuser and post.post_code_type == True %}
 <!-- if post.author is "LukaB25" (Admin) display -->
 <div class="text-justify about-text">
-    <span id="main_content">{{ post.main_content|safe }}</span>
+    <div id="main_content">{{ post.main_content|safe }}</div>
 </div>
 {% else %}
 <!-- if post.author is any other user display -->
@@ -97,7 +97,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                    <h3 class="text-left" id="location_name">{{ post.location_name }} on a map:</h3>
+                    <h3 class="text-left" >{{ post.location_name }} on a map:</h3>
                     <div class="row">
                         <div class="col-md-6 text-md-left map-container">
                             <span class="col-12" id="map" data-latitude="{{ post.latitude }}" data-longitude="{{ post.longitude }}"></span>
@@ -105,7 +105,7 @@
                     <div class="col-md-6 text-md-right">
                         {% if post.author.is_superuser and post.post_code_type == True %}
                         <!-- if post.author is "LukaB25" (Admin) display -->
-                        <span id="secondary_content">{{ post.secondary_content|safe }}</span>
+                        <div id="secondary_content">{{ post.secondary_content|safe }}</div>
                         {% else %}
                         <!-- if post.author is any other user display -->
                         <p class="text-justify" id="secondary_content">{{ post.secondary_content }}</p>
@@ -304,7 +304,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="deleteModalLabel">Delete comment?</h4>
+                <h4 class="modal-title" id="deleteCommentModalLabel">Delete comment?</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                     <i class="fas fa-times"></i>
                 </button>
@@ -328,7 +328,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="deleteModalLabel">Delete the article?</h4>
+                <h4 class="modal-title" id="deleteArticleModalLabel">Delete the article?</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                     <i class="fas fa-times"></i>
                 </button>
@@ -340,8 +340,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
-                <a id="deleteArticleConfirm" href="" class="btn btn-confirm-delete" post_id="{{ post.slug }}">Delete</a>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" post_id="{{ post.slug }}">Close</button>
+                <a id="deleteArticleConfirm" href="" class="btn btn-confirm-delete">Delete</a>
             </div>
         </div>
     </div>
