@@ -23,7 +23,7 @@ profanity.load_censor_words(flagged_words_list)
 def flagged_word_moderator(content):
     """
     Function to moderate the content of the blog posts and comments.
-    If the content contains any of the flagged words, 
+    If the content contains any of the flagged words,
     the content will be flagged for review by the moderator.
     """
     words = content.split()
@@ -45,7 +45,6 @@ def articles_page(request):
 
     published_posts = Post.objects.filter(status=0)
 
-
     # Pagination
     paginator = Paginator(published_posts, 6)
     page_number = request.GET.get('page') or 1
@@ -63,17 +62,20 @@ def articles_page(request):
 
 def article_detail(request, slug):
     """
-    Display an individual :model:`blog.Post` and its comments from :model:`blog.Comment`.
+    Display an individual :model:`blog.Post` and its comments from
+    :model:`blog.Comment`.
 
     **Context**
-    
+
     ``post``
         An instance of :model:`blog.Post`.
 
     ``page_obj``
-        An instance of :model:`django.core.paginator.Page` for paginating comments on the post.
-        Displays all of the comments from :model:`blog.Comment` for the specific post.
-    
+        An instance of :model:`django.core.paginator.Page` for
+        paginating comments on the post.
+        Displays all of the comments from :model:`blog.Comment`
+        for the specific post.
+
     ``comment_count``
         The count of approved comments for the post.
 
@@ -95,9 +97,8 @@ def article_detail(request, slug):
     queryset = Post.objects.filter(status=0)
     post = get_object_or_404(queryset, slug=slug)
     # Increment the view count of the post each time the article is viewed
-    post.view_count += 1 # Luka!!! Return to 0 before deployment!!!
+    post.view_count += 1
     post.save()
-
 
     random_posts = queryset.order_by('?')[:3]
 
@@ -122,19 +123,26 @@ def article_detail(request, slug):
                     comment.post = post
                     comment.approved = False
                     comment.save()
-                    messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                    messages.add_message(request, messages.ERROR,
+                                         'Comment has been flagged '
+                                         'due to inappropriate language.'
+                                         ' It will be reviewed by the '
+                                         'moderator.')
                 else:
                     comment = comment_form.save(commit=False)
                     comment.author = request.user
                     comment.post = post
                     comment.save()
-                    messages.add_message(request, messages.SUCCESS,'Comment submitted')
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Comment submitted')
                 # Pagination
                 paginator = Paginator(comments, 3)
                 page_number = request.GET.get('page') or 1
                 page_obj = paginator.get_page(page_number)
             elif not comment_form.is_valid():
-                messages.add_message(request, messages.ERROR,'Comment not submitted. Please try again.')
+                messages.add_message(request, messages.ERROR,
+                                     'Comment not submitted. Please try '
+                                     'again.')
         elif 'vote_submit' in request.POST:
             vote_form = VoteForm(data=request.POST)
             if vote_form.is_valid():
@@ -143,9 +151,11 @@ def article_detail(request, slug):
                 vote.voter = request.user
                 vote.user_vote = request.POST.get('user_vote')
                 vote.save()
-                messages.add_message(request, messages.SUCCESS, 'Vote submitted!')
+                messages.add_message(request, messages.SUCCESS, 'Vote '
+                                     'submitted!')
             elif not vote_form.is_valid():
-                messages.add_message(request, messages.ERROR, 'Error submitting vote!')
+                messages.add_message(request, messages.ERROR, 'Error '
+                                     'submitting vote!')
 
     comment_form = CommentForm()
     vote_form = VoteForm()
@@ -153,15 +163,16 @@ def article_detail(request, slug):
     # Get the total votes for the post
     vote_count = post.votes.all().count()
     # Calculate the sum of all votes for the post and the total vote score
-    vote_sum = post.votes.aggregate(Sum('user_vote'))['user_vote__sum'] if vote_count > 0 else 0
+    vote_sum = post.votes.aggregate(Sum('user_vote'))['user_vote__sum']
+
     vote_total = round(vote_sum / vote_count, 1) if vote_count > 0 else 0
 
     # Get the count of approved comments for the post
     comment_count = post.comments.filter(approved=True).count()
 
     return render(
-        request, 
-        'blog/article.html', 
+        request,
+        'blog/article.html',
         {
             'post': post,
             'page_obj': page_obj,
@@ -183,7 +194,7 @@ def comment_edit(request, slug, comment_id):
     **Context**
     ``post``
         An instance of :model:`blog.Post`.
-    
+
     ``comment``
         An instance of :model:`blog.Comment`.
 
@@ -208,16 +219,21 @@ def comment_edit(request, slug, comment_id):
                 comment.post = post
                 comment.approved = False
                 comment.save()
-                messages.add_message(request, messages.ERROR,'Comment has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                messages.add_message(request, messages.ERROR,
+                                     'Comment has been flagged due to '
+                                     'inappropriate language. It will be '
+                                     'reviewed by the moderator.')
             else:
                 comment = comment_form.save(commit=False)
                 comment.author = request.user
                 comment.post = post
                 comment.approved = True
                 comment.save()
-                messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
+                messages.add_message(request, messages.SUCCESS,
+                                     'Comment Updated!')
         else:
-            messages.add_message(request, messages.ERROR, 'Error updating comment!')
+            messages.add_message(request, messages.ERROR,
+                                 'Error updating comment!')
 
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
@@ -230,7 +246,7 @@ def comment_delete(request, slug, comment_id):
     **Context**
     ``post``
         An instance of :model:`blog.Post`.
-    
+
     ``comment``
         An instance of :model:`blog.Comment`.
     """
@@ -243,9 +259,11 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
     elif request.user.is_superuser:
         comment.delete()
-        messages.add_message(request, messages.SUCCESS, 'Comment deleted by superuser!')
+        messages.add_message(request, messages.SUCCESS, 'Comment deleted '
+                             'by superuser!')
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+        messages.add_message(request, messages.ERROR, 'You can only delete '
+                             'your own comments!')
 
     return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
@@ -256,11 +274,13 @@ def fictional_views():
     """
     return random.randint(300, 1300)
 
+
 def fictional_rating():
     """
     Function to calculate the fictional rating of the article
     """
     return round(random.randint(10, 50)/10, 1)
+
 
 def fictional_comments():
     """
@@ -278,21 +298,26 @@ fictional_updated_on = datetime.datetime.now()
 @login_required
 def write_article(request):
     """
-    Write a new article using :form:`blog.ArticleForm` and :form:`blog.ImageForm`.
+    Write a new article using :form:`blog.ArticleForm` and
+    :form:`blog.ImageForm`.
     Submit the article to the :model:`blog.Post` model.
 
     **Context**
     ``fictional_view_count``
-        A random integer between 300 and 1300 to simulate the views of the article.
+        A random integer between 300 and 1300 to simulate the views of
+        the article.
 
     ``fictional_vote_total``
-        A random float between 1.0 and 5.0 to simulate the rating of the article.
+        A random float between 1.0 and 5.0 to simulate the rating of
+        the article.
 
     ``fictional_comment_count``
-        A random integer between 1 and 300 to simulate the comments of the article.
+        A random integer between 1 and 300 to simulate the comments of
+        the article.
 
     ``fictional_updated_on``
-        The current date and time to simulate the uploaded on date in the article.
+        The current date and time to simulate the uploaded on date in
+        the article.
 
     ``article_form``
         An instance of :form:`blog.ArticleForm`.
@@ -306,12 +331,11 @@ def write_article(request):
     """
     post = Post.objects.filter(status=0)
 
-
     if request.method == "POST":
         article_form = ArticleForm(data=request.POST)
         image_form = ImageForm(request.POST, request.FILES)
         if article_form.is_valid() and image_form.is_valid():
-            
+
             location_name = request.POST.get('location_name')
             location_description = request.POST.get('location_description')
             main_content_title = request.POST.get('main_content_title')
@@ -337,12 +361,16 @@ def write_article(request):
                     latitude
                     ])
             if flagged_word_moderator(condensed_article_text):
-                messages.add_message(request, messages.ERROR, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                messages.add_message(request, messages.ERROR, 'Article has '
+                                     'been flagged due to inappropriate '
+                                     'language. It will be reviewed by the '
+                                     'moderator.')
                 post_instance = article_form.save(commit=False)
                 image_instance = image_form.save(commit=False)
                 post_instance.status = 2
             else:
-                messages.add_message(request, messages.SUCCESS, 'Article submitted!')
+                messages.add_message(request, messages.SUCCESS,
+                                     'Article submitted!')
                 post_instance = article_form.save(commit=False)
                 image_instance = image_form.save(commit=False)
                 post_instance.status = 0
@@ -363,7 +391,7 @@ def write_article(request):
 
             post_instance.hero_image = image_instance.image
             post_instance.save()
-            return HttpResponseRedirect(reverse('article_detail', args=[slug]))    
+            return HttpResponseRedirect(reverse('article_detail', args=[slug]))
     else:
         article_form = ArticleForm()
         image_form = ImageForm()
@@ -404,7 +432,9 @@ def edit_article(request, slug):
         if request.method == "POST":
             article_form = ArticleForm(data=request.POST, instance=post)
             image_form = ImageForm(request.POST, request.FILES)
-            if article_form.is_valid() and image_form.is_valid() and (post.author == request.user or request.user.is_superuser):
+            if article_form.is_valid() and (post.author == request.user or
+                                            request.user.is_superuser
+                                            ) and image_form.is_valid():
                 location_name = request.POST.get('location_name')
                 location_description = request.POST.get('location_description')
                 main_content_title = request.POST.get('main_content_title')
@@ -430,17 +460,19 @@ def edit_article(request, slug):
                         latitude
                         ])
                 if flagged_word_moderator(condensed_article_text):
-                    messages.error(request, 'Article has been flagged due to inappropriate language. It will be reviewed by the moderator.')
+                    messages.error(request, 'Article has been flagged due to '
+                                   'inappropriate language. It will be '
+                                   'reviewed by the moderator.')
                     post_instance = article_form.save(commit=False)
                     post_instance.status = 2
                 else:
                     if post.author == request.user:
                         messages.success(request, 'Article updated!')
                     elif request.user.is_superuser:
-                        messages.success(request, 'Article updated by superuser!')
+                        messages.success(request, 'Article updated by '
+                                         'superuser!')
                     post_instance = article_form.save(commit=False)
                     post_instance.status = 0
-
 
                 post_instance.location_name = location_name
                 post_instance.slug = slug
@@ -460,13 +492,20 @@ def edit_article(request, slug):
 
                 post_instance.hero_image = image_instance.image
                 post_instance.save()
-                return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+                return HttpResponseRedirect(reverse('article_detail',
+                                            args=[slug]))
             else:
                 if not post.author == request.user:
-                    messages.error(request, 'You are not authorized to edit this article.')
+                    messages.error(request, 'You are not authorized to edit '
+                                   'this article.')
 
                 image_form = ImageForm(request.POST, request.FILES)
-                return render(request, 'blog/article_edit.html', {'post': post, 'article_form': article_form, 'image_form': image_form})
+                contex = {
+                    'post': post,
+                    'article_form': article_form,
+                    'image_form': image_form
+                }
+                return render(request, 'blog/article_edit.html', context)
         else:
             article_form = ArticleForm(instance=post)
             image_form = ImageForm()
@@ -487,8 +526,6 @@ def edit_article(request, slug):
         return HttpResponseRedirect(reverse('article_detail', args=[slug]))
 
 
-
-
 @login_required
 def delete_article(request, slug):
     """
@@ -497,7 +534,7 @@ def delete_article(request, slug):
     **Context**
     ``post``
         An instance of :model:`blog.Post`.
-    
+
     **Template:**
     :template:`blog/articles_page.html`
     """
@@ -509,8 +546,10 @@ def delete_article(request, slug):
         messages.add_message(request, messages.SUCCESS, 'Article deleted!')
     elif request.user.is_superuser:
         post.delete()
-        messages.add_message(request, messages.SUCCESS, 'Article deleted by superuser!')
+        messages.add_message(request, messages.SUCCESS, 'Article deleted by'
+                             'superuser!')
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own articles!')
+        messages.add_message(request, messages.ERROR, 'You can only delete '
+                             'your own articles!')
 
     return HttpResponseRedirect(reverse('articles_page'))

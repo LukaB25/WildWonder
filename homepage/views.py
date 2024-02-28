@@ -3,6 +3,7 @@ from blog.models import Post
 
 # Create your views here.
 
+
 def homepage(request):
     """
     A view to return the homepage from :model:`blog.Post`.
@@ -21,7 +22,7 @@ def homepage(request):
     list_of_posts1 = list_of_posts[:5]
     list_of_posts2 = list_of_posts[5:10]
 
-    context={
+    context = {
             'top_posts': top_posts,
             "list_of_posts1": list_of_posts1,
             "list_of_posts2": list_of_posts2,

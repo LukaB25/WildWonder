@@ -5,12 +5,14 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, 'Published'), (1, 'Draft'), (2, 'Flagged'))
 
 # Create your models here.
-    
+
+
 class Post(models.Model):
     """
     Stores the article blog posts and their content.
     """
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name="blog_posts")
     location_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     location_description = models.TextField(max_length=500, blank=False)
@@ -39,8 +41,10 @@ class Comment(models.Model):
     """
     Stores the comments on the blog posts.
     """
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name='commenter')
     body = models.TextField(max_length=200, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
@@ -49,7 +53,10 @@ class Comment(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Comment: {self.body} | Written by: {self.author} | On a post: {self.post.location_name}"
+        comment_string = f"Comment: {self.body}"
+        author_string = f"Written by: {self.author}"
+        post_string = f"On a post: {self.post.location_name}"
+        return f"{comment_string} | {author_string} | {post_string}"
 
 
 class Vote(models.Model):
@@ -57,16 +64,17 @@ class Vote(models.Model):
     Stores the votes on the blog posts.
     """
     STAR_CHOICES = (
-        (1, '1 Star'), 
-        (2, '2 Stars'), 
-        (3, '3 Stars'), 
-        (4, '4 Stars'), 
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
+        (4, '4 Stars'),
         (5, '5 Stars'),
         )
 
-
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='votes')
-    voter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voter')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='votes')
+    voter = models.ForeignKey(User, on_delete=models.CASCADE,
+                              related_name='voter')
     user_vote = models.IntegerField(choices=STAR_CHOICES, default=0)
     vote_total = models.FloatField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -82,18 +90,22 @@ class Vote(models.Model):
         return vote_total
 
     def __str__(self):
-        return f"Vote: {self.user_vote} | On a post: {self.post.location_name} | By: {self.voter}"
-    
+        vote_string = f"Vote: {self.user_vote}"
+        post_string = f"On a post: {self.post.location_name}"
+        voter_string = f"By: {self.voter}"
+        return f"{vote_string} | {post_string} | {voter_string}"
+
 
 class Image(models.Model):
     """
     Stores the images on the blog posts.
     """
     image = CloudinaryField('image', blank=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='image_author')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='images')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name='image_author')
     created_on = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ["created_on"]
-

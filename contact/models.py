@@ -3,7 +3,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-SUBJECTS = ((0, 'General Inquiry'), (1, 'Report a Bug'), (2, 'Feature Request'), (3, 'Special Request'), (4, 'Other'))
+SUBJECTS = (
+    (0, 'General Inquiry'),
+    (1, 'Report a Bug'),
+    (2, 'Feature Request'),
+    (3, 'Special Request'),
+    (4, 'Other'))
 
 
 class ContactAboutSection(models.Model):
@@ -33,4 +38,11 @@ class ContactForm(models.Model):
     responded = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"A {self.subject} message | From: {self.name} | Sent on: {self.created_on} | {self.read} | {self.responded}"
+        subject_string = f"A {self.subject} message"
+        name_string = f"From: {self.name}"
+        created_string = f"Sent on: {self.created_on}"
+        read_string = f"{self.read}"
+        responded_string = f"{self.responded}"
+        string1 =  f"{subject_string} | {name_string} | {created_string} | "
+        string2 = f"{read_string} | {responded_string}"
+        return f"{string1}{string2}"
