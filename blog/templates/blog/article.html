@@ -300,7 +300,7 @@
 </section>
 
 <!-- Delete comment confirmation modal -->
-<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -324,7 +324,7 @@
 </div>
 
 <!-- Delete article confirmation modal -->
-<div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-labelledby="deleteArticleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -339,8 +339,8 @@
                     This action cannot be undone.
                 </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-cancel" data-dismiss="modal" post_id="{{ post.slug }}">Close</button>
+            <div class="modal-footer"  post_id="{{ post.slug }}">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
                 <a id="deleteArticleConfirm" href="" class="btn btn-confirm-delete">Delete</a>
             </div>
         </div>
