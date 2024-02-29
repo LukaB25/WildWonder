@@ -402,7 +402,10 @@ def write_article(request):
 
             post_instance.hero_image = image_instance.image
             post_instance.save()
-            return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+            if flagged_word_moderator(condensed_article_text):
+                return HttpResponseRedirect(reverse('articles_page'))
+            else:
+                return HttpResponseRedirect(reverse('article_detail', args=[slug]))
     else:
         article_form = ArticleForm()
         image_form = ImageForm()
@@ -496,6 +499,7 @@ def edit_article(request, slug):
                                    'reviewed by the moderator.')
                     post_instance = article_form.save(commit=False)
                     post_instance.status = 2
+                    return HttpResponseRedirect(reverse('articles_page'))
                 else:
                     if post.author == request.user:
                         messages.success(request, 'Article updated!')
@@ -523,8 +527,10 @@ def edit_article(request, slug):
 
                 post_instance.hero_image = image_instance.image
                 post_instance.save()
-                return HttpResponseRedirect(reverse('article_detail',
-                                            args=[slug]))
+                if flagged_word_moderator(condensed_article_text):
+                    return HttpResponseRedirect(reverse('articles_page'))
+                else:
+                    return HttpResponseRedirect(reverse('article_detail', args=[slug]))
             else:
                 if not post.author == request.user:
                     messages.error(request, 'You are not authorized to edit '
