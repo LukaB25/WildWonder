@@ -394,6 +394,7 @@
 - I have been getting the cache errors on my lighthouse reports that are caused by the Cloudinary URLs that were reducing my Best Practises in the report.
 - Inside the lighthouse report the best practices report was 78 on most of the pages due to the cloudinary urls that had to be used to display the pictures and couldn't be changed. They were left as is due to no solution found on how to avoid the issues with cloudinary urls.
 - I noticed an error that was displaying all of the articles on the main page, even the flagged ones, the error was corrected by changing the homepage app view, by changing the post to filter instead of selecting all.
+- While doing the final testing, making sure everything works, I noticed when the article is published and gets flagged after editing, It is removed from the site, and user gets an error message instead of being redirected, I added the redirect but in a wrong spot so it was not updated correctly inside the admin panel. I did some changes to my view and after few different tests I got it to work perfectly and it is correctly removed from the page and marked in admin panel.
 
 ### Unfixed bugs
 - ***Image loading*** when the article is being edited. As currently the image needs to be reuploaded to work, otherwise it is removed and placeholder is set as current picture
@@ -564,3 +565,6 @@
 [Tech With Tim](https://www.youtube.com/watch?v=nGIg40xs9e4)
 [Dennis Ivy](https://www.youtube.com/watch?v=0sMtoedWaf0)
 [Codemy.com](https://www.youtube.com/watch?v=B40bteAMM_M&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
+
+
+### The end
