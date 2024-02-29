@@ -504,7 +504,6 @@ def edit_article(request, slug):
                     post_instance = article_form.save(commit=False)
                     status = 2
                     approved = False
-                    return HttpResponseRedirect(reverse('articles_page'))
                 else:
                     if post.author == request.user:
                         messages.success(request, 'Article updated!')
