@@ -378,13 +378,15 @@ def write_article(request):
                                      'moderator.')
                 post_instance = article_form.save(commit=False)
                 image_instance = image_form.save(commit=False)
-                post_instance.status = 2
+                status = 2
+                approved = False
             else:
                 messages.add_message(request, messages.SUCCESS,
                                      'Article submitted!')
                 post_instance = article_form.save(commit=False)
                 image_instance = image_form.save(commit=False)
-                post_instance.status = 0
+                status = 0
+                approved = True
 
             slug = slugify(location_name)
             post_instance.location_name = location_name
@@ -396,6 +398,8 @@ def write_article(request):
             post_instance.secondary_content = secondary_content
             post_instance.longitude = longitude
             post_instance.latitude = latitude
+            post_instance.status = status
+            post_instance.approved = approved
 
             image_instance.post = post_instance
             image_instance.author = request.user
@@ -498,7 +502,8 @@ def edit_article(request, slug):
                                    'inappropriate language. It will be '
                                    'reviewed by the moderator.')
                     post_instance = article_form.save(commit=False)
-                    post_instance.status = 2
+                    status = 2
+                    approved = False
                     return HttpResponseRedirect(reverse('articles_page'))
                 else:
                     if post.author == request.user:
@@ -507,7 +512,8 @@ def edit_article(request, slug):
                         messages.success(request, 'Article updated by '
                                          'superuser!')
                     post_instance = article_form.save(commit=False)
-                    post_instance.status = 0
+                    status = 0
+                    approved = True
 
                 post_instance.location_name = location_name
                 post_instance.slug = slug
@@ -518,6 +524,8 @@ def edit_article(request, slug):
                 post_instance.secondary_content = secondary_content
                 post_instance.longitude = longitude
                 post_instance.latitude = latitude
+                post_instance.status = status
+                post_instance.approved = approved
                 post_instance.save()
 
                 image_instance = image_form.save(commit=False)
@@ -530,7 +538,8 @@ def edit_article(request, slug):
                 if flagged_word_moderator(condensed_article_text):
                     return HttpResponseRedirect(reverse('articles_page'))
                 else:
-                    return HttpResponseRedirect(reverse('article_detail', args=[slug]))
+                    return HttpResponseRedirect(reverse('article_detail',
+                                                        args=[slug]))
             else:
                 if not post.author == request.user:
                     messages.error(request, 'You are not authorized to edit '
