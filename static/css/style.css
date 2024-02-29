@@ -384,6 +384,7 @@ span#map{
 }
 
 #id_subject, #id_name, #id_email, #id_message {
+    color: #000000;
     font-size: 1.4rem;
     padding: 0.5rem;
     font-family: 'Lato', sans-serif;
