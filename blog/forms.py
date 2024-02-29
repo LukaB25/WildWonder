@@ -3,12 +3,18 @@ from .models import Comment, Vote, Post, Image
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for adding comments to a post.
+    """
     class Meta:
         model = Comment
         fields = ('body',)
 
 
 class VoteForm(forms.ModelForm):
+    """
+    Form for adding votes to a post.
+    """
     class Meta:
         model = Vote
         fields = ('user_vote',)
@@ -18,6 +24,9 @@ class VoteForm(forms.ModelForm):
 
 
 class ArticleForm(forms.ModelForm):
+    """
+    Form for adding a new article.
+    """
     location_name = forms.CharField(label='Location title', max_length=100)
     location_description = forms.CharField(label='About the location',
                                            widget=forms.Textarea)
@@ -44,6 +53,7 @@ class ArticleForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
+    """Form for adding images to a post."""
     class Meta:
         model = Image
         fields = ('image',)

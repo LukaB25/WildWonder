@@ -13,7 +13,14 @@ SUBJECTS = (
 
 class ContactAboutSection(models.Model):
     """
-    Stores the content for the contact page.
+    Stores the content for the contact page..
+    The hero_title and hero_message fields are used to display content inside
+    the hero section jumbotron.
+    The main_title and main_message fields are used to display content inside
+    the about section.
+
+    Required fields are: hero_title, hero_message, main_title, main_message.
+    Auto fields are: updated_on.
     """
     hero_title = models.CharField(max_length=100, blank=False)
     hero_message = models.TextField(max_length=600, blank=False)
@@ -28,6 +35,15 @@ class ContactAboutSection(models.Model):
 class ContactForm(models.Model):
     """
     Stores the contact requests and messages from Users.
+    The name and email fields are used to track who sent the message.
+    The created_on field is used to track when the message was sent.
+    The subject field is used to track the type of message.
+    The read and responded fields are boolean fields that default to False.
+    They are used to track the status of the message inside the Admin panel.
+
+    Required fields are: name, email, subject, message.
+    Auto fields are: created_on, read(default is False), responded(default is
+    False).
     """
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=100, blank=False)
